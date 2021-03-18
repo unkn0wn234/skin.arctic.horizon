@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1150">
+    <defaultcontrol always="true">302</defaultcontrol>
+    <onload>SetProperty(Header_Left_Text,$INFO[Window(Home).Property(Hub.Label)])</onload>
+    <onunload>ClearProperty(TMDbHelper.WidgetContainer,Home)</onunload>
+    <controls>
+        <include>Global_Background</include>
+        <control type="list" id="56560">
+            <include>Defs_Offscreen</include>
+            <orientation>horizontal</orientation>
+            <itemlayout />
+            <focusedlayout />
+            <content>
+                <include content="Object_56560_Item">
+                    <param name="listitem" value="Container(5610).ListItem" />
+                    <visible>Control.HasFocus(5610) | Control.HasFocus(60)</visible>
+                </include>
+                <include content="Object_56560_Item">
+                    <param name="listitem" value="Container(3001).ListItem" />
+                </include>
+
+            </content>
+        </control>
+        <control type="list" id="301">
+            <include>Defs_Offscreen</include>
+            <onleft>302</onleft>
+            <onright>302</onright>
+            <onfocus>SetFocus(302)</onfocus>
+            <itemlayout />
+            <focusedlayout />
+            <content>
+                <item>
+                    <label>$INFO[Window(Home).Property(Hub.Label)]</label>
+                    <property name="submenuVisibility">$INFO[Window(Home).Property(Hub.submenuVisibility)]</property>
+                </item>
+            </content>
+        </control>
+        <include>Home_Hub_Showcase</include>
+
+        <include content="Object_Scrollbar_Horz">
+            <param name="visible" value="true" />
+        </include>
+        <control type="group">
+            <visible allowhiddenfocus="true">!$EXP[Exp_CommonAnimation]</visible>
+            <include>Animation_Common</include>
+            <include>Topbar_Left</include>
+        </control>
+        <include condition="!Skin.HasSetting(DisableClock)">Topbar_Right</include>
+        <include>Object_NowPlaying</include>
+    </controls>
+</window>

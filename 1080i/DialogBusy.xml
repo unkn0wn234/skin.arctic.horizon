@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Foundation -->
+<window id="136">
+    <controls>
+        <control type="group">
+            <animation effect="slide" end="160" condition="Window.IsVisible(Home) + String.IsEmpty(Window(Home).Property(WidgetFocus)) + !Window.IsVisible(1117)">Conditional</animation>
+            <include>Dialog_Busy</include>
+        </control>
+    </controls>
+
+</window>

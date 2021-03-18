@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <onunload>ClearProperty(advancedfilter,home)</onunload>
+    <controls>
+        <include condition="String.IsEmpty(Window(Home).Property(advancedfilter))">Dialog_Settings_Standard</include>
+        <include condition="!String.IsEmpty(Window(Home).Property(advancedfilter))">Dialog_Settings_Filter</include>
+    </controls>
+
+</window>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1143">
+    <defaultcontrol always="true">5000</defaultcontrol>
+    <controls>
+        <control type="list" id="56560">
+            <include>Defs_Offscreen</include>
+            <orientation>horizontal</orientation>
+            <itemlayout />
+            <focusedlayout />
+            <content>
+                <include content="Object_56560_Item">
+                    <param name="listitem" value="VideoPlayer" />
+                </include>
+            </content>
+        </control>
+        <control type="group">
+            <animation effect="fade" start="0" end="100" time="400" tween="cubic" easing="inout" reversible="false" delay="400">Visible</animation>
+            <animation effect="fade" start="0" end="100" time="400" tween="cubic" easing="inout" reversible="false" delay="400">WindowOpen</animation>
+            <control type="group" description="info">
+                <left>view_pad</left>
+                <right>view_pad</right>
+                <bottom>600</bottom>
+                <!-- Info -->
+                <control type="grouplist">
+                    <usecontrolcoords>true</usecontrolcoords>
+                    <bottom>-7</bottom>
+                    <right>0</right>
+                    <align>bottom</align>
+                    <itemgap>0</itemgap>
+                    <include content="Object_Info_Title">
+                        <param name="label" value="$VAR[Label_OSD_Title]" />
+                        <param name="textcolor" value="panel_fg_100" />
+                    </include>
+                    <include content="Object_Info_Line">
+                        <param name="label" value="$VAR[Label_56560_InfoLine]" />
+                        <param name="image" value="$VAR[Image_56560_VideoQuality]" />
+                        <param name="textcolor" value="panel_fg_100" />
+                    </include>
+                </control>
+            </control>
+            <include content="Viewtype_Poster">
+                <param name="id" value="5000" />
+                <param name="castlabel" value="true" />
+                <param name="label2" value="ListItem.Property(character)" />
+                <bottom>150</bottom>
+                <left>0</left>
+                <right>-80</right>
+                <!-- <onup>Action(Close)</onup> -->
+                <ondown>Action(Close)</ondown>
+                <onclick>SetProperty(OSDExtendedInfo,1,Home)</onclick>
+                <onclick condition="!Player.Paused + !Skin.HasSetting(DontPauseOSD)">Pause</onclick>
+                <onclick>Dialog.Close(videoosd,force)</onclick>
+                <onclick>Close</onclick>
+                <onclick>AlarmClock(callit,RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.FolderPath],call_auto=1190,return),00:00,silent)</onclick>
+                <content>$VAR[OSD_Cast]</content>
+            </include>
+            <include content="Home_Hub_Widget_Label">
+                <param name="id" value="5000" />
+                <param name="label" value="$LOCALIZE[31013] $INFO[Player.Title]" />
+                <left>65</left>
+                <top>438</top>
+            </include>
+        </control>
+    </controls>
+</window>

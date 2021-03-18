@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Foundation -->
+<window id="2001">
+    <defaultcontrol always="true">300</defaultcontrol>
+    <controls>
+
+
+        <!-- Main Group -->
+        <include>DialogMusicInfo</include>
+        <control type="group">
+            <visible>Control.HasFocus(3600)</visible>
+            <include>Animation_FadeInOut</include>
+            <include>Global_Overlay</include>
+        </control>
+        <include content="Dialog_Menu">
+            <param name="id" value="3600" />
+            <param name="header" value="$LOCALIZE[33063]" />
+            <param name="content" value="Items_Info_Manage" />
+            <param name="visible" value="Control.HasFocus(3600)" />
+            <param name="include-icon" value="true" />
+            <param name="onleft" value="300" />
+            <param name="onright" value="300" />
+            <param name="onback" value="300" />
+        </include>
+        <control type="button" id="6">
+            <include>Defs_Hidden_Button</include>
+        </control>
+        <control type="button" id="10">
+            <include>Defs_Hidden_Button</include>
+        </control>
+
+    </controls>
+
+</window>
