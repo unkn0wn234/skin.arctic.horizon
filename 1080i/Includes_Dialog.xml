@@ -1,0 +1,1563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Dialog_Menu">
+        <param name="include-icon" default="false" />
+        <param name="global_overlay" default="true" />
+        <definition>
+            <include content="Object_Control" condition="$PARAM[global_overlay]">
+                <param name="type" value="group" />
+                <visible>Control.HasFocus($PARAM[id])</visible>
+                <include>Animation_FadeInOut</include>
+                <include>Global_Overlay</include>
+            </include>
+            <control type="group">
+                <nested />
+                <centerleft>50%</centerleft>
+                <centertop>50%</centertop>
+                <height>680</height>
+                <width>450</width>
+                <include>Animation_FadeIn_SlideUp</include>
+                <visible>$PARAM[visible]</visible>
+                <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,7)">Conditional</animation>
+                <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,6)">Conditional</animation>
+                <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,5)">Conditional</animation>
+                <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,4)">Conditional</animation>
+                <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,3)">Conditional</animation>
+                <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,2)">Conditional</animation>
+                <control type="group">
+                    <include>Dialog_Menu_BG</include>
+                    <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,6)</visible>
+                </control>
+                <control type="group">
+                    <include>Dialog_Menu_BG</include>
+                    <bottom>80</bottom>
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,6)</visible>
+                </control>
+                <control type="group">
+                    <include>Dialog_Menu_BG</include>
+                    <bottom>160</bottom>
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,5)</visible>
+                </control>
+                <control type="group">
+                    <include>Dialog_Menu_BG</include>
+                    <bottom>240</bottom>
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,4)</visible>
+                </control>
+                <control type="group">
+                    <include>Dialog_Menu_BG</include>
+                    <bottom>320</bottom>
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,3)</visible>
+                </control>
+                <control type="group">
+                    <include>Dialog_Menu_BG</include>
+                    <bottom>400</bottom>
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,2)</visible>
+                </control>
+                <control type="group">
+                    <include>Dialog_Menu_BG</include>
+                    <bottom>480</bottom>
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,1)</visible>
+                </control>
+                <control type="group">
+                    <top>10</top>
+                    <height>item_list_height</height>
+                    <control type="label">
+                        <textoffsetx>30</textoffsetx>
+                        <textcolor>dialog_fg_70</textcolor>
+                        <font>font_small_bold</font>
+                        <label>$PARAM[header]</label>
+                        <aligny>center</aligny>
+                        <align>left</align>
+                    </control>
+                    <control type="image">
+                        <bordersize>10</bordersize>
+                        <aspectratio align="right">keep</aspectratio>
+                        <texture colordiffuse="$VAR[ColorHighlight]">$VAR[Image_SkinLogo]</texture>
+                    </control>
+                </control>
+                <control type="panel" id="$PARAM[id]">
+                    <top>100</top>
+                    <orientation>vertical</orientation>
+                    <onleft>$PARAM[onleft]</onleft>
+                    <onright>$PARAM[onright]</onright>
+                    <onback>$PARAM[onback]</onback>
+                    <itemlayout width="450" height="item_list_height">
+                        <control type="label">
+                            <font>font_tiny</font>
+                            <align>left</align>
+                            <left>30</left>
+                            <right>30</right>
+                            <aligny>center</aligny>
+                            <textcolor>dialog_fg_70</textcolor>
+                            <label>[CAPITALIZE]$INFO[ListItem.Label][/CAPITALIZE]</label>
+                        </control>
+                        <include content="Object_Control" condition="$PARAM[include-icon]">
+                            <param name="type" value="image" />
+                            <bordersize>10</bordersize>
+                            <aspectratio align="right">keep</aspectratio>
+                            <texture colordiffuse="dialog_fg_70">$INFO[ListItem.Icon]</texture>
+                        </include>
+                    </itemlayout>
+                    <focusedlayout width="450" height="item_list_height">
+                        <control type="image">
+                            <texture colordiffuse="$VAR[ColorHighlight]">common/white.png</texture>
+                        </control>
+                        <control type="image">
+                            <texture colordiffuse="$VAR[ColorGradient]">common/white-gradient.png</texture>
+                        </control>
+                        <control type="label">
+                            <font>font_tiny</font>
+                            <align>left</align>
+                            <left>30</left>
+                            <right>30</right>
+                            <aligny>center</aligny>
+                            <textcolor>Selected</textcolor>
+                            <label>[CAPITALIZE]$INFO[ListItem.Label][/CAPITALIZE]</label>
+                        </control>
+                        <include content="Object_Control" condition="$PARAM[include-icon]">
+                            <param name="type" value="image" />
+                            <bordersize>10</bordersize>
+                            <aspectratio align="right">keep</aspectratio>
+                            <texture colordiffuse="Selected">$INFO[ListItem.Icon]</texture>
+                        </include>
+                    </focusedlayout>
+                    <include>$PARAM[content]</include>
+                </control>
+            </control>
+        </definition>
+    </include>
+    <include name="Dialog_Menu_BG">
+        <control type="image">
+            <include content="Defs_Pad"><param name="pad" value="-24" /></include>
+            <bordertexture border="32">common/shadow-dialog-24.png</bordertexture>
+            <bordersize>24</bordersize>
+            <texture border="16" colordiffuse="dialog_bg_100">common/dialog.png</texture>
+        </control>
+    </include>
+
+    <include name="Dialog_Busy">
+        <param name="header" default="Busy" />
+        <param name="subheader" default="Please Wait..." />
+        <definition>
+            <control type="group">
+                <top>view_pad</top>
+                <left>view_pad</left>
+                <right>view_pad</right>
+                <height>view_header</height>
+                <control type="image" description="Back">
+                    <left>-16</left>
+                    <centertop>50%</centertop>
+                    <width>80</width>
+                    <height>80</height>
+                    <aspectratio align="center" aligny="center">keep</aspectratio>
+                    <texture>dialog/loading-back-busy.png</texture>
+                    <colordiffuse>main_fg_70</colordiffuse>
+                </control>
+                <control type="group">
+                    <description>Busy animation</description>
+                    <left>-16</left>
+                    <centertop>50%</centertop>
+                    <width>80</width>
+                    <height>80</height>
+                    <animation effect="rotate" condition="true" start="0" end="360" loop="true" time="1000" center="auto">Conditional</animation>
+                    <control type="image">
+                        <texture colordiffuse="$VAR[ColorHighlight]">dialog/loading-spinner.png</texture>
+                        <aspectratio>keep</aspectratio>
+                    </control>
+                    <control type="image">
+                        <texture colordiffuse="$VAR[ColorGradient]">dialog/loading-spinner.png</texture>
+                        <aspectratio>keep</aspectratio>
+                        <animation effect="fade" condition="true" start="0" end="75" pulse="true" time="1000">Conditional</animation>
+                    </control>
+                </control>
+                <control type="group">
+                    <left>70</left>
+                    <centertop>50%</centertop>
+                    <height>72</height>
+                    <control type="label">
+                        <centertop>33%</centertop>
+                        <height>26</height>
+                        <label>$PARAM[header]</label>
+                        <align>left</align>
+                        <font>font_statusbar_bold</font>
+                        <textcolor>main_fg_100</textcolor>
+                    </control>
+                    <control type="label">
+                        <centerbottom>33%</centerbottom>
+                        <height>26</height>
+                        <label>$PARAM[subheader]</label>
+                        <font>font_statusbar</font>
+                        <textcolor>main_fg_100</textcolor>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_PowerMenu">
+        <param name="icon-visible" default="false" />
+        <param name="animation" default="true" />
+        <definition>
+            <control type="group">
+                <nested />
+                <include condition="$PARAM[animation]">Animation_FadeIn_SlideUp</include>
+                <visible>$PARAM[visible]</visible>
+                <control type="group">
+                    <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,7)</visible>
+                    <height>768</height>
+                    <include>Defs_Powermenu_Group</include>
+                    <include>Defs_Options_Texture</include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,7)</visible>
+                    <height>688</height>
+                    <include>Defs_Powermenu_Group</include>
+                    <include>Defs_Options_Texture</include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,6)</visible>
+                    <height>608</height>
+                    <include>Defs_Powermenu_Group</include>
+                    <include>Defs_Options_Texture</include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,5)</visible>
+                    <height>528</height>
+                    <include>Defs_Powermenu_Group</include>
+                    <include>Defs_Options_Texture</include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,4)</visible>
+                    <height>448</height>
+                    <include>Defs_Powermenu_Group</include>
+                    <include>Defs_Options_Texture</include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,3)</visible>
+                    <height>368</height>
+                    <include>Defs_Powermenu_Group</include>
+                    <include>Defs_Options_Texture</include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,2)</visible>
+                    <height>288</height>
+                    <include>Defs_Powermenu_Group</include>
+                    <include>Defs_Options_Texture</include>
+                </control>
+                <control type="group">
+                    <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,1)</visible>
+                    <height>208</height>
+                    <include>Defs_Powermenu_Group</include>
+                    <include>Defs_Options_Texture</include>
+                </control>
+                <control type="group">
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,8)">Conditional</animation>
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,7)">Conditional</animation>
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,6)">Conditional</animation>
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,5)">Conditional</animation>
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,4)">Conditional</animation>
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,3)">Conditional</animation>
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,2)">Conditional</animation>
+                    <include>Defs_Powermenu_Group</include>
+                    <control type="label">
+                        <top>-36</top>
+                        <width>458</width>
+                        <height>item_list_height</height>
+                        <left>8</left>
+                        <textcolor>dialog_fg_70</textcolor>
+                        <font>font_small_bold</font>
+                        <label>$PARAM[header]</label>
+                        <align>left</align>
+                        <textoffsetx>30</textoffsetx>
+                    </control>
+                    <control type="image">
+                        <top>-30</top>
+                        <width>458</width>
+                        <height>64</height>
+                        <left>-8</left>
+                        <aspectratio align="right">keep</aspectratio>
+                        <texture colordiffuse="$VAR[ColorHighlight]">$VAR[Image_SkinLogo]</texture>
+                    </control>
+                </control>
+            </control>
+            <control type="group">
+                <nested />
+                <control type="group">
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,8)">Conditional</animation>
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,7)">Conditional</animation>
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,6)">Conditional</animation>
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,5)">Conditional</animation>
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,4)">Conditional</animation>
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,3)">Conditional</animation>
+                    <animation effect="slide" end="0,item_list_height_half" condition="Integer.IsLess(Container($PARAM[id]).NumItems,2)">Conditional</animation>
+                    <include>Defs_Powermenu_Group</include>
+                    <control type="list" id="$PARAM[id]">
+                        <onleft>$PARAM[onleft]</onleft>
+                        <onright>$PARAM[onright]</onright>
+                        <onback>$PARAM[onback]</onback>
+                        <ondown>$PARAM[ondown]</ondown>
+                        <onup>$PARAM[onup]</onup>
+                        <top>48</top>
+                        <left>8</left>
+                        <bottom>-48</bottom>
+                        <width>450</width>
+                        <itemgap>0</itemgap>
+                        <visible allowhiddenfocus="true">$PARAM[visible]</visible>
+                        <include condition="$PARAM[animation]">Animation_FadeIn_SlideUp</include>
+                        <itemlayout width="450" height="item_list_height">
+                            <control type="label">
+                                <font>font_tiny</font>
+                                <align>left</align>
+                                <left>30</left>
+                                <aligny>center</aligny>
+                                <textcolor>dialog_fg_70</textcolor>
+                                <label>$INFO[ListItem.Label]</label>
+                            </control>
+                            <control type="image">
+                                <bordersize>10</bordersize>
+                                <aspectratio align="right">keep</aspectratio>
+                                <texture colordiffuse="dialog_fg_70">$INFO[ListItem.Icon]</texture>
+                                <visible>$PARAM[icon-visible]</visible>
+                            </control>
+                        </itemlayout>
+                        <focusedlayout width="450" height="item_list_height">
+                            <control type="image">
+                                <texture colordiffuse="$VAR[ColorHighlight]">common/white.png</texture>
+                            </control>
+                            <control type="image">
+                                <texture colordiffuse="$VAR[ColorGradient]">common/white-gradient.png</texture>
+                            </control>
+                            <control type="label">
+                                <font>font_tiny</font>
+                                <align>left</align>
+                                <left>30</left>
+                                <aligny>center</aligny>
+                                <textcolor>Selected</textcolor>
+                                <label>$INFO[ListItem.Label]</label>
+                            </control>
+                            <control type="image">
+                                <bordersize>10</bordersize>
+                                <aspectratio align="right">keep</aspectratio>
+                                <texture colordiffuse="Selected">$INFO[ListItem.Icon]</texture>
+                                <visible>$PARAM[icon-visible]</visible>
+                            </control>
+                        </focusedlayout>
+                        <include>$PARAM[items]</include>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Standard_Button">
+        <align>left</align>
+        <aligny>center</aligny>
+        <height>item_list_height</height>
+        <texturenofocus />
+        <texturefocus />
+        <texturefocus colordiffuse="$VAR[ColorHighlight]">common/white.png</texturefocus>
+        <alttexturenofocus />
+        <alttexturefocus />
+        <alttexturefocus colordiffuse="$VAR[ColorHighlight]">common/white.png</alttexturefocus>
+    </include>
+
+    <include name="Dialog_ColorPicker_WatchedIndicator_Group">
+        <param name="colordiffuse" default="$VAR[ColorWatchedProgress]" />
+        <definition>
+            <control type="grouplist">
+                <nested />
+                <top>50</top>
+                <left>-10</left>
+                <right>-10</right>
+                <orientation>horizontal</orientation>
+                <itemgap>30</itemgap>
+                <usecontrolcoords>true</usecontrolcoords>
+                <include content="Dialog_ColorPicker_WatchedIndicator">
+                    <param name="selected" value="false" />
+                    <param name="colordiffuse-progress" value="$PARAM[colordiffuse]" />
+                    <param name="colordiffuse-indicator" value="$PARAM[colordiffuse]" />
+                </include>
+                <include content="Dialog_ColorPicker_WatchedIndicator">
+                    <param name="selected" value="false" />
+                    <param name="progress" value="75" />
+                    <param name="texture" value="indicator/timer.png" />
+                    <param name="colordiffuse-progress" value="$PARAM[colordiffuse]" />
+                    <param name="colordiffuse-indicator" value="white" />
+                </include>
+                <include content="Dialog_ColorPicker_WatchedIndicator">
+                    <param name="selected" value="true" />
+                    <param name="colordiffuse-progress" value="$PARAM[colordiffuse]" />
+                    <param name="colordiffuse-indicator" value="$PARAM[colordiffuse]" />
+                </include>
+                <include content="Dialog_ColorPicker_WatchedIndicator">
+                    <param name="selected" value="true" />
+                    <param name="progress" value="75" />
+                    <param name="texture" value="indicator/timer.png" />
+                    <param name="colordiffuse-progress" value="$PARAM[colordiffuse]" />
+                    <param name="colordiffuse-indicator" value="white" />
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_ColorPicker_WatchedIndicator">
+        <param name="selected" default="false" />
+        <param name="progress" default="100" />
+        <param name="colordiffuse-progress" default="$VAR[ColorWatchedProgress]" />
+        <param name="colordiffuse-indicator" default="$VAR[ColorWatchedProgress]" />
+        <param name="texture" default="indicator/checkmark.png" />
+        <definition>
+            <control type="group">
+                <top>10</top>
+                <left>10</left>
+                <width>44</width>
+                <height>44</height>
+                <include content="Object_Control" condition="$PARAM[selected]">
+                    <param name="type" value="group" />
+                    <include content="Defs_Pad"><param name="pad" value="-7" /></include>
+                    <control type="image">
+                        <texture colordiffuse="$VAR[ColorHighlight]">indicator/circle-fo.png</texture>
+                    </control>
+                    <control type="image">
+                        <animation effect="fade" end="50" condition="true">Conditional</animation>
+                        <texture colordiffuse="$VAR[ColorGradient]">indicator/circle-fo.png</texture>
+                    </control>
+                </include>
+                <control type="image">
+                    <texture colordiffuse="ff333333">indicator/circle-bg.png</texture>
+                </control>
+                <control type="image">
+                    <include content="Defs_Pad"><param name="pad" value="-8" /></include>
+                    <texture colordiffuse="$PARAM[colordiffuse-progress]">progress/circle/p$PARAM[progress].png</texture>
+                    <aspectratio align="center" aligny="center">keep</aspectratio>
+                </control>
+                <control type="image">
+                    <texture colordiffuse="black">indicator/circle-fg.png</texture>
+                </control>
+                <control type="image">
+                    <include content="Defs_Pad"><param name="pad" value="10" /></include>
+                    <texture colordiffuse="$PARAM[colordiffuse-indicator]">$PARAM[texture]</texture>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_ColorPicker_SwatchLabel">
+        <control type="label">
+            <nested />
+            <height>20</height>
+            <font>font_info_buttons</font>
+            <textcolor>dialog_fg_100</textcolor>
+        </control>
+    </include>
+
+    <include name="Dialog_ColorPicker_SwatchPreview">
+        <control type="group">
+            <width>86.67</width>
+            <left>$PARAM[left]</left>
+            <include content="Dialog_ColorPicker_SwatchLabel">
+                <left>-10</left>
+                <right>-10</right>
+                <align>center</align>
+                <label>$PARAM[label]</label>
+            </include>
+            <control type="group">
+                <top>40</top>
+                <height>40</height>
+                <control type="image">
+                    <include content="Defs_Pad">
+                        <param name="pad" value="-20" />
+                    </include>
+                    <texture border="32" colordiffuse="Shadow">common/shadow-20.png</texture>
+                    <visible>!Control.HasFocus($PARAM[id])</visible>
+                </control>
+                <control type="button" id="$PARAM[id]">
+                    <texturefocus />
+                    <texturenofocus />
+                    <font />
+                    <textcolor>00ffffff</textcolor>
+                    <onleft>$PARAM[onleft]</onleft>
+                    <onright>$PARAM[onright]</onright>
+                    <onup>3012</onup>
+                    <ondown>3015</ondown>
+                    <onclick>SetProperty(colorpick,$PARAM[color],Home)</onclick>
+                    <onclick>SetFocus(3110)</onclick>
+                    <!-- <onfocus>SetProperty(colorpick,$PARAM[color],Home)</onfocus> -->
+                </control>
+                <control type="group">
+                    <control type="image">
+                        <texture colordiffuse="$VAR[$PARAM[color-var]]" border="20">common/box.png</texture>
+                        <visible>!Control.HasFocus(3110) | !String.IsEqual(Window(Home).Property(colorpick),$PARAM[color])</visible>
+                    </control>
+                    <control type="image">
+                        <texture colordiffuse="$INFO[Container(3110).ListItem.Label]" border="20">common/box.png</texture>
+                        <visible>Control.HasFocus(3110) + String.IsEqual(Window(Home).Property(colorpick),$PARAM[color])</visible>
+                    </control>
+                    <control type="image">
+                        <include content="Defs_Pad">
+                            <param name="pad" value="-27" />
+                        </include>
+                        <bordersize>20</bordersize>
+                        <bordertexture border="32" colordiffuse="Shadow">common/shadow-20.png</bordertexture>
+                        <texture border="20" colordiffuse="Selected">common/selectbox.png</texture>
+                        <visible>Control.HasFocus($PARAM[id])</visible>
+                    </control>
+                </control>
+                <control type="image">
+                    <centertop>50%</centertop>
+                    <centerleft>50%</centerleft>
+                    <width>16</width>
+                    <height>16</height>
+                    <texture>diffuse/circle.png</texture>
+                    <visible>String.IsEqual(Window(Home).Property(colorpick),$PARAM[color])</visible>
+                </control>
+            </control>
+        </control>
+    </include>
+
+    <!-- ==================== -->
+    <!-- Notification Dialogs -->
+    <!-- ==================== -->
+    <include name="Dialog_Notification_Group">
+        <param name="main_id" default="30" />
+        <param name="sub_id" default="31" />
+        <param name="nowplaying" default="false" />
+        <param name="progress" default="Control.GetLabel(32)" />
+        <param name="progress-id" default="32" />
+        <param name="icon" default="buttons/info.png" />
+        <param name="fgcolor" default="main_fg" />
+        <definition>
+            <top>view_pad</top>
+            <left>view_pad</left>
+            <right>view_pad</right>
+            <height>view_header</height>
+            <visible>!$EXP[Exp_ShowPlotOverlay]</visible>
+            <control type="image" description="Back">
+                <right>-16</right>
+                <centertop>50%</centertop>
+                <width>80</width>
+                <height>80</height>
+                <aspectratio align="center" aligny="center">keep</aspectratio>
+                <texture>dialog/loading-back.png</texture>
+                <colordiffuse>$PARAM[fgcolor]_70</colordiffuse>
+            </control>
+            <control type="group">
+                <right>-16</right>
+                <centertop>50%</centertop>
+                <width>80</width>
+                <height>80</height>
+                <visible>[Window.IsVisible(DialogExtendedProgressBar.xml) + Control.IsVisible(32)] | $PARAM[nowplaying]</visible>
+                <control type="image">
+                    <texture colordiffuse="$VAR[ColorHighlight]">$INFO[$PARAM[progress],progress/circle/p,.png]</texture>
+                    <aspectratio align="center" aligny="center">keep</aspectratio>
+                </control>
+                <control type="image">
+                    <texture colordiffuse="$VAR[ColorGradient]">$INFO[$PARAM[progress],progress/circle/p,.png]</texture>
+                    <animation effect="fade" end="66" condition="true">Conditional</animation>
+                    <aspectratio align="center" aligny="center">keep</aspectratio>
+                    <include content="Defs_Progress_Colorfade">
+                        <param name="id" value="$PARAM[progress-id]" />
+                    </include>
+                </control>
+            </control>
+
+            <control type="image">
+                <right>8</right>
+                <centertop>50%</centertop>
+                <height>32</height>
+                <width>42</width>
+                <aspectratio align="right">keep</aspectratio>
+                <texture colordiffuse="$PARAM[fgcolor]_100">$PARAM[icon]</texture>
+            </control>
+            <control type="group">
+                <right>64</right>
+                <centertop>50%</centertop>
+                <height>72</height>
+                <control type="label" id="$PARAM[main_id]">
+                    <right>0</right>
+                    <centertop>33%</centertop>
+                    <height>26</height>
+                    <label>$PARAM[label]</label>
+                    <align>right</align>
+                    <width max="500">auto</width>
+                    <font>font_statusbar_bold</font>
+                    <textcolor>$PARAM[fgcolor]_100</textcolor>
+                </control>
+                <control type="grouplist">
+                    <align>right</align>
+                    <usecontrolcoords>true</usecontrolcoords>
+                    <orientation>horizontal</orientation>
+                    <itemgap>10</itemgap>
+                    <control type="label" id="$PARAM[sub_id]">
+                        <centerbottom>33%</centerbottom>
+                        <height>26</height>
+                        <label>$PARAM[label2]</label>
+                        <width max="500">auto</width>
+                        <font>font_statusbar</font>
+                        <textcolor>$PARAM[fgcolor]_100</textcolor>
+                    </control>
+                    <control type="label">
+                        <centerbottom>33%</centerbottom>
+                        <height>26</height>
+                        <width>auto</width>
+                        <textcolor>$PARAM[fgcolor]_100</textcolor>
+                        <font>font_statusbar</font>
+                        <label>$INFO[Control.GetLabel(32),,%]</label>
+                        <visible>Window.IsVisible(DialogExtendedProgressBar.xml) + Control.IsVisible(32)</visible>
+                    </control>
+                </control>
+            </control>
+
+        </definition>
+    </include>
+
+    <include name="Dialog_Notification_Icon">
+        <right>0</right>
+        <centertop>50%</centertop>
+        <width>60</width>
+        <height>60</height>
+    </include>
+
+    <include name="Dialog_Notification_MainLabel">
+        <right>80</right>
+        <left>0</left>
+        <centertop>33%</centertop>
+        <height>30</height>
+        <aligny>center</aligny>
+        <align>right</align>
+        <font>font_notification</font>
+        <textcolor>main_fg_100</textcolor>
+    </include>
+
+
+    <include name="Dialog_Notification_SubLabel">
+        <right>80</right>
+        <left>0</left>
+        <centerbottom>33%</centerbottom>
+        <height>30</height>
+        <align>right</align>
+        <textcolor>main_fg_70</textcolor>
+        <font>font_statusbar</font>
+        <aligny>center</aligny>
+    </include>
+
+    <!-- ================ -->
+    <!-- Standard Dialogs -->
+    <!-- ================ -->
+
+    <include name="Dialog_Standard_Group">
+        <param name="width" default="1080" />
+        <param name="height" default="900" />
+        <param name="animation" default="true" />
+        <param name="centertop" default="560" />
+        <definition>
+            <centerleft>50%</centerleft>
+            <centertop>$PARAM[centertop]</centertop>
+            <width>$PARAM[width]</width>
+            <height>$PARAM[height]</height>
+            <include condition="$PARAM[animation]">Animation_FadeIn_Slide</include>
+            <control type="image">
+                <include condition="!Skin.HasSetting(DisableShadows)">Defs_Shadow_24</include>
+                <texture border="16" colordiffuse="dialog_bg_100">common/dialog.png</texture>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Standard_List_Left">
+        <left>0</left>
+        <top>120</top>
+        <width>900</width>
+        <height>690</height>
+    </include>
+
+    <include name="Dialog_Standard_List_Left_Icon">
+        <left>15</left>
+        <bordersize>15</bordersize>
+        <height>item_biglist_height</height>
+        <width>item_biglist_height</width>
+        <aspectratio scalediffuse="false">keep</aspectratio>
+        <texture fallback="DefaultAddonNone.png" background="true">$INFO[Listitem.Icon]</texture>
+    </include>
+
+    <include name="Dialog_Standard_Right_Buttons_Gradient">
+        <control type="group">
+            <nested />
+            <height>item_list_height</height>
+            <control type="image">
+                <texture colordiffuse="$VAR[ColorHighlight]" border="8" flipy="true">common/box.png</texture>
+            </control>
+            <control type="image">
+                <texture colordiffuse="$VAR[ColorGradient]" border="8" flipy="true">common/box-gradient.png</texture>
+            </control>
+        </control>
+    </include>
+
+    <include name="Dialog_Standard_Right_Buttons">
+        <height>item_list_height</height>
+        <align>center</align>
+        <font>font_button</font>
+        <textcolor>dialog_fg_70</textcolor>
+        <include content="Defs_ButtonType"><param name="texturefocus" value="true" /></include>
+        <include content="Defs_ButtonType"><param name="alttexturefocus" value="true" /></include>
+        <alttexturenofocus />
+    </include>
+
+    <include name="Dialog_Standard_Right_Group">
+        <right>dialog_pad</right>
+        <width>dialog_right_iconwidth</width>
+        <top>dialog_top</top>
+        <bottom>dialog_pad</bottom>
+    </include>
+
+    <include name="Dialog_Separator">
+        <param name="left" default="dialog_side_grouplist" />
+        <param name="top" default="dialog_top" />
+        <param name="bottom" default="dialog_pad" />
+        <definition>
+            <control type="image">
+                <left>$PARAM[left]</left>
+                <width>1</width>
+                <top>$PARAM[top]</top>
+                <bottom>$PARAM[bottom]</bottom>
+                <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Separator_Right">
+        <control type="image">
+            <right>dialog_side_grouplist</right>
+            <width>1</width>
+            <top>dialog_top</top>
+            <bottom>dialog_pad</bottom>
+            <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+        </control>
+    </include>
+
+    <include name="Dialog_Default_Buttons">
+        <control type="button" id="7">
+            <description>Default Button</description>
+            <include>Dialog_Standard_Button</include>
+        </control>
+
+        <control type="radiobutton" id="8">
+            <description>Default RadioButton</description>
+            <radioposx>900</radioposx>
+            <textwidth>870</textwidth>
+            <include>Dialog_Standard_Button</include>
+        </control>
+
+        <control type="spincontrolex" id="9">
+            <description>Default spincontrolex</description>
+            <reverse>true</reverse>
+            <include>Dialog_Standard_Button</include>
+        </control>
+
+        <control type="image" id="11">
+            <description>Default Seperator</description>
+            <visible>false</visible>
+        </control>
+
+        <control type="edit" id="12">
+            <description>Default Edit</description>
+            <include>Dialog_Standard_Button</include>
+        </control>
+
+        <control type="sliderex" id="13">
+            <description>Default Slider</description>
+            <width>969</width>
+            <include>Dialog_Standard_Button</include>
+        </control>
+
+        <control type="label" id="14">
+            <include>Dialog_Standard_HintLabel</include>
+        </control>
+    </include>
+
+    <include name="Dialog_Standard_Header">
+        <left>30</left>
+        <right>30</right>
+        <top>0</top>
+        <height>dialog_top</height>
+        <font>font_medium_bold</font>
+        <align>left</align>
+        <aligny>center</aligny>
+        <textcolor>dialog_fg_70</textcolor>
+    </include>
+
+    <include name="Dialog_Standard_OkCancel">
+        <align>center</align>
+        <font>font_button</font>
+        <width>300</width>
+        <texturenofocus colordiffuse="dialog_fg_12" border="8">common/box.png</texturenofocus>
+        <texturefocus colordiffuse="$VAR[ColorHighlight]" border="8">common/box.png</texturefocus>
+    </include>
+
+    <include name="Dialog_Standard_OkCancel_GroupList">
+        <bottom>20</bottom>
+        <left>20</left>
+        <right>20</right>
+        <align>center</align>
+        <itemgap>20</itemgap>
+        <orientation>horizontal</orientation>
+        <height>item_list_height</height>
+    </include>
+
+    <include name="Dialog_Standard_HintLabel">
+        <top>item_list_height_half</top>
+        <height>item_list_height_half</height>
+        <left>30</left>
+        <right>30</right>
+        <font>font_hintlabel</font>
+        <textcolor>dialog_fg_70</textcolor>
+    </include>
+
+    <include name="Dialog_Indicators_RadioButton">
+        <param name="colordiffuse" default="dialog_fg_70" />
+        <param name="onright" default="61" />
+        <param name="onleft" default="" />
+        <definition>
+            <control type="group" id="$PARAM[group-id]">
+                <height>item_list_height</height>
+                <control type="radiobutton" id="$PARAM[id]">
+                    <onup>$PARAM[onup]</onup>
+                    <ondown>$PARAM[ondown]</ondown>
+                    <onright>$PARAM[onright]</onright>
+                    <onleft>$PARAM[onleft]</onleft>
+                    <label>$PARAM[label]</label>
+                    <radioposx>730</radioposx>
+                    <textoffsetx>84</textoffsetx>
+                    <include>Dialog_Standard_Button</include>
+                    <enable>$PARAM[enable]</enable>
+                    <onclick>$PARAM[onclick]</onclick>
+                    <selected>$PARAM[selected]</selected>
+                </control>
+                <control type="image">
+                    <centertop>50%</centertop>
+                    <left>30</left>
+                    <height>32</height>
+                    <width>32</width>
+                    <texture colordiffuse="$PARAM[colordiffuse]">$PARAM[icon]</texture>
+                    <visible>!Control.HasFocus($PARAM[id])</visible>
+                    <animation effect="fade" start="100" end="12" condition="![$PARAM[enable]]">Conditional</animation>
+                </control>
+                <control type="image">
+                    <centertop>50%</centertop>
+                    <left>30</left>
+                    <height>32</height>
+                    <width>32</width>
+                    <texture>$PARAM[icon]</texture>
+                    <visible>Control.HasFocus($PARAM[id])</visible>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <!-- Ok Cancel Progress Yes No Dialog -->
+    <include name="Dialog_Confirm">
+        <param name="header_id" default="1" />
+        <param name="textbox_id" default="9" />
+        <param name="header_label" default="" />
+        <param name="textbox_label" default="" />
+        <definition>
+            <centerleft>50%</centerleft>
+            <centertop>520</centertop>
+            <width>1120</width>
+            <height>490</height>
+            <include>Animation_FadeIn_Slide</include>
+            <control type="image">
+                <include condition="!Skin.HasSetting(DisableShadows)">Defs_Shadow_24</include>
+                <texture border="16" colordiffuse="dialog_bg_100">common/dialog.png</texture>
+            </control>
+
+            <control type="label" id="$PARAM[header_id]">
+                <include>Dialog_Standard_Header</include>
+                <label>$PARAM[header_label]</label>
+            </control>
+
+            <control type="textbox" id="$PARAM[textbox_id]">
+                <description>Line 1</description>
+                <left>30</left>
+                <right>30</right>
+                <top>dialog_top</top>
+                <bottom>150</bottom>
+                <label>$PARAM[textbox_label]</label>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Settings_Filter">
+        <control type="group">
+            <width>dialog_filter_width</width>
+            <animation effect="slide" start="-dialog_filter_width" end="0" time="400" tween="quadratic">WindowOpen</animation>
+            <!-- <animation effect="fade" start="0" end="100" time="400" tween="cubic" easing="inout" reversible="false" delay="200">WindowOpen</animation> -->
+            <include content="Defs_Settings_Gradient">
+                <param name="id" value="5" />
+                <top>view_top</top>
+                <left>0</left>
+                <height>item_list_height</height>
+                <visible>ControlGroup(5).HasFocus()</visible>
+            </include>
+
+            <control type="grouplist" id="5">
+                <description>control area</description>
+                <top>view_top</top>
+                <bottom>view_pad</bottom>
+                <left>40</left>
+                <right>40</right>
+                <itemgap>0</itemgap>
+                <onup>5</onup>
+                <ondown>5</ondown>
+                <usecontrolcoords>true</usecontrolcoords>
+                <onright>Close</onright>
+            </control>
+
+            <control type="group">
+                <top>view_top</top>
+                <height>item_list_height</height>
+                <animation effect="slide" end="0,item_list_height" condition="Integer.IsGreater(Container(5).Position,0)">Conditional</animation>
+                <animation effect="slide" end="0,item_list_height" condition="Integer.IsGreater(Container(5).Position,1)">Conditional</animation>
+                <animation effect="slide" end="0,item_list_height" condition="Integer.IsGreater(Container(5).Position,2)">Conditional</animation>
+                <animation effect="slide" end="0,item_list_height" condition="Integer.IsGreater(Container(5).Position,3)">Conditional</animation>
+                <animation effect="slide" end="0,item_list_height" condition="Integer.IsGreater(Container(5).Position,4)">Conditional</animation>
+                <animation effect="slide" end="0,item_list_height" condition="Integer.IsGreater(Container(5).Position,5)">Conditional</animation>
+                <animation effect="slide" end="0,item_list_height" condition="Integer.IsGreater(Container(5).Position,6)">Conditional</animation>
+                <animation effect="slide" end="0,item_list_height" condition="Integer.IsGreater(Container(5).Position,7)">Conditional</animation>
+                <animation effect="slide" end="0,item_list_height" condition="Integer.IsGreater(Container(5).Position,8)">Conditional</animation>
+                <visible>ControlGroup(5).HasFocus()</visible>
+                <visible>Skin.HasSetting(ShadowLines)</visible>
+                <control type="image">
+                    <width>24</width>
+                    <right>0</right>
+                    <texture>common/shadow-line-vert-24.png</texture>
+                </control>
+            </control>
+            <control type="label" id="2">
+                <right>60</right>
+                <left>60</left>
+                <top>view_pad</top>
+                <height>item_list_height_half</height>
+                <align>right</align>
+                <aligny>center</aligny>
+                <font>font_title_mini</font>
+                <textcolor>dialog_fg_70</textcolor>
+            </control>
+        </control>
+
+
+
+        <control type="button" id="7">
+            <description>Default Button</description>
+            <textoffsetx>20</textoffsetx>
+            <textcolor>dialog_fg_70</textcolor>
+            <font>font_tiny</font>
+            <include>Dialog_Standard_Button</include>
+        </control>
+
+        <control type="radiobutton" id="8">
+            <description>Default RadioButton</description>
+            <radioposx>900</radioposx>
+            <textwidth>870</textwidth>
+            <textoffsetx>20</textoffsetx>
+            <textcolor>dialog_fg_70</textcolor>
+            <font>font_tiny</font>
+            <include>Dialog_Standard_Button</include>
+        </control>
+
+        <control type="spincontrolex" id="9">
+            <description>Default spincontrolex</description>
+            <reverse>true</reverse>
+            <textoffsetx>20</textoffsetx>
+            <textcolor>dialog_fg_70</textcolor>
+            <font>font_tiny</font>
+            <include>Dialog_Standard_Button</include>
+        </control>
+
+        <control type="image" id="11">
+            <description>Default Seperator</description>
+            <visible>false</visible>
+        </control>
+
+        <control type="edit" id="12">
+            <description>Default Edit</description>
+            <textoffsetx>20</textoffsetx>
+            <textcolor>dialog_fg_70</textcolor>
+            <font>font_tiny</font>
+            <include>Dialog_Standard_Button</include>
+        </control>
+
+        <control type="sliderex" id="13">
+            <description>Default Slider</description>
+            <textoffsetx>20</textoffsetx>
+            <sliderwidth>120</sliderwidth>
+            <textcolor>dialog_fg_70</textcolor>
+            <font>font_tiny</font>
+            <include>Dialog_Standard_Button</include>
+        </control>
+
+        <control type="label" id="14">
+            <textcolor>dialog_fg_70</textcolor>
+            <include>Dialog_Standard_HintLabel</include>
+        </control>
+    </include>
+
+    <include name="Dialog_Settings_Standard">
+        <control type="group">
+            <animation effect="fade" start="100" end="0" time="400" condition="Window.IsVisible(SliderDialog)">Conditional</animation>
+            <include>Global_Overlay</include>
+        </control>
+
+        <control type="group">
+            <visible>!Window.IsVisible(SliderDialog)</visible>
+            <include content="Dialog_Standard_Group">
+                <param name="width" value="dialog_standard_width" />
+                <param name="height" value="dialog_standard_height" />
+            </include>
+
+            <control type="label" id="2">
+                <include>Dialog_Standard_Header</include>
+            </control>
+
+            <!-- Right Gradient -->
+            <include content="Defs_Settings_Gradient">
+                <param name="id" value="5" />
+                <top>dialog_top</top>
+                <right>dialog_side_grouplist</right>
+                <height>item_list_height</height>
+                <visible>ControlGroup(5).HasFocus()</visible>
+            </include>
+
+            <control type="grouplist" id="5">
+                <description>control area</description>
+                <left>0</left>
+                <top>dialog_top</top>
+                <right>dialog_side_grouplist</right>
+                <bottom>dialog_pad</bottom>
+                <itemgap>0</itemgap>
+                <onup>5</onup>
+                <ondown>5</ondown>
+                <onright>61</onright>
+                <pagecontrol>61</pagecontrol>
+                <usecontrolcoords>true</usecontrolcoords>
+            </control>
+
+            <include content="Dialog_Scrollbar">
+                <param name="onleft" value="5" />
+            </include>
+
+
+            <control type="group">
+                <include>Dialog_Standard_Right_Group</include>
+                <control type="grouplist" id="8000">
+                    <onleft>61</onleft>
+                    <orientation>vertical</orientation>
+                    <itemgap>0</itemgap>
+                    <control type="button" id="28" description="OK">
+                        <label>186</label>
+                        <include>Dialog_Standard_Right_Buttons</include>
+                    </control>
+                    <control type="button" id="29" description="Cancel">
+                        <label>222</label>
+                        <include>Dialog_Standard_Right_Buttons</include>
+                    </control>
+                    <control type="button" id="30" description="Defaults">
+                        <label>409</label>
+                        <include>Dialog_Standard_Right_Buttons</include>
+                    </control>
+                </control>
+            </control>
+        </control>
+        <include>Dialog_Default_Buttons</include>
+    </include>
+
+    <!-- ============== -->
+    <!-- Settings Panel -->
+    <!-- ============== -->
+    <include name="Dialog_Settings_Group">
+        <include>Animation_Settings</include>
+        <include content="Dialog_Standard_Group">
+            <param name="width" value="view_list_width" />
+            <param name="height" value="view_list_height" />
+            <param name="animation" value="false" />
+            <param name="centertop" value="view_list_center" />
+        </include>
+    </include>
+
+    <include name="Dialog_Settings_Arrows">
+        <control type="group">
+            <left>430</left>
+            <right>30</right>
+            <!-- <width>16</width> -->
+            <bottom>8</bottom>
+            <top>8</top>
+            <control type="group">
+                <visible>Container($PARAM[id]).HasPrevious</visible>
+                <include content="Object_DoubleArrow_Up">
+                    <param name="colordiffuse" value="dialog_fg_30" />
+                </include>
+            </control>
+            <control type="group">
+                <visible>Container($PARAM[id]).HasNext</visible>
+                <include content="Object_DoubleArrow_Down">
+                    <param name="colordiffuse" value="dialog_fg_30" />
+                </include>
+            </control>
+        </control>
+    </include>
+
+    <include name="Dialog_Standard_List_Itemlayout_Simple">
+        <param name="left_pad" default="54" />
+        <param name="right_pad" default="0" />
+        <definition>
+            <control type="group">
+                <left>$PARAM[left_pad]</left>
+                <right>$PARAM[right_pad]</right>
+                <control type="label">
+                    <left>30</left>
+                    <right>30</right>
+                    <font>font_small_bold</font>
+                    <textcolor>$PARAM[color_70]</textcolor>
+                    <aligny>center</aligny>
+                    <info>ListItem.Label</info>
+                    <selectedcolor>$PARAM[color_highlight]</selectedcolor>
+                </control>
+                <control type="label">
+                    <left>30</left>
+                    <right>30</right>
+                    <font>font_tiny</font>
+                    <textcolor>$PARAM[color_70]</textcolor>
+                    <align>right</align>
+                    <aligny>center</aligny>
+                    <info>ListItem.Label2</info>
+                    <selectedcolor>$PARAM[color_highlight]</selectedcolor>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Standard_List_Itemlayout_ChannelManager">
+        <control type="label">
+            <left>30</left>
+            <width>50</width>
+            <font>font_small</font>
+            <textcolor>$PARAM[color_70]</textcolor>
+            <aligny>center</aligny>
+            <align>center</align>
+            <label>$INFO[ListItem.Property(Number)]</label>
+            <selectedcolor>$PARAM[color_highlight]</selectedcolor>
+        </control>
+        <include content="Dialog_Standard_List_Itemlayout_Simple">
+            <param name="left_pad" value="80" />
+            <param name="right_pad" value="$PARAM[itemheight]" />
+            <param name="color_70" value="$PARAM[color_70]" />
+            <param name="color_highlight" value="$PARAM[color_highlight]" />
+        </include>
+        <control type="image">
+            <right>15</right>
+            <width>$PARAM[itemheight]</width>
+            <aspectratio>keep</aspectratio>
+            <bordersize>10</bordersize>
+            <texture>$INFO[ListItem.Icon]</texture>
+        </control>
+    </include>
+
+    <include name="Dialog_Standard_List_Itemlayout_GroupManager">
+        <include content="Dialog_Standard_List_Itemlayout_Simple">
+            <param name="left_pad" value="0" />
+            <param name="right_pad" value="$PARAM[itemheight]" />
+            <param name="color_70" value="$PARAM[color_70]" />
+            <param name="color_highlight" value="$PARAM[color_highlight]" />
+        </include>
+        <control type="image">
+            <right>15</right>
+            <width>$PARAM[itemheight]</width>
+            <aspectratio>keep</aspectratio>
+            <bordersize>10</bordersize>
+            <texture>$INFO[ListItem.Icon]</texture>
+        </control>
+    </include>
+
+    <include name="Dialog_Standard_List_Itemlayout_Complex">
+        <param name="left_pad" default="54" />
+        <definition>
+            <control type="group">
+                <left>$PARAM[left_pad]</left>
+                <control type="image">
+                    <colordiffuse>$PARAM[color_70]</colordiffuse>
+                    <include>Dialog_Standard_List_Left_Icon</include>
+                    <visible>String.StartsWith(ListItem.Icon,special://skin/extras/icons) | String.StartsWith(ListItem.Icon,Default)</visible>
+                </control>
+                <control type="image">
+                    <include>Dialog_Standard_List_Left_Icon</include>
+                    <visible>![String.StartsWith(ListItem.Icon,special://skin/extras/icons) | String.StartsWith(ListItem.Icon,Default)]</visible>
+                </control>
+                <control type="group">
+                    <left>item_biglist_height</left>
+                    <control type="label">
+                        <centertop>35%</centertop>
+                        <left>30</left>
+                        <right>30</right>
+                        <font>font_small_bold</font>
+                        <textcolor>$PARAM[color_70]</textcolor>
+                        <aligny>center</aligny>
+                        <info>ListItem.Label</info>
+                        <selectedcolor>$PARAM[color_highlight]</selectedcolor>
+                        <animation effect="slide" end="0,18" condition="String.IsEmpty(ListItem.Label2)">Conditional</animation>
+                    </control>
+                    <control type="label">
+                        <centerbottom>35%</centerbottom>
+                        <left>30</left>
+                        <right>30</right>
+                        <font>font_tiny</font>
+                        <textcolor>$PARAM[color_70]</textcolor>
+                        <aligny>center</aligny>
+                        <info>ListItem.Label2</info>
+                        <selectedcolor>$PARAM[color_highlight]</selectedcolor>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Standard_List_Itemlayout">
+        <param name="color_30" default="dialog_fg_30" />
+        <param name="color_70" default="dialog_fg_70" />
+        <param name="color_highlight" default="dialog_fg_70" />
+        <definition>
+            <control type="image">
+                <left>30</left>
+                <centertop>50%</centertop>
+                <width>24</width>
+                <height>24</height>
+                <texture colordiffuse="$PARAM[color_highlight]">buttons/check-on.png</texture>
+                <visible>ListItem.IsSelected</visible>
+                <visible>$PARAM[checkmark]</visible>
+            </control>
+            <control type="image">
+                <left>30</left>
+                <centertop>50%</centertop>
+                <width>24</width>
+                <height>24</height>
+                <texture colordiffuse="$PARAM[color_30]">buttons/check-off.png</texture>
+                <visible>!ListItem.IsSelected</visible>
+                <visible>$PARAM[checkmark]</visible>
+            </control>
+            <include content="$PARAM[list_style]">
+                <param name="color_70" value="$PARAM[color_70]" />
+                <param name="color_highlight" value="$PARAM[color_highlight]" />
+                <param name="left_pad" value="$PARAM[left_pad]" />
+                <param name="itemheight" value="$PARAM[itemheight]" />
+            </include>
+        </definition>
+    </include>
+
+    <include name="Dialog_Standard_List">
+        <param name="id" default="3" />
+        <param name="pagecontrol" default="61" />
+        <param name="itemheight" default="item_list_height" />
+        <param name="list_style" default="Dialog_Standard_List_Itemlayout_Simple" />
+        <param name="checkmark" default="true" />
+        <param name="itemlayout_condition" default="true" />
+        <param name="onright" default="61" />
+        <param name="onleft" default="noop" />
+        <param name="width" default="960" />
+        <param name="list_type" default="panel" />
+        <param name="onup" default="3" />
+        <param name="ondown" default="3" />
+        <param name="selectpad" default="0" />
+        <definition>
+            <control type="$PARAM[list_type]" id="$PARAM[id]">
+                <top>dialog_top</top>
+                <bottom>dialog_pad</bottom>
+                <onleft>$PARAM[onleft]</onleft>
+                <onright>$PARAM[onright]</onright>
+                <onup>$PARAM[onup]</onup>
+                <ondown>$PARAM[ondown]</ondown>
+                <pagecontrol>$PARAM[pagecontrol]</pagecontrol>
+                <width>$PARAM[width]</width>
+                <itemlayout height="$PARAM[itemheight]" width="$PARAM[width]" condition="$PARAM[itemlayout_condition]">
+                    <include content="Dialog_Standard_List_Itemlayout">
+                        <param name="list_style" value="$PARAM[list_style]" />
+                        <param name="left_pad" value="$PARAM[left_pad]" />
+                        <param name="checkmark" value="$PARAM[checkmark]" />
+                        <param name="itemheight" value="$PARAM[itemheight]" />
+                    </include>
+                </itemlayout>
+                <focusedlayout height="$PARAM[itemheight]" width="$PARAM[width]" condition="$PARAM[itemlayout_condition]">
+                    <control type="image">
+                        <top>$PARAM[selectpad]</top>
+                        <bottom>$PARAM[selectpad]</bottom>
+                        <texture colordiffuse="$VAR[ColorHighlight]">common/white.png</texture>
+                        <animation effect="fade" start="100" end="50" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+                    </control>
+                    <control type="image">
+                        <top>$PARAM[selectpad]</top>
+                        <bottom>$PARAM[selectpad]</bottom>
+                        <texture colordiffuse="$VAR[ColorGradient]">common/white-gradient.png</texture>
+                        <animation effect="fade" start="100" end="50" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+                    </control>
+                    <include content="Dialog_Standard_List_Itemlayout">
+                        <param name="color_30" value="Selected" />
+                        <param name="color_70" value="Selected" />
+                        <param name="color_highlight" value="Selected" />
+                        <param name="list_style" value="$PARAM[list_style]" />
+                        <param name="left_pad" value="$PARAM[left_pad]" />
+                        <param name="checkmark" value="$PARAM[checkmark]" />
+                        <param name="itemheight" value="$PARAM[itemheight]" />
+                    </include>
+                </focusedlayout>
+                <nested />
+            </control>
+        </definition>
+    </include>
+
+    <!-- ============= -->
+    <!-- Dialog Select -->
+    <!-- ============= -->
+    <include name="Dialog_Standard_Image">
+        <param name="id" default="6" />
+        <param name="image" default="ListItem.Icon" />
+        <definition>
+            <control type="group">
+                <bottom>0</bottom>
+                <height>dialog_right_iconwidth</height>
+                <control type="image">
+                    <visible>String.StartsWith(Container($PARAM[id]).$PARAM[image],special://skin/extras/icons/) | String.StartsWith(Container($PARAM[id]).$PARAM[image],Default)</visible>
+                    <texture colordiffuse="dialog_fg_70">$INFO[Container($PARAM[id]).$PARAM[image]]</texture>
+                    <aspectratio align="center" aligny="bottom">keep</aspectratio>
+                </control>
+                <control type="image">
+                    <visible>!String.StartsWith(Container($PARAM[id]).$PARAM[image],special://skin/extras/icons/) + !String.StartsWith(Container($PARAM[id]).$PARAM[image],Default)</visible>
+                    <texture>$INFO[Container($PARAM[id]).$PARAM[image]]</texture>
+                    <aspectratio align="center" aligny="bottom">keep</aspectratio>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Select_Standard">
+        <include>Global_Overlay</include>
+
+        <control type="group">
+            <include content="Dialog_Standard_Group">
+                <param name="width" value="dialog_standard_width" />
+                <param name="height" value="dialog_standard_height" />
+            </include>
+            <control type="label" id="1">
+                <include>Dialog_Standard_Header</include>
+            </control>
+
+            <include>Dialog_Standard_List</include>
+            <include content="Dialog_Standard_List">
+                <param name="id" value="6" />
+                <param name="itemheight" value="item_biglist_height" />
+                <param name="list_style" value="Dialog_Standard_List_Itemlayout_Complex" />
+                <param name="onup" value="6" />
+                <param name="ondown" value="6" />
+            </include>
+
+            <control type="group">
+                <include>Dialog_Standard_Right_Group</include>
+                <include>Dialog_Standard_Image</include>
+                <control type="grouplist" id="8000">
+                    <onleft>61</onleft>
+                    <orientation>vertical</orientation>
+                    <itemgap>0</itemgap>
+                    <control type="button" id="5">
+                        <label>368</label>
+                        <include>Dialog_Standard_Right_Buttons</include>
+                    </control>
+                    <control type="button" id="7">
+                        <label>222</label>
+                        <include>Dialog_Standard_Right_Buttons</include>
+                    </control>
+                </control>
+            </control>
+
+            <include>Dialog_Scrollbar</include>
+        </control>
+    </include>
+
+    <include name="Dialog_Select_Viewtypes">
+        <include>Global_Overlay</include>
+
+        <control type="group">
+            <include content="Dialog_Standard_Group">
+                <param name="width" value="1760" />
+                <param name="height" value="800" />
+                <param name="centertop" value="600" />
+            </include>
+            <control type="label" id="1">
+                <include>Dialog_Standard_Header</include>
+            </control>
+
+            <include>Dialog_Standard_List</include>
+            <include content="Dialog_Standard_List">
+                <param name="id" value="6" />
+                <!-- <param name="itemheight" value="item_biglist_height" />
+                <param name="list_style" value="Dialog_Standard_List_Itemlayout_Complex" /> -->
+                <param name="onup" value="6" />
+                <param name="ondown" value="6" />
+                <param name="width" value="542" />
+            </include>
+
+            <control type="group">
+                <width>1138</width>
+                <include>Dialog_Standard_Right_Group</include>
+                <control type="image">
+                    <height>640</height>
+                    <texture>$INFO[Container(6).ListItem.Icon]</texture>
+                    <aspectratio align="center" aligny="center">scale</aspectratio>
+                </control>
+            </control>
+
+            <control type="group">
+                <right>818</right>
+                <include>Dialog_Scrollbar</include>
+            </control>
+        </control>
+    </include>
+
+    <include name="Dialog_Scrollbar">
+        <param name="onleft" default="6" />
+        <param name="onright" default="8000" />
+        <param name="id" default="61" />
+        <definition>
+            <control type="group">
+                <visible>!Control.HasFocus($PARAM[id])</visible>
+                <include>Animation_FadeInOut</include>
+                <include>Dialog_Separator_Right</include>
+            </control>
+            <control type="scrollbar" id="$PARAM[id]">
+                <centerright>dialog_side_grouplist</centerright>
+                <orientation>vertical</orientation>
+                <width>8</width>
+                <top>dialog_top</top>
+                <bottom>dialog_pad</bottom>
+                <onleft>$PARAM[onleft]</onleft>
+                <onright>$PARAM[onright]</onright>
+                <animation effect="fade" condition="!Control.HasFocus($PARAM[id])" start="100" end="0" time="200">Conditional</animation>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Dialog_Select_Game">
+        <control type="group">
+            <bottom>0</bottom>
+            <height>520</height>
+            <include>Animation_FadeIn_SlideUp</include>
+            <control type="image">
+                <texture colordiffuse="panel_bg">common/white.png</texture>
+                <height>620</height>
+            </control>
+            <control type="image">
+                <top>-24</top>
+                <height>24</height>
+                <width>100%</width>
+                <texture flipy="true">common/shadow-line-24.png</texture>
+            </control>
+            <control type="group">
+                <control type="textbox" id="12">
+                    <centerleft>50%</centerleft>
+                    <top>40</top>
+                    <width>1080</width>
+                    <height>70</height>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <font>font_tiny</font>
+                    <textcolor>panel_fg_100</textcolor>
+                </control>
+                <control type="fixedlist" id="11">
+                    <orientation>horizontal</orientation>
+                    <focusposition>1</focusposition>
+                    <movement>1</movement>
+                    <preloaditems>2</preloaditems>
+                    <bottom>40</bottom>
+                    <height>370</height>
+                    <ondown>9000</ondown>
+                    <onup>9000</onup>
+                    <itemlayout width="502" height="330">
+                        <control type="group">
+                            <top>20</top>
+                            <left>213</left>
+                            <right>-213</right>
+                            <bottom>-20</bottom>
+                            <control type="gamewindow">
+                                <height>260</height>
+                                <left>20</left>
+                                <right>20</right>
+                                <top>20</top>
+                                <videofilter>$INFO[ListItem.Property(game.videofilter)]</videofilter>
+                                <stretchmode>$INFO[ListItem.Property(game.stretchmode)]</stretchmode>
+                                <rotation>$INFO[ListItem.Property(game.videorotation)]</rotation>
+                            </control>
+                            <control type="label">
+                                <textcolor>panel_fg_70</textcolor>
+                                <label>$INFO[ListItem.Label]</label>
+                                <top>300</top>
+                                <height>30</height>
+                                <left>20</left>
+                                <right>20</right>
+                                <font>font_tiny</font>
+                            </control>
+                            <control type="label">
+                                <textcolor>panel_fg_70</textcolor>
+                                <label>$INFO[ListItem.Label2]</label>
+                                <top>300</top>
+                                <height>30</height>
+                                <left>20</left>
+                                <right>20</right>
+                                <font>font_tiny</font>
+                                <align>right</align>
+                            </control>
+                        </control>
+                    </itemlayout>
+                    <focusedlayout width="502" height="330">
+                        <control type="group">
+                            <top>20</top>
+                            <left>213</left>
+                            <right>-213</right>
+                            <bottom>-20</bottom>
+                            <control type="gamewindow">
+                                <height>260</height>
+                                <left>20</left>
+                                <right>20</right>
+                                <top>20</top>
+                                <videofilter>$INFO[ListItem.Property(game.videofilter)]</videofilter>
+                                <stretchmode>$INFO[ListItem.Property(game.stretchmode)]</stretchmode>
+                                <rotation>$INFO[ListItem.Property(game.videorotation)]</rotation>
+                            </control>
+                            <control type="group">
+                                <left>10</left>
+                                <right>10</right>
+                                <top>10</top>
+                                <height>280</height>
+                                <visible>Control.HasFocus(11)</visible>
+                                <include>View_Selectbox</include>
+                            </control>
+                            <control type="label">
+                                <textcolor>panel_fg_100</textcolor>
+                                <label>$INFO[ListItem.Label]</label>
+                                <top>300</top>
+                                <height>30</height>
+                                <left>20</left>
+                                <right>20</right>
+                                <font>font_tiny</font>
+                            </control>
+                            <control type="label">
+                                <textcolor>panel_fg_100</textcolor>
+                                <label>$INFO[ListItem.Label2]</label>
+                                <top>300</top>
+                                <height>30</height>
+                                <left>20</left>
+                                <right>20</right>
+                                <font>font_tiny</font>
+                                <align>right</align>
+                            </control>
+                        </control>
+                    </focusedlayout>
+                </control>
+            </control>
+        </control>
+    </include>
+</includes>

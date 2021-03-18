@@ -1,0 +1,2381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="ViewIDs"><views>50,51,5151,501,55,500,52,5252,502,53,54,5454,504,56,57,58,59</views></include>
+    <include name="Viewtype_Info_Right"><right>600</right></include>
+    <include name="Viewtype_Info_Right_FixedHome"><right>560</right></include>
+
+    <include name="Viewtypes">
+
+        <include>Viewtype_HiddenLists</include>
+
+        <include content="Viewtype_Main">
+            <animation effect="slide" start="0" end="dialog_filter_width" condition="Window.IsActive(DialogSettings.xml) + !String.IsEmpty(Window(Home).Property(advancedfilter))" time="400" tween="quadratic">Conditional</animation>
+            <include>Viewtype_Media</include>
+            <include>Topbar_Left</include>
+            <include>Object_Scrollbars</include>
+        </include>
+
+        <include>Viewtype_FilterPanel</include>
+        <include condition="!Skin.HasSetting(DisableClock)">Topbar_Right</include>
+        <include>Object_NowPlaying</include>
+        <include>Viewtype_Options</include>
+
+    </include>
+
+    <include name="Viewtype_HiddenLists">
+        <control type="list" id="56561">
+            <include>Defs_Hidden_List</include>
+            <visible>ListItem.IsCollection + !String.IsEmpty(ListITem.DBID)</visible>
+            <content sortby="year" sortorder="ascending">videodb://movies/sets/$INFO[ListItem.DBID]/</content>
+        </control>
+        <control type="list" id="56560">
+            <include>Defs_Hidden_List</include>
+            <orientation>horizontal</orientation>
+            <visible>Control.IsVisible(53) | Control.IsVisible(58) | Control.IsVisible(59)</visible>
+            <content>
+                <include content="Object_56560_Item">
+                    <param name="listitem" value="Container(530).ListItem" />
+                    <visible>Control.IsVisible(53)</visible>
+                </include>
+                <include content="Object_56560_Item">
+                    <param name="listitem" value="Container(580).ListItem" />
+                    <visible>Control.IsVisible(58)</visible>
+                </include>
+                <include content="Object_56560_Item">
+                    <param name="listitem" value="Container(590).ListItem" />
+                    <visible>Control.IsVisible(59)</visible>
+                </include>
+            </content>
+        </control>
+    </include>
+
+    <include name="Viewtype_FilterPanel">
+        <control type="group">
+            <left>-dialog_filter_width</left>
+            <animation effect="slide" start="0" end="dialog_filter_width" condition="!String.IsEmpty(Window(Home).Property(advancedfilter)) + Window.IsActive(DialogSettings.xml)" time="400" tween="quadratic">Conditional</animation>
+            <include content="Viewtype_Panel">
+                <param name="width" value="dialog_filter_width" />
+                <param name="colordiffuse" value="dialog_bg_100" />
+            </include>
+        </control>
+    </include>
+
+    <include name="Viewtype_Media">
+        <control type="group">
+            <visible allowhiddenfocus="true">!$EXP[Exp_CommonAnimation]</visible>
+            <include>Animation_Common</include>
+            <include>View_Pad</include>
+            <animation effect="fade" start="100" end="0" condition="Integer.IsEqual(Container.NumAllItems,0)">Conditional</animation>
+
+            <control type="group" description="Wall Views">
+                <visible>Control.IsVisible(501) | Control.IsVisible(502) | Control.IsVisible(504)</visible>
+                <include>Animation_Down</include>
+                <include content="Viewtype_BackPanel">
+                    <height>880</height>
+                </include>
+            </control>
+
+            <control type="group" description="Standard Fixedlist Views">
+                <visible>Control.IsVisible(51) | Control.IsVisible(52) | Control.IsVisible(53) | Control.IsVisible(54) | Control.IsVisible(57) | Control.IsVisible(58) | Control.IsVisible(59)</visible>
+                <include content="Viewtype_BackPanel">
+                    <include>Animation_Down</include>
+                    <visible>Control.IsVisible(51) | Control.IsVisible(52) | Control.IsVisible(53) | Control.IsVisible(54) | Control.IsVisible(57) | Control.IsVisible(58) | Control.IsVisible(59)</visible>
+                    <height>480</height>
+                </include>
+                <include content="View_Info_Grouplist" description="Top Section Info">
+                    <param name="container" value="Container." />
+                    <top>-15</top>
+                    <height>285</height>
+                    <visible>!Control.HasFocus(530)</visible>
+                    <visible>!Control.HasFocus(580)</visible>
+                    <visible>!Control.HasFocus(590)</visible>
+                    <visible>![Control.IsVisible(53) | Control.IsVisible(58) | Control.IsVisible(59)] | [Container.Content(seasons) | Container.Content(artists) | Container.Content(sets) | Container.Content(tvshows)]</visible>
+                    <include>Viewtype_Info_Right</include>
+                </include>
+                <control type="group" description="Right Side Artwork">
+
+                    <control type="image">
+                        <texture background="true">$VAR[Image_ClearArt]</texture>
+                        <aspectratio align="right" aligny="bottom" scalediffuse="false">keep</aspectratio>
+                        <visible>!Control.IsVisible(51)</visible>
+                        <fadetime>400</fadetime>
+                        <right>0</right>
+                        <bottom>400</bottom>
+                        <height>320</height>
+                        <width>560</width>
+                    </control>
+                    <control type="image">
+                        <texture background="true">$VAR[Image_DiscArt]</texture>
+                        <aspectratio align="right" aligny="bottom" scalediffuse="false">keep</aspectratio>
+                        <visible>Control.IsVisible(51)</visible>
+                        <fadetime>400</fadetime>
+                        <right>0</right>
+                        <bottom>480</bottom>
+                        <height>320</height>
+                        <width>670</width>
+                    </control>
+                </control>
+                <include content="View_Info_Buttons">
+                    <param name="grouplistid" value="300" />
+                    <visible>!Control.IsVisible(53)</visible>
+                    <visible>!Control.IsVisible(56)</visible>
+                    <visible>!Control.IsVisible(58)</visible>
+                    <visible>!Control.IsVisible(59)</visible>
+                </include>
+            </control>
+
+            <control type="group" description="List Height View">
+                <visible>Control.IsVisible(50) | Control.IsVisible(55) | Control.IsVisible(56) | Control.IsVisible(500)</visible>
+                <include content="Viewtype_BackPanel">
+                    <include>Animation_Down</include>
+                    <height>720</height>
+                </include>
+                <include content="View_Info_Grouplist">
+                    <param name="container" value="Container." />
+                    <param name="visible-details" value="false" />
+                    <param name="infoline-label" value="$VAR[Label_Home_InfoLine]" />
+                    <param name="infoline-image" value="$VAR[Image_Home_VideoQuality]" />
+                    <top>-15</top>
+                    <height>285</height>
+                    <include>Viewtype_Info_Right</include>
+                </include>
+                <control type="group" description="Right Side Artwork">
+                    <right>0</right>
+                    <top>-15</top>
+                    <height>120</height>
+                    <width>420</width>
+                    <control type="image">
+                        <texture background="true">$VAR[Image_ClearLogo]</texture>
+                        <aspectratio align="right" aligny="top" scalediffuse="false">keep</aspectratio>
+                    </control>
+                </control>
+            </control>
+
+            <include condition="$EXP[Exp_View_50_Include]">View_50_Tags</include>
+            <include condition="$EXP[Exp_View_51_Include]">View_51_Addons</include>
+            <include condition="$EXP[Exp_View_52_Include]">View_52_Posters</include>
+            <include condition="$EXP[Exp_View_53_Include]">View_53_Seasons</include>
+            <include condition="$EXP[Exp_View_54_Include]">View_54_Episodes</include>
+            <include condition="$EXP[Exp_View_55_Include]">View_55_FileList</include>
+            <include condition="$EXP[Exp_View_56_Include]">View_56_Banners</include>
+            <include condition="$EXP[Exp_View_57_Include]">View_57_BigBanner</include>
+            <include condition="$EXP[Exp_View_58_Include]">View_58_Artists</include>
+            <include condition="$EXP[Exp_View_59_Include]">View_59_Sets</include>
+            <include condition="$EXP[Exp_View_500_Include]">View_500_SongList</include>
+            <include condition="$EXP[Exp_View_501_Include]">View_501_AddonsWall</include>
+            <include condition="$EXP[Exp_View_502_Include]">View_502_PosterWall</include>
+            <include condition="$EXP[Exp_View_504_Include]">View_504_EpisodeWall</include>
+        </control>
+    </include>
+
+    <include name="Viewtype_BackPanel_Widget">
+        <control type="group">
+            <control type="image">
+                <aspectratio align="left">scale</aspectratio>
+                <texture colordiffuse="$VAR[Defs_Divider_ColorDiffuse]">common/panel.png</texture>
+                <visible>!Skin.HasSetting(DisablePanelDivider)</visible>
+            </control>
+            <control type="image">
+                <height>24</height>
+                <top>0</top>
+                <texture>common/shadow-line-24.png</texture>
+                <visible>!Skin.HasSetting(DisablePanelDivider)</visible>
+                <visible>Skin.HasSetting(ShadowLines)</visible>
+            </control>
+            <nested />
+        </control>
+    </include>
+
+    <include name="Viewtype_BackPanel">
+        <control type="group">
+            <nested />
+            <bottom>-80</bottom>
+            <left>-80</left>
+            <right>-80</right>
+            <control type="image">
+                <aspectratio align="left">scale</aspectratio>
+                <texture colordiffuse="$VAR[Defs_Divider_ColorDiffuse]">common/panel.png</texture>
+                <visible>!Skin.HasSetting(DisablePanelDivider)</visible>
+            </control>
+            <control type="image">
+                <height>24</height>
+                <top>0</top>
+                <texture>common/shadow-line-24.png</texture>
+                <visible>!Skin.HasSetting(DisablePanelDivider)</visible>
+                <visible>Skin.HasSetting(ShadowLines)</visible>
+            </control>
+        </control>
+    </include>
+
+
+    <include name="Viewtype_KodiLogo">
+        <param name="textcolor" default="dialog_fg_100" />
+        <param name="profilepic" default="Skin.HasSetting(ProfilePicture)" />
+        <definition>
+            <control type="group">
+                <nested />
+                <centertop>100</centertop>
+                <height>128</height>
+                <include content="Object_Control" condition="!$PARAM[profilepic]">
+                    <param name="type" value="image" />
+                    <left>16</left>
+                    <width>128</width>
+                    <bordersize>20</bordersize>
+                    <texture colordiffuse="$VAR[ColorHighlight]">$VAR[Image_SkinLogo]</texture>
+                </include>
+                <include content="Object_Control" condition="$PARAM[profilepic]">
+                    <param name="type" value="group" />
+                    <control type="image">
+                        <left>16</left>
+                        <width>128</width>
+                        <bordersize>36</bordersize>
+                        <texture colordiffuse="dialog_fg_70">diffuse/circle.png</texture>
+                    </control>
+                    <control type="image">
+                        <left>16</left>
+                        <width>128</width>
+                        <bordersize>38</bordersize>
+                        <texture diffuse="diffuse/circle.png">$INFO[System.ProfileThumb]</texture>
+                    </control>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Viewtype_Panel">
+        <param name="colordiffuse" default="dialog_bg_100" />
+        <param name="background" default="true" />
+        <definition>
+            <control type="group">
+                <width>$PARAM[width]</width>
+                <control type="image">
+                    <aspectratio align="left">scale</aspectratio>
+                    <texture colordiffuse="$PARAM[colordiffuse]">common/bg.jpg</texture>
+                </control>
+                <include>Viewtype_KodiLogo</include>
+                <nested />
+            </control>
+        </definition>
+    </include>
+
+    <include name="Viewtype_Main">
+        <control type="group">
+            <control type="image">
+                <width>24</width>
+                <left>-24</left>
+                <texture>common/shadow-line-vert-24.png</texture>
+                <visible>Skin.HasSetting(ShadowLines)</visible>
+            </control>
+            <include>Global_Background</include>
+            <nested />
+        </control>
+    </include>
+
+    <include name="Viewtype_Options">
+        <include content="Dialog_Menu">
+            <param name="id" value="9000" />
+            <param name="header" value="Options" />
+            <param name="content" value="Items_View" />
+            <param name="visible" value="Control.HasFocus(9000)" />
+            <param name="include-icon" value="true" />
+            <param name="onleft" value="50" />
+            <param name="onright" value="50" />
+            <param name="onback" value="50" />
+        </include>
+    </include>
+
+    <include name="Viewtype_Movement">
+        <onup condition="Control.IsVisible(300)">300</onup>
+        <oninfo condition="ListItem.IsCollection">ActivateWindow(1140)</oninfo>
+        <oninfo condition="Container.Content(actors) | Container.Content(directors)">RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Container.ListItem.Label],type=person,call_auto=1190,return)</oninfo>
+        <pagecontrol>60</pagecontrol>
+        <!-- <onfocus>ClearProperty(WallMode)</onfocus> -->
+    </include>
+
+    <include name="Viewtype_Poster_Item">
+        <param name="itemlayout-width" default="item_poster_width" />
+        <param name="itemlayout-height" default="item_icon_height" />
+        <param name="diffuse" default="diffuse/poster-std.png" />
+        <param name="selectbox" default="false" />
+        <param name="focusbounce" default="true" />
+        <definition>
+            <control type="group">
+                <width>$PARAM[itemlayout-width]</width>
+                <height>$PARAM[itemlayout-height]</height>
+                <include>Object_PosterBack</include>
+                <control type="group">
+                    <include>View_Pad</include>
+                    <include content="Object_Artwork">
+                        <param name="id" value="$PARAM[id]" />
+                        <param name="selectbox" value="false" />
+                        <param name="diffuse" value="$PARAM[diffuse]" />
+                        <param name="icon" value="$INFO[ListItem.Icon]" />
+                    </include>
+                    <include condition="$PARAM[selectbox]" content="View_Selectbox">
+                        <visible>Control.HasFocus($PARAM[id])</visible>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <!-- Posters -->
+    <include name="Viewtype_Poster">
+        <param name="control-type" default="fixedlist" />
+        <param name="orientation" default="horizontal" />
+        <param name="tween" default="quadratic" />
+        <param name="scrolltime" default="400" />
+        <param name="viewtype" default="list" />
+        <param name="itemlayout-width" default="item_poster_width" />
+        <param name="itemlayout-height" default="360" />
+        <param name="itemlayout" default="Viewtype_Poster_Itemlayout" />
+        <param name="height" default="item_view_height" />
+        <param name="movement" default="6" />
+        <param name="focusposition" default="0" />
+        <param name="icon" default="$VAR[Image_Poster]" />
+        <param name="diffuse" default="diffuse/poster-std.png" />
+        <param name="offset" default="60" />
+        <param name="specialicon" default="true" />
+        <definition>
+            <control type="$PARAM[control-type]" id="$PARAM[id]">
+                <nested />
+                <preloaditems>2</preloaditems>
+                <orientation>$PARAM[orientation]</orientation>
+                <scrolltime tween="$PARAM[tween]">$PARAM[scrolltime]</scrolltime>
+                <height>$PARAM[height]</height>
+                <viewtype label="$PARAM[viewtype-label]">$PARAM[viewtype]</viewtype>
+                <movement>$PARAM[movement]</movement>
+                <focusposition>$PARAM[focusposition]</focusposition>
+                <itemlayout width="$PARAM[itemlayout-width]" height="$PARAM[itemlayout-height]">
+                    <control type="group">
+                        <top>$PARAM[offsetv]</top>
+                        <bottom>-$PARAM[offsetv]</bottom>
+                        <left>$PARAM[offset]</left>
+                        <right>-$PARAM[offset]</right>
+                        <include content="$PARAM[itemlayout]">
+                            <param name="selectbox" value="false" />
+                            <param name="id" value="$PARAM[id]" />
+                            <param name="altid" value="$PARAM[altid]" />
+                            <param name="icon" value="$PARAM[icon]" />
+                            <param name="diffuse" value="$PARAM[diffuse]" />
+                            <param name="label-include" value="$PARAM[label-include]" />
+                            <param name="castlabel" value="$PARAM[castlabel]" />
+                            <param name="label2" value="$PARAM[label2]" />
+                            <param name="textbox-height" value="$PARAM[textbox-height]" />
+                            <param name="textbox-visible" value="$PARAM[textbox-visible]" />
+                            <param name="aspectratio" value="$PARAM[aspectratio]" />
+                            <param name="textpanel" value="$PARAM[textpanel]" />
+                            <param name="specialicon" value="$PARAM[specialicon]" />
+                            <param name="clearlogooverlay-visible" value="$PARAM[clearlogooverlay-visible]" />
+                            <param name="clearlogooverlay" value="$PARAM[clearlogooverlay]" />
+                        </include>
+                    </control>
+                </itemlayout>
+                <focusedlayout width="$PARAM[itemlayout-width]" height="$PARAM[itemlayout-height]">
+                    <control type="group">
+                        <top>$PARAM[offsetv]</top>
+                        <bottom>-$PARAM[offsetv]</bottom>
+                        <left>$PARAM[offset]</left>
+                        <right>-$PARAM[offset]</right>
+                        <include content="$PARAM[itemlayout]">
+                            <param name="selectbox" value="true" />
+                            <param name="id" value="$PARAM[id]" />
+                            <param name="altid" value="$PARAM[altid]" />
+                            <param name="icon" value="$PARAM[icon]" />
+                            <param name="diffuse" value="$PARAM[diffuse]" />
+                            <param name="label-include" value="$PARAM[label-include]" />
+                            <param name="focusbounce" value="$PARAM[focusbounce]" />
+                            <param name="castlabel" value="$PARAM[castlabel]" />
+                            <param name="label2" value="$PARAM[label2]" />
+                            <param name="textbox-height" value="$PARAM[textbox-height]" />
+                            <param name="textbox-visible" value="$PARAM[textbox-visible]" />
+                            <param name="aspectratio" value="$PARAM[aspectratio]" />
+                            <param name="textpanel" value="$PARAM[textpanel]" />
+                            <param name="specialicon" value="$PARAM[specialicon]" />
+                            <param name="clearlogooverlay-visible" value="$PARAM[clearlogooverlay-visible]" />
+                            <param name="clearlogooverlay" value="$PARAM[clearlogooverlay]" />
+                        </include>
+                    </control>
+                </focusedlayout>
+            </control>
+        </definition>
+    </include>
+    <include name="Viewtype_Poster_Itemlayout">
+        <param name="selectbox" default="false" />
+        <param name="focusbounce" default="true" />
+        <param name="castlabel" default="false" />
+        <param name="clearlogooverlay" default="false" />
+        <param name="clearlogooverlay-visible" default="String.IsEmpty(ListITem.Art(banner)) + String.IsEmpty(ListITem.Art(tvshow.banner))" />
+        <param name="affix" default="" />
+        <param name="listitem" default="ListItem" />
+        <definition>
+            <include>Object_PosterBack</include>
+            <control type="group">
+                <include>Defs_Pad</include>
+
+                <include condition="$PARAM[selectbox]" content="View_Selectbox">
+                    <param name="focusbounce" value="true" />
+                    <param name="overlay" value="false" />
+                    <param name="selectbox" value="false" />
+                    <param name="affix" value="$PARAM[affix]" />
+                    <param name="listitem" value="$PARAM[listitem]" />
+                    <visible>Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])</visible>
+                    <control type="image">
+                        <bordersize>7</bordersize>
+                        <texture border="10" colordiffuse="$VAR[ColorHighlight]">common/box.png</texture>
+                    </control>
+                    <control type="image">
+                        <bordersize>7</bordersize>
+                        <texture border="10" colordiffuse="$VAR[ColorGradient]">common/box-gradient-vertical.png</texture>
+                    </control>
+                </include>
+                <!-- Image -->
+                <include content="Object_Artwork">
+                    <param name="id" value="$PARAM[id]" />
+                    <param name="altid" value="$PARAM[altid]" />
+                    <param name="selectbox" value="$PARAM[selectbox]" />
+                    <param name="diffuse" value="$PARAM[diffuse]" />
+                    <param name="icon" value="$PARAM[icon]" />
+                    <param name="Exp_DefaultIcon" value="$EXP[Exp_DefaultIcon$PARAM[affix]]" />
+                    <param name="Exp_SpecialIcon" value="$EXP[Exp_SpecialIcon$PARAM[affix]]" />
+                    <param name="Image_DefaultIcon" value="$VAR[Image_DefaultIcon$PARAM[affix]]" />
+                    <param name="specialicon" value="$PARAM[specialicon]" />
+                </include>
+
+                <include content="Object_Control" condition="$PARAM[clearlogooverlay]">
+                    <param name="type" value="image" />
+                    <texture background="true">$VAR[Image_ClearLogo$PARAM[affix]]</texture>
+                    <aspectratio align="right">keep</aspectratio>
+                    <bordersize>30</bordersize>
+                    <visible>$PARAM[clearlogooverlay-visible]</visible>
+                </include>
+
+                <include content="View_Cast_Label">
+                    <param name="label2" value="$PARAM[label2]" />
+                    <param name="visible" value="$PARAM[castlabel]" />
+                    <param name="diffuse" value="$PARAM[diffuse]" />
+                </include>
+
+                <!-- Watched Overlay and Selectbox -->
+                <include condition="!Skin.HasSetting(DisableWatchedOverlay)" content="View_WatchedOverlay">
+                    <param name="affix" value="$PARAM[affix]" />
+                    <param name="listitem" value="$PARAM[listitem]" />
+                </include>
+                <include condition="$PARAM[selectbox]" content="View_Selectbox">
+                    <param name="focusbounce" value="$PARAM[focusbounce]" />
+                    <param name="affix" value="$PARAM[affix]" />
+                    <param name="listitem" value="$PARAM[listitem]" />
+                    <visible>Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])</visible>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <!-- Big Banner -->
+    <include name="Viewtype_BigBanner">
+        <param name="offset" default="60" />
+        <param name="viewsides" default="20" />
+        <definition>
+            <include content="Viewtype_Poster">
+                <param name="itemlayout" value="Viewtype_BigBanner_Itemlayout" />
+                <param name="itemlayout-width" value="view_width" />
+                <param name="movement" value="0" />
+                <param name="id" value="$PARAM[id]" />
+                <param name="icon" value="$VAR[Image_Banner]" />
+                <param name="diffuse" value="diffuse/banner-big.png" />
+                <param name="height" value="$PARAM[height]" />
+                <param name="offset" value="$PARAM[offset]" />
+                <param name="viewtype-label" value="$PARAM[viewtype-label]" />
+                <left>$PARAM[viewsides]</left>
+                <right>$PARAM[viewsides]</right>
+                <nested />
+            </include>
+        </definition>
+    </include>
+    <include name="Viewtype_BigBanner_Itemlayout">
+        <param name="selectbox" default="false" />
+        <param name="focusbounce" default="true" />
+        <definition>
+            <include>Object_PosterBack</include>
+            <control type="group">
+                <include>Defs_Pad</include>
+
+                <!-- Image -->
+                <include content="Object_Poster">
+                    <param name="icon" value="$PARAM[icon]" />
+                    <param name="diffuse" value="$PARAM[diffuse]" />
+                </include>
+                <control type="image">
+                    <aspectratio align="left">keep</aspectratio>
+                    <bordersize>90</bordersize>
+                    <height>350</height>
+                    <texture background="true">$VAR[Image_ClearLogo]</texture>
+                    <visible>String.IsEmpty(ListItem.Art(banner)) + String.IsEmpty(ListItem.Art(tvshow.banner))</visible>
+                </control>
+
+                <!-- Watched Overlay and Selectbox -->
+                <include condition="!Skin.HasSetting(DisableWatchedOverlay)">View_WatchedOverlay</include>
+                <include condition="$PARAM[selectbox]" content="View_Selectbox">
+                    <param name="focusbounce" value="$PARAM[focusbounce]" />
+                    <visible>Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])</visible>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <!-- BAnner Wall -->
+    <include name="Viewtype_Banner">
+        <param name="icon" default="$VAR[Image_Banner]" />
+        <param name="control-type" default="panel" />
+        <param name="orientation" default="horizontal" />
+        <definition>
+            <include content="Viewtype_Poster">
+                <param name="control-type" value="$PARAM[control-type]" />
+                <param name="orientation" value="$PARAM[orientation]" />
+                <param name="itemlayout-width" value="900" />
+                <param name="itemlayout-height" value="200" />
+                <param name="movement" value="3" />
+                <param name="id" value="$PARAM[id]" />
+                <param name="icon" value="$PARAM[icon]" />
+                <param name="diffuse" value="diffuse/banner-std.png" />
+                <param name="height" value="$PARAM[height]" />
+                <param name="textpanel" value="true" />
+                <param name="viewtype-label" value="Banner Wall" />
+                <param name="specialicon" value="$PARAM[specialicon]" />
+                <param name="clearlogooverlay" value="true" />
+                <param name="offset" value="$PARAM[offset]" />
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <!-- Small Landscape -->
+    <include name="Viewtype_Landscape">
+        <param name="icon" default="$VAR[Image_Landscape]" />
+        <definition>
+            <include content="Viewtype_Poster" condition="!Skin.HasSetting(DisableTextPanel)">
+                <param name="control-type" value="$PARAM[control-type]" />
+                <param name="orientation" value="$PARAM[orientation]" />
+                <param name="itemlayout" value="Viewtype_Landscape_Itemlayout" />
+                <param name="itemlayout-width" value="item_landscape_width" />
+                <param name="itemlayout-height" value="$PARAM[itemlayout-height]" />
+                <param name="movement" value="3" />
+                <param name="id" value="$PARAM[id]" />
+                <param name="icon" value="$PARAM[icon]" />
+                <param name="diffuse" value="diffuse/landscape-std.png" />
+                <param name="height" value="$PARAM[height]" />
+                <param name="textpanel" value="true" />
+                <param name="offset" value="$PARAM[offset]" />
+                <param name="offsetv" value="$PARAM[offsetv]" />
+                <param name="viewtype-label" value="$PARAM[viewtype-label]" />
+                <param name="specialicon" value="$PARAM[specialicon]" />
+                <param name="altid" value="$PARAM[altid]" />
+                <nested />
+            </include>
+            <include content="Viewtype_Poster" condition="Skin.HasSetting(DisableTextPanel)">
+                <param name="control-type" value="$PARAM[control-type]" />
+                <param name="orientation" value="$PARAM[orientation]" />
+                <param name="itemlayout" value="Viewtype_Landscape_Itemlayout" />
+                <param name="itemlayout-width" value="item_landscape_width" />
+                <param name="itemlayout-height" value="$PARAM[itemlayout-height]" />
+                <param name="movement" value="3" />
+                <param name="id" value="$PARAM[id]" />
+                <param name="icon" value="$PARAM[icon]" />
+                <param name="diffuse" value="diffuse/landscape-std-np.png" />
+                <param name="height" value="$PARAM[height]" />
+                <param name="textpanel" value="false" />
+                <param name="offset" value="$PARAM[offset]" />
+                <param name="offsetv" value="$PARAM[offsetv]" />
+                <param name="viewtype-label" value="$PARAM[viewtype-label]" />
+                <param name="specialicon" value="$PARAM[specialicon]" />
+                <param name="altid" value="$PARAM[altid]" />
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="Viewtype_Lovefilm">
+        <param name="icon" default="$VAR[Image_Landscape]" />
+        <param name="height" default="570" />
+        <definition>
+            <include content="Viewtype_Poster">
+                <param name="control-type" value="$PARAM[control-type]" />
+                <param name="orientation" value="$PARAM[orientation]" />
+                <param name="itemlayout" value="Viewtype_Lovefilm_Itemlayout" />
+                <param name="itemlayout-width" value="1800" />
+                <param name="itemlayout-height" value="530" />
+                <param name="movement" value="0" />
+                <param name="id" value="$PARAM[id]" />
+                <param name="icon" value="$PARAM[icon]" />
+                <param name="diffuse" value="diffuse/lovefilm-std.png" />
+                <param name="height" value="$PARAM[height]" />
+                <param name="textpanel" value="true" />
+                <param name="offset" value="$PARAM[offset]" />
+                <param name="offsetv" value="$PARAM[offsetv]" />
+                <param name="viewtype-label" value="$PARAM[viewtype-label]" />
+                <param name="specialicon" value="$PARAM[specialicon]" />
+                <param name="altid" value="$PARAM[altid]" />
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+
+    <include name="Viewtype_Keywords_Itemlayout">
+        <param name="selectbox" default="false" />
+        <param name="bordersize" default="35" />
+        <param name="label-include" default="Viewtype_Landscape_Label" />
+        <definition>
+            <include>Object_PosterBack</include>
+            <control type="group">
+                <include>Defs_Pad</include>
+                <include condition="$PARAM[selectbox]" content="View_Selectbox">
+                    <param name="focusbounce" value="true" />
+                    <param name="overlay" value="false" />
+                    <visible>Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])</visible>
+                    <control type="image">
+                        <bordersize>7</bordersize>
+                        <texture border="10" colordiffuse="$VAR[ColorHighlight]">common/box.png</texture>
+                    </control>
+                    <control type="image">
+                        <bordersize>7</bordersize>
+                        <texture border="10" colordiffuse="$VAR[ColorGradient]">common/box-gradient-vertical.png</texture>
+                    </control>
+                </include>
+                <control type="image">
+                    <aspectratio scalediffuse="false">scale</aspectratio>
+                    <texture background="true" diffuse="diffuse/submenu-std.png" colordiffuse="ff999999">$INFO[ListItem.Property(background)]</texture>
+                    <visible>!String.IsEmpty(ListItem.Property(background))</visible>
+                    <bordersize>15</bordersize>
+                </control>
+                <control type="group">
+                    <visible>String.IsEqual(ListItem.Icon,special://skin/extras/icons/_none.png)</visible>
+                    <control type="label">
+                        <left>30</left>
+                        <right>30</right>
+                        <aligny>center</aligny>
+                        <align>center</align>
+                        <font>font_tiny_bold</font>
+                        <label>$INFO[ListITem.Label]</label>
+                        <textcolor>main_fg_70</textcolor>
+                        <visible>![$PARAM[selectbox] + [Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])]]</visible>
+                    </control>
+                    <control type="label">
+                        <aligny>center</aligny>
+                        <left>30</left>
+                        <right>30</right>
+                        <align>center</align>
+                        <font>font_tiny_bold</font>
+                        <label>$INFO[ListITem.Label]</label>
+                        <textcolor>panel_fg_100</textcolor>
+                        <visible>[$PARAM[selectbox] + [Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])]]</visible>
+                    </control>
+                </control>
+                <control type="group">
+                    <visible>!String.IsEqual(ListItem.Icon,special://skin/extras/icons/_none.png)</visible>
+                    <control type="group">
+                        <height>72%</height>
+                        <include content="Object_Artwork">
+                            <param name="id" value="$PARAM[id]" />
+                            <param name="altid" value="$PARAM[altid]" />
+                            <param name="selectbox" value="$PARAM[selectbox]" />
+                            <param name="diffuse" value="diffuse/submenu-std.png" />
+                            <param name="icon" value="$VAR[Image_Keywords]" />
+                            <param name="aspectratio" value="keep" />
+                            <param name="bordersize" value="$PARAM[bordersize]" />
+                        </include>
+                    </control>
+                    <control type="label">
+                        <top>75%</top>
+                        <bottom>40</bottom>
+                        <left>30</left>
+                        <right>30</right>
+                        <align>center</align>
+                        <font>font_tiny_bold</font>
+                        <label>$INFO[ListITem.Label]</label>
+                        <textcolor>main_fg_70</textcolor>
+                        <visible>![$PARAM[selectbox] + [Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])]]</visible>
+                    </control>
+                    <control type="label">
+                        <top>75%</top>
+                        <bottom>40</bottom>
+                        <left>30</left>
+                        <right>30</right>
+                        <align>center</align>
+                        <font>font_tiny_bold</font>
+                        <label>$INFO[ListITem.Label]</label>
+                        <textcolor>panel_fg_100</textcolor>
+                        <visible>[$PARAM[selectbox] + [Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])]]</visible>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Viewtype_Landscape_Bottom">
+        <bottom>$PARAM[height]</bottom>
+    </include>
+
+    <include name="Viewtype_Landscape_Itemlayout">
+        <param name="selectbox" default="false" />
+        <param name="textbox-height" default="89" />
+        <param name="textbox-visible" default="true" />
+        <param name="label-include" default="Viewtype_Landscape_Label" />
+        <param name="textpanel" default="true" />
+        <param name="affix" default="" />
+        <param name="listitem" default="ListItem" />
+        <definition>
+            <include condition="$PARAM[textpanel]">Object_PosterBack</include>
+            <control type="group">
+                <include>Defs_Pad</include>
+                <!-- Image -->
+                <control type="group">
+                    <bottom>$PARAM[textbox-height]</bottom>
+                    <include content="Object_PosterBack" condition="!$PARAM[textpanel]">
+                        <param name="pad" value="-5" />
+                    </include>
+                    <include condition="$PARAM[selectbox] + $PARAM[textpanel]" content="View_Selectbox">
+                        <param name="focusbounce" value="true" />
+                        <param name="overlay" value="false" />
+                        <param name="selectbox" value="false" />
+                        <param name="affix" value="$PARAM[affix]" />
+                        <param name="listitem" value="$PARAM[listitem]" />
+                        <visible>Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])</visible>
+                        <bottom>-$PARAM[textbox-height]</bottom>
+                        <control type="image">
+                            <bordersize>7</bordersize>
+                            <texture border="10" colordiffuse="$VAR[ColorHighlight]">common/box.png</texture>
+                        </control>
+                        <control type="image">
+                            <bordersize>7</bordersize>
+                            <texture border="10" colordiffuse="$VAR[ColorGradient]">common/box-gradient-vertical.png</texture>
+                        </control>
+                    </include>
+                    <include condition="$PARAM[selectbox] + !$PARAM[textpanel]" content="View_Selectbox">
+                        <param name="focusbounce" value="true" />
+                        <param name="overlay" value="false" />
+                        <param name="selectbox" value="false" />
+                        <param name="affix" value="$PARAM[affix]" />
+                        <param name="listitem" value="$PARAM[listitem]" />
+                        <visible>Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])</visible>
+                        <control type="image">
+                            <bordersize>7</bordersize>
+                            <texture border="10" colordiffuse="$VAR[ColorHighlight]">common/box.png</texture>
+                        </control>
+                        <control type="image">
+                            <bordersize>7</bordersize>
+                            <texture border="10" colordiffuse="$VAR[ColorGradient]">common/box-gradient-vertical.png</texture>
+                        </control>
+                    </include>
+                    <include content="Object_Artwork">
+                        <param name="id" value="$PARAM[id]" />
+                        <param name="altid" value="$PARAM[altid]" />
+                        <param name="selectbox" value="$PARAM[selectbox]" />
+                        <param name="diffuse" value="$PARAM[diffuse]" />
+                        <param name="icon" value="$PARAM[icon]" />
+                        <param name="aspectratio" value="$PARAM[aspectratio]" />
+                        <param name="specialicon" value="$PARAM[specialicon]" />
+                        <param name="Exp_DefaultIcon" value="$EXP[Exp_DefaultIcon$PARAM[affix]]" />
+                        <param name="Exp_SpecialIcon" value="$EXP[Exp_SpecialIcon$PARAM[affix]]" />
+                        <param name="Image_DefaultIcon" value="$VAR[Image_DefaultIcon$PARAM[affix]]" />
+                    </include>
+                    <include content="Object_Control" condition="$PARAM[selectbox] + $PARAM[textpanel] + !Skin.HasSetting(EnableClassicIndicators)">
+                        <param name="type" value="group" />
+                        <bottom>-13</bottom>
+                        <right>27</right>
+                        <width>58</width>
+                        <height>58</height>
+                        <visible>Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])</visible>
+                        <control type="image">
+                            <texture colordiffuse="$VAR[ColorHighlight]">$VAR[Image_Overlay_Backing$PARAM[affix],,-half-fo.png]</texture>
+                        </control>
+                        <control type="image">
+                            <animation effect="fade" end="40" condition="true">Conditional</animation>
+                            <texture colordiffuse="$VAR[ColorGradient]">$VAR[Image_Overlay_Backing$PARAM[affix],,-half-fo.png]</texture>
+                        </control>
+                    </include>
+                    <include condition="!Skin.HasSetting(DisableWatchedOverlay)" content="View_WatchedOverlay">
+                        <param name="affix" value="$PARAM[affix]" />
+                        <param name="listitem" value="$PARAM[listitem]" />
+                    </include>
+                    <include condition="$PARAM[selectbox] + !$PARAM[textpanel]" content="View_Selectbox">
+                        <param name="focusbounce" value="true" />
+                        <param name="affix" value="$PARAM[affix]" />
+                        <param name="listitem" value="$PARAM[listitem]" />
+                        <visible>Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])</visible>
+                    </include>
+                </control>
+
+                <include condition="$PARAM[selectbox] + $PARAM[textpanel]" content="View_Selectbox">
+                    <param name="focusbounce" value="true" />
+                    <param name="affix" value="$PARAM[affix]" />
+                    <param name="listitem" value="$PARAM[listitem]" />
+                    <param name="overlay" value="Skin.HasSetting(EnableClassicIndicators)" />
+                    <visible>Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])</visible>
+                </include>
+
+                <!-- Textlabels for Panel -->
+                <control type="group">
+                    <height>$PARAM[textbox-height]</height>
+                    <visible>$PARAM[textbox-visible]</visible>
+                    <bottom>0</bottom>
+                    <include content="$PARAM[label-include]" description="Unfocused" condition="$PARAM[textpanel]">
+                        <param name="visible" value="![Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])] | !$PARAM[selectbox]" />
+                        <param name="textcolor_100" value="panel_fg_30" />
+                        <param name="textcolor_70" value="panel_fg_30" />
+                        <param name="affix" value="$PARAM[affix]" />
+                        <param name="listitem" value="$PARAM[listitem]" />
+                    </include>
+                    <include content="$PARAM[label-include]" description="Focused" condition="Skin.HasSetting(EnableMonochromeHighlight) + $PARAM[textpanel]">
+                        <param name="visible" value="[Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])] + $PARAM[selectbox]" />
+                        <param name="textcolor_100" value="panel_bg" />
+                        <param name="textcolor_70" value="panel_bg" />
+                        <param name="affix" value="$PARAM[affix]" />
+                        <param name="listitem" value="$PARAM[listitem]" />
+                    </include>
+                    <include content="$PARAM[label-include]" description="Focused" condition="!Skin.HasSetting(EnableMonochromeHighlight) + $PARAM[textpanel]">
+                        <param name="visible" value="[Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])] + $PARAM[selectbox]" />
+                        <param name="textcolor_100" value="panel_fg_100" />
+                        <param name="textcolor_70" value="panel_fg_70" />
+                        <param name="affix" value="$PARAM[affix]" />
+                        <param name="listitem" value="$PARAM[listitem]" />
+                    </include>
+                </control>
+
+                <!-- Textlabels for No Panel -->
+                <control type="group">
+                    <height>$PARAM[textbox-height]</height>
+                    <visible>$PARAM[textbox-visible]</visible>
+                    <bottom>-10</bottom>
+                    <include content="$PARAM[label-include]" description="Unfocused" condition="!$PARAM[textpanel]">
+                        <param name="visible" value="![Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])] | !$PARAM[selectbox]" />
+                        <param name="textcolor_100" value="main_fg_30" />
+                        <param name="textcolor_70" value="main_fg_30" />
+                        <param name="align" value="left" />
+                        <param name="pad" value="15" />
+                        <param name="affix" value="$PARAM[affix]" />
+                        <param name="listitem" value="$PARAM[listitem]" />
+                    </include>
+                    <include content="$PARAM[label-include]" description="Focused" condition="!$PARAM[textpanel]">
+                        <param name="visible" value="[Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])] + $PARAM[selectbox]" />
+                        <param name="textcolor_100" value="main_fg_100" />
+                        <param name="textcolor_70" value="main_fg_70" />
+                        <param name="align" value="left" />
+                        <param name="pad" value="15" />
+                        <param name="affix" value="$PARAM[affix]" />
+                        <param name="listitem" value="$PARAM[listitem]" />
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Viewtype_Lovefilm_Itemlayout">
+        <param name="selectbox" default="false" />
+        <param name="affix" default="" />
+        <param name="listitem" default="ListItem" />
+        <definition>
+            <include>Object_PosterBack</include>
+            <control type="group">
+                <include>Defs_Pad</include>
+                <!-- Image -->
+                <control type="group">
+                    <include condition="$PARAM[selectbox]" content="View_Selectbox">
+                        <param name="focusbounce" value="true" />
+                        <param name="overlay" value="false" />
+                        <param name="selectbox" value="false" />
+                        <param name="affix" value="$PARAM[affix]" />
+                        <param name="listitem" value="$PARAM[listitem]" />
+                        <visible>Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])</visible>
+                        <control type="image">
+                            <bordersize>7</bordersize>
+                            <texture border="10" colordiffuse="$VAR[ColorHighlight]">common/box.png</texture>
+                        </control>
+                        <control type="image">
+                            <bordersize>7</bordersize>
+                            <texture border="10" colordiffuse="$VAR[ColorGradient]">common/box-gradient-vertical.png</texture>
+                        </control>
+                    </include>
+                    <control type="group">
+                        <width>919</width>
+                        <right>0</right>
+                        <include content="Object_Artwork">
+                            <param name="id" value="$PARAM[id]" />
+                            <param name="altid" value="$PARAM[altid]" />
+                            <param name="selectbox" value="$PARAM[selectbox]" />
+                            <param name="diffuse" value="$PARAM[diffuse]" />
+                            <param name="icon" value="$PARAM[icon]" />
+                            <param name="aspectratio" value="scale" />
+                            <param name="specialicon" value="$PARAM[specialicon]" />
+                            <param name="Exp_DefaultIcon" value="$EXP[Exp_DefaultIcon$PARAM[affix]]" />
+                            <param name="Exp_SpecialIcon" value="$EXP[Exp_SpecialIcon$PARAM[affix]]" />
+                            <param name="Image_DefaultIcon" value="$VAR[Image_DefaultIcon$PARAM[affix]]" />
+                        </include>
+                    </control>
+                    <control type="group">
+                        <right>959</right>
+                        <left>57</left>
+                        <top>35</top>
+                        <bottom>35</bottom>
+                        <include content="Object_Info_Title">
+                            <param name="label" value="$VAR[Label_Title]" />
+                        </include>
+                        <control type="group">
+                            <top>70</top>
+                            <control type="image">
+                                <top>10</top>
+                                <width>37</width>
+                                <height>24</height>
+                                <aspectratio align="left">keep</aspectratio>
+                                <texture colordiffuse="main_fg_100">$VAR[Image_VideoQuality]</texture>
+                            </control>
+                            <control type="label">
+                                <left>40</left>
+                                <label>$VAR[Label_Lovefilm_InfoLine]</label>
+                                <height>40</height>
+                                <aligny>top</aligny>
+                                <textcolor>main_fg_30</textcolor>
+                                <font>font_small</font>
+                                <scroll>false</scroll>
+                            </control>
+                        </control>
+                        <include content="Object_Info_Ratings" condition="!Skin.HasSetting(DisableAllRatings)">
+                            <param name="userrating" value="Container($PARAM[id]).ListItem.UserRating" />
+                            <param name="starrating" value="Container($PARAM[id]).ListITem.Rating" />
+                            <param name="additionalratings" value="false" />
+                            <top>100</top>
+                        </include>
+                        <include content="View_Info_Grouplist_Plotbox" condition="!Skin.HasSetting(DisableAllRatings)">
+                            <param name="episodetitle" value="$INFO[ListItem.Title]" />
+                            <param name="episodetitle-visible" value="!String.IsEmpty(ListItem.Title) + String.IsEqual(ListItem.DBType,episode)" />
+                            <param name="plot" value="$VAR[Label_Plot]" />
+                            <top>200</top>
+                            <bottom>5</bottom>
+                        </include>
+                        <include content="View_Info_Grouplist_Plotbox" condition="Skin.HasSetting(DisableAllRatings)">
+                            <param name="episodetitle" value="$INFO[ListItem.Title]" />
+                            <param name="episodetitle-visible" value="!String.IsEmpty(ListItem.Title) + String.IsEqual(ListItem.DBType,episode)" />
+                            <param name="plot" value="$VAR[Label_Plot]" />
+                            <top>125</top>
+                            <bottom>0</bottom>
+                        </include>
+
+                    </control>
+                    <include condition="!Skin.HasSetting(DisableWatchedOverlay)" content="View_WatchedOverlay">
+                        <param name="affix" value="$PARAM[affix]" />
+                        <param name="listitem" value="$PARAM[listitem]" />
+                    </include>
+                    <include condition="$PARAM[selectbox]" content="View_Selectbox">
+                        <param name="focusbounce" value="true" />
+                        <param name="affix" value="$PARAM[affix]" />
+                        <param name="listitem" value="$PARAM[listitem]" />
+                        <visible>Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])</visible>
+                    </include>
+                </control>
+
+            </control>
+        </definition>
+    </include>
+
+    <include name="Viewtype_Landscape_Label">
+        <param name="textcolor_100" default="panel_fg_100" />
+        <param name="textcolor_70" default="panel_fg_70" />
+        <param name="align" default="center" />
+        <param name="pad" default="35" />
+        <param name="affix" default="" />
+        <definition>
+            <control type="label">
+                <left>$PARAM[pad]</left>
+                <right>$PARAM[pad]</right>
+                <font>font_tiny_bold</font>
+                <selectedcolor>$PARAM[textcolor_100]</selectedcolor>
+                <textcolor>$PARAM[textcolor_100]</textcolor>
+                <bottom>60</bottom>
+                <top>0</top>
+                <aligny>center</aligny>
+                <align>$PARAM[align]</align>
+                <label>$VAR[Label_Landscape_Title$PARAM[affix]]</label>
+                <visible>$PARAM[visible]</visible>
+            </control>
+            <control type="label">
+                <left>$PARAM[pad]</left>
+                <right>$PARAM[pad]</right>
+                <font>font_statusbar</font>
+                <selectedcolor>$PARAM[textcolor_70]</selectedcolor>
+                <textcolor>$PARAM[textcolor_70]</textcolor>
+                <bottom>30</bottom>
+                <top>30</top>
+                <aligny>center</aligny>
+                <align>$PARAM[align]</align>
+                <label fallback="19055">$VAR[Label_SmallLandscapeWidget_Sublabel$PARAM[affix]]</label>
+                <visible>$PARAM[visible]</visible>
+            </control>
+        </definition>
+    </include>
+
+    <!-- Square -->
+    <include name="Viewtype_Tags">
+        <param name="itemlayout-width" default="item_square_width" />
+        <param name="itemlayout-height" default="180" />
+        <param name="textbox-height" default="50" />
+        <param name="movement" default="5" />
+        <param name="label-include" default="Viewtype_Square_Label" />
+        <param name="orientation" default="horizontal" />
+        <param name="control-type" default="panel" />
+        <definition>
+            <include content="Viewtype_Poster">
+                <param name="height" value="$PARAM[height]" />
+                <param name="control-type" value="$PARAM[control-type]" />
+                <param name="orientation" value="$PARAM[orientation]" />
+                <param name="itemlayout-width" value="$PARAM[itemlayout-width]" />
+                <param name="itemlayout-height" value="$PARAM[itemlayout-height]" />
+                <param name="label-include" value="$PARAM[label-include]" />
+                <param name="itemlayout" value="Viewtype_Landscape_Itemlayout" />
+                <param name="movement" value="$PARAM[movement]" />
+                <param name="id" value="$PARAM[id]" />
+                <param name="icon" value="$VAR[Image_Poster]" />
+                <param name="diffuse" value="diffuse/square-std.png" />
+                <param name="textbox-height" value="$PARAM[textbox-height]" />
+                <param name="aspectratio" value="$PARAM[aspectratio]" />
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <include name="Viewtype_Keywords">
+        <param name="itemlayout-width" default="item_square_width" />
+        <param name="itemlayout-height" default="190" />
+        <param name="orientation" default="horizontal" />
+        <param name="control-type" default="panel" />
+        <definition>
+            <include content="Viewtype_Poster">
+                <param name="height" value="$PARAM[height]" />
+                <param name="control-type" value="$PARAM[control-type]" />
+                <param name="orientation" value="$PARAM[orientation]" />
+                <param name="itemlayout-width" value="$PARAM[itemlayout-width]" />
+                <param name="itemlayout-height" value="$PARAM[itemlayout-height]" />
+                <param name="label-include" value="$PARAM[label-include]" />
+                <param name="itemlayout" value="Viewtype_Keywords_Itemlayout" />
+                <param name="movement" value="$PARAM[movement]" />
+                <param name="id" value="$PARAM[id]" />
+                <param name="viewtype-label" value="$PARAM[viewtype-label]" />
+                <movement>5</movement>
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+
+    <include name="Viewtype_Settings">
+        <param name="itemlayout-width" default="item_landscape_width" />
+        <param name="itemlayout-height" default="item_settings_height" />
+        <param name="textbox-height" default="60" />
+        <param name="label-include" default="Viewtype_Square_Label" />
+        <param name="textbox-visible" default="true" />
+        <param name="movement" default="5" />
+        <definition>
+            <include content="Viewtype_Keywords" condition="!Skin.HasSetting(LockMainMenu) | !Window.IsVisible(Home) | Skin.HasSetting(EnableHorizontalHome)">
+                <param name="height" value="$PARAM[height]" />
+                <param name="control-type" value="panel" />
+                <param name="orientation" value="$PARAM[orientation]" />
+                <param name="itemlayout-width" value="$PARAM[itemlayout-width]" />
+                <param name="itemlayout-height" value="$PARAM[itemlayout-height]" />
+                <param name="iconheight" value="item_settings_height" />
+                <param name="label-include" value="$PARAM[label-include]" />
+                <param name="movement" value="$PARAM[movement]" />
+                <param name="id" value="$PARAM[id]" />
+                <param name="icon" value="$VAR[Image_Poster]" />
+                <param name="diffuse" value="diffuse/square-std.png" />
+                <param name="textbox-height" value="$PARAM[textbox-height]" />
+                <param name="textbox-visible" value="$PARAM[textbox-visible]" />
+                <param name="aspectratio" value="$PARAM[aspectratio]" />
+                <nested />
+            </include>
+            <include content="Viewtype_Keywords" condition="Skin.HasSetting(LockMainMenu) + Window.IsVisible(Home) + !Skin.HasSetting(EnableHorizontalHome)">
+                <param name="height" value="$PARAM[height]" />
+                <param name="control-type" value="panel" />
+                <param name="orientation" value="$PARAM[orientation]" />
+                <param name="itemlayout-width" value="410" />
+                <param name="itemlayout-height" value="$PARAM[itemlayout-height]" />
+                <param name="iconheight" value="item_settings_height" />
+                <param name="label-include" value="$PARAM[label-include]" />
+                <param name="movement" value="$PARAM[movement]" />
+                <param name="id" value="$PARAM[id]" />
+                <param name="icon" value="$VAR[Image_Poster]" />
+                <param name="diffuse" value="diffuse/square-std.png" />
+                <param name="textbox-height" value="$PARAM[textbox-height]" />
+                <param name="textbox-visible" value="$PARAM[textbox-visible]" />
+                <param name="aspectratio" value="$PARAM[aspectratio]" />
+                <nested />
+            </include>
+        </definition>
+    </include>
+
+    <!-- Square -->
+    <include name="Viewtype_Square">
+        <param name="itemlayout-width" default="item_square_width" />
+        <param name="textbox-height" default="60" />
+        <param name="label-include" default="Viewtype_Square_Label" />
+        <param name="textbox-visible" default="true" />
+        <param name="movement" default="5" />
+        <definition>
+            <include content="Viewtype_Poster" condition="!Skin.HasSetting(DisableTextPanel)">
+                <param name="height" value="$PARAM[height]" />
+                <param name="control-type" value="$PARAM[control-type]" />
+                <param name="orientation" value="$PARAM[orientation]" />
+                <param name="itemlayout" value="Viewtype_Landscape_Itemlayout" />
+                <param name="itemlayout-width" value="$PARAM[itemlayout-width]" />
+                <param name="itemlayout-height" value="$PARAM[itemlayout-height]" />
+                <param name="label-include" value="$PARAM[label-include]" />
+                <param name="movement" value="$PARAM[movement]" />
+                <param name="id" value="$PARAM[id]" />
+                <param name="icon" value="$VAR[Image_Poster]" />
+                <param name="diffuse" value="diffuse/square-std.png" />
+                <param name="textbox-height" value="$PARAM[textbox-height]" />
+                <param name="textbox-visible" value="$PARAM[textbox-visible]" />
+                <param name="aspectratio" value="$PARAM[aspectratio]" />
+                <param name="textpanel" value="true" />
+                <param name="offset" value="$PARAM[offset]" />
+                <param name="offsetv" value="$PARAM[offsetv]" />
+                <param name="viewtype-label" value="$PARAM[viewtype-label]" />
+                <nested />
+            </include>
+            <include content="Viewtype_Poster" condition="Skin.HasSetting(DisableTextPanel)">
+                <param name="height" value="$PARAM[height]" />
+                <param name="control-type" value="$PARAM[control-type]" />
+                <param name="orientation" value="$PARAM[orientation]" />
+                <param name="itemlayout" value="Viewtype_Landscape_Itemlayout" />
+                <param name="itemlayout-width" value="$PARAM[itemlayout-width]" />
+                <param name="itemlayout-height" value="$PARAM[itemlayout-height]" />
+                <param name="label-include" value="$PARAM[label-include]" />
+                <param name="movement" value="$PARAM[movement]" />
+                <param name="id" value="$PARAM[id]" />
+                <param name="icon" value="$VAR[Image_Poster]" />
+                <param name="diffuse" value="diffuse/square-std-np.png" />
+                <param name="textbox-height" value="$PARAM[textbox-height]" />
+                <param name="textbox-visible" value="$PARAM[textbox-visible]" />
+                <param name="aspectratio" value="$PARAM[aspectratio]" />
+                <param name="textpanel" value="false" />
+                <param name="offset" value="$PARAM[offset]" />
+                <param name="offsetv" value="$PARAM[offsetv]" />
+                <param name="viewtype-label" value="$PARAM[viewtype-label]" />
+                <nested />
+            </include>
+        </definition>
+    </include>
+    <include name="Viewtype_Square_Label">
+        <param name="textcolor_100" default="panel_fg_100" />
+        <param name="textcolor_70" default="panel_fg_70" />
+        <param name="listitem" default="ListItem" />
+        <definition>
+            <control type="label">
+                <left>35</left>
+                <right>35</right>
+                <font>font_tiny_bold</font>
+                <selectedcolor>$PARAM[textcolor_100]</selectedcolor>
+                <textcolor>$PARAM[textcolor_100]</textcolor>
+                <top>-10</top>
+                <bottom>20</bottom>
+                <aligny>center</aligny>
+                <align>center</align>
+                <label>$INFO[$PARAM[listitem].Label]</label>
+                <visible>$PARAM[visible]</visible>
+            </control>
+        </definition>
+    </include>
+    <include name="Viewtype_Square_Textbox">
+        <param name="textcolor_100" default="panel_fg_100" />
+        <param name="textcolor_70" default="panel_fg_70" />
+        <definition>
+            <control type="textbox">
+                <left>35</left>
+                <right>35</right>
+                <font>font_tiny_bold</font>
+                <selectedcolor>$PARAM[textcolor_100]</selectedcolor>
+                <textcolor>$PARAM[textcolor_100]</textcolor>
+                <top>-3</top>
+                <bottom>28</bottom>
+                <aligny>center</aligny>
+                <align>center</align>
+                <label>$INFO[ListItem.Label]</label>
+                <visible>$PARAM[visible]</visible>
+            </control>
+        </definition>
+    </include>
+
+    <!-- File List -->
+    <include name="Viewtype_FileList">
+        <param name="itemlayout-height" default="item_list_height" />
+        <param name="control-type" default="fixedlist" />
+        <param name="orientation" default="vertical" />
+        <param name="movement" default="3" />
+        <param name="focusposition" default="3" />
+        <param name="itemlayout" default="Viewtype_FileList_Itemlayout" />
+        <definition>
+            <include content="Viewtype_Poster">
+                <param name="itemlayout" value="$PARAM[itemlayout]" />
+                <param name="itemlayout-width" value="$PARAM[itemlayout-width]" />
+                <param name="itemlayout-height" value="$PARAM[itemlayout-height]" />
+                <param name="control-type" value="$PARAM[control-type]" />
+                <param name="orientation" value="$PARAM[orientation]" />
+                <param name="movement" value="$PARAM[movement]" />
+                <param name="focusposition" value="$PARAM[focusposition]" />
+                <param name="id" value="$PARAM[id]" />
+                <param name="altid" value="$PARAM[altid]" />
+                <param name="icon" value="$VAR[Image_Banner]" />
+                <param name="diffuse" value="diffuse/landscape-std.png" />
+                <param name="offset" value="0" />
+                <param name="viewtype-label" value="$PARAM[viewtype-label]" />
+                <nested />
+            </include>
+        </definition>
+    </include>
+    <include name="Viewtype_FileList_Button">
+        <control type="image">
+            <width>32</width>
+            <height>32</height>
+            <texture colordiffuse="dialog_fg_30" flipy="$PARAM[flipy]">$PARAM[icon]</texture>
+            <centertop>51%</centertop>
+            <right>$PARAM[right]</right>
+            <visible>![Control.HasFocus(5090) + [$PARAM[selected]]]</visible>
+            <visible>Control.ISVisible(500)</visible>
+            <visible>String.ISEqual(ListITem.DBtype,song)</visible>
+        </control>
+        <control type="image">
+            <width>32</width>
+            <height>32</height>
+            <texture colordiffuse="Selected" flipy="$PARAM[flipy]">$PARAM[icon]</texture>
+            <centertop>51%</centertop>
+            <right>$PARAM[right]</right>
+            <visible>Control.HasFocus(5090) + [$PARAM[selected]]</visible>
+            <visible>Control.ISVisible(500)</visible>
+            <visible>String.ISEqual(ListITem.DBtype,song)</visible>
+        </control>
+    </include>
+    <include name="Viewtype_ListHub_Itemlayout">
+        <param name="selectbox" default="false" />
+        <param name="offset" default="0" />
+        <definition>
+            <control type="group">
+                <left>$PARAM[offset]</left>
+                <top>$PARAM[offset]</top>
+                <bottom>-$PARAM[offset]</bottom>
+                <right>$PARAM[offset]</right>
+                <include condition="$PARAM[selectbox]" content="View_List_Selectbox">
+                    <param name="id" value="$PARAM[id]" />
+                    <param name="altid" value="$PARAM[altid]" />
+                </include>
+
+                <control type="group">
+                    <include>Defs_Pad</include>
+                    <!-- Textlabel -->
+                    <control type="group">
+                        <visible>![Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])] | !$PARAM[selectbox]</visible>
+                        <control type="image">
+                            <left>10</left>
+                            <aspectratio align="left">keep</aspectratio>
+                            <texture colordiffuse="main_fg_70">$INFO[ListITem.Icon]</texture>
+                        </control>
+                        <control type="label">
+                            <left>100</left>
+                            <textcolor>main_fg_70</textcolor>
+                            <selectedcolor>main_fg_70</selectedcolor>
+                            <font>font_small_bold</font>
+                            <label>$INFO[ListItem.Label]</label>
+                        </control>
+                    </control>
+                    <include content="Object_Control" condition="Skin.HasSetting(EnableMonochromeHighlight)">
+                        <param name="type" value="group" />
+                        <visible>[Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])] + $PARAM[selectbox]</visible>
+                        <control type="image">
+                            <left>10</left>
+                            <aspectratio align="left">keep</aspectratio>
+                            <texture colordiffuse="main_fg_100">$INFO[ListITem.Icon]</texture>
+                        </control>
+                        <control type="label">
+                            <left>100</left>
+                            <textcolor>main_fg_100</textcolor>
+                            <selectedcolor>main_fg_100</selectedcolor>
+                            <font>font_small_bold</font>
+                            <label>$INFO[ListItem.Label]</label>
+                        </control>
+                    </include>
+                    <include content="Object_Control" condition="!Skin.HasSetting(EnableMonochromeHighlight)">
+                        <param name="type" value="group" />
+                        <visible>[Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])] + $PARAM[selectbox]</visible>
+                        <control type="image">
+                            <left>10</left>
+                            <aspectratio align="left">keep</aspectratio>
+                            <texture colordiffuse="Selected">$INFO[ListITem.Icon]</texture>
+                        </control>
+                        <control type="label">
+                            <left>100</left>
+                            <textcolor>Selected</textcolor>
+                            <selectedcolor>Selected</selectedcolor>
+                            <font>font_small_bold</font>
+                            <label>$INFO[ListItem.Label]</label>
+                        </control>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+    <include name="Viewtype_FileList_Itemlayout">
+        <param name="selectbox" default="false" />
+        <param name="offset" default="0" />
+        <definition>
+            <control type="group">
+                <left>$PARAM[offset]</left>
+                <top>$PARAM[offset]</top>
+                <bottom>-$PARAM[offset]</bottom>
+                <right>$PARAM[offset]</right>
+                <include condition="$PARAM[selectbox]" content="View_List_Selectbox">
+                    <param name="id" value="$PARAM[id]" />
+                    <param name="altid" value="$PARAM[altid]" />
+                    <include content="Viewtype_FileList_Button" condition="Window.IsVisible(musicplaylist)">
+                        <param name="right" value="265" />
+                        <param name="icon" value="buttons/play.png" />
+                        <param name="selected" value="String.IsEmpty(Window.Property(5090Action))" />
+                    </include>
+                    <include content="Viewtype_FileList_Button" condition="Window.IsVisible(musicplaylist)">
+                        <param name="right" value="220" />
+                        <param name="icon" value="buttons/cross.png" />
+                        <param name="selected" value="String.IsEqual(Window.Property(5090Action),Delete)" />
+                    </include>
+                    <include content="Viewtype_FileList_Button" condition="Window.IsVisible(musicplaylist)">
+                        <param name="right" value="175" />
+                        <param name="icon" value="buttons/down.png" />
+                        <param name="flipy" value="true" />
+                        <param name="selected" value="String.IsEqual(Window.Property(5090Action),MoveItemUp)" />
+                    </include>
+                    <include content="Viewtype_FileList_Button" condition="Window.IsVisible(musicplaylist)">
+                        <param name="right" value="130" />
+                        <param name="icon" value="buttons/down.png" />
+                        <param name="selected" value="String.IsEqual(Window.Property(5090Action),MoveItemDown)" />
+                    </include>
+                    <include content="Viewtype_FileList_Button" condition="Window.IsVisible(MyMusicNav.xml)">
+                        <param name="right" value="175" />
+                        <param name="icon" value="buttons/play.png" />
+                        <param name="selected" value="String.IsEmpty(Window.Property(5090Action))" />
+                    </include>
+                    <include content="Viewtype_FileList_Button" condition="Window.IsVisible(MyMusicNav.xml)">
+                        <param name="right" value="130" />
+                        <param name="icon" value="buttons/plus.png" />
+                        <param name="selected" value="String.IsEqual(Window.Property(5090Action),Queue)" />
+                    </include>
+                </include>
+
+                <control type="group">
+                    <include>Defs_Pad</include>
+                    <!-- Textlabel -->
+                    <control type="group">
+                        <bottom>0</bottom>
+                        <include content="Viewtype_FileList_Label" description="Unfocused">
+                            <param name="visible" value="![Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])] | !$PARAM[selectbox]" />
+                        </include>
+                        <include content="Viewtype_FileList_Label" description="Focused" condition="Skin.HasSetting(EnableMonochromeHighlight)">
+                            <param name="visible" value="[Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])] + $PARAM[selectbox]" />
+                            <param name="fgcolor_100" value="main_fg_100" />
+                            <param name="fgcolor_90" value="main_fg_100" />
+                        </include>
+                        <include content="Viewtype_FileList_Label" description="Focused" condition="!Skin.HasSetting(EnableMonochromeHighlight)">
+                            <param name="visible" value="[Control.HasFocus($PARAM[id]) | Control.HasFocus($PARAM[altid])] + $PARAM[selectbox]" />
+                            <param name="fgcolor_100" value="Selected" />
+                            <param name="fgcolor_90" value="Selected" />
+                        </include>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+    <include name="Viewtype_FileList_Label">
+        <param name="fgcolor_100" default="main_fg_100" />
+        <param name="fgcolor_90" default="main_fg_90" />
+        <param name="pad" default="25" />
+        <definition>
+            <control type="group">
+                <visible>$PARAM[visible]</visible>
+                <control type="group">
+                    <left>$PARAM[pad]</left>
+                    <right>$PARAM[pad]</right>
+                    <visible>String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,set)</visible>
+                    <visible>String.IsEmpty(Container.PluginName)</visible>
+                    <!-- LEFT SIDE -->
+                    <control type="label">
+                        <textcolor>$PARAM[fgcolor_100]</textcolor>
+                        <selectedcolor>$PARAM[fgcolor_100]</selectedcolor>
+                        <label>$VAR[Label_List_Left]</label>
+                    </control>
+                    <control type="image">
+                        <animation effect="slide" end="-40" condition="!String.IsEqual(ListItem.DBType,episode)">Conditional</animation>
+                        <animation effect="slide" end="-30" condition="String.IsEqual(ListItem.DBType,episode) + !Integer.IsGreater(ListItem.Season,999)">Conditional</animation>
+                        <animation effect="slide" end="15" condition="String.IsEqual(ListItem.DBType,episode) + Integer.IsGreater(ListItem.Episode,99)">Conditional</animation>
+                        <centertop>50%</centertop>
+                        <left>120</left>
+                        <width>32</width>
+                        <height>32</height>
+                        <texture colordiffuse="$PARAM[fgcolor_90]">$VAR[Image_Overlay_List]</texture>
+                    </control>
+                    <control type="label">
+                        <animation effect="slide" end="-40" condition="!String.IsEqual(ListItem.DBType,episode)">Conditional</animation>
+                        <animation effect="slide" end="-30" condition="String.IsEqual(ListItem.DBType,episode) + !Integer.IsGreater(ListItem.Season,999)">Conditional</animation>
+                        <animation effect="slide" end="15" condition="String.IsEqual(ListItem.DBType,episode) + Integer.IsGreater(ListItem.Episode,99)">Conditional</animation>
+                        <left>172</left>
+                        <font>font_small_bold</font>
+                        <textcolor>$PARAM[fgcolor_100]</textcolor>
+                        <selectedcolor>$PARAM[fgcolor_100]</selectedcolor>
+                        <label>$VAR[Label_List_Title]</label>
+                    </control>
+
+                    <!-- Videos / Tvshows / Seasons / Sets -->
+                    <control type="label">
+                        <align>right</align>
+                        <textcolor>$PARAM[fgcolor_100]</textcolor>
+                        <selectedcolor>$PARAM[fgcolor_100]</selectedcolor>
+                        <label>$VAR[Label_List_Right]</label>
+                    </control>
+                </control>
+
+                <!-- Song Tracks -->
+                <control type="group">
+                    <left>$PARAM[pad]</left>
+                    <right>$PARAM[pad]</right>
+                    <visible>String.IsEmpty(Container.PluginName)</visible>
+                    <visible>String.IsEqual(ListItem.DBType,song) + !Skin.HasSetting(UseTrackNamingTemplate)</visible>
+                    <control type="label">
+                        <left>-10</left>
+                        <width>50</width>
+                        <align>center</align>
+                        <textcolor>$PARAM[fgcolor_100]</textcolor>
+                        <selectedcolor>$PARAM[fgcolor_100]</selectedcolor>
+                        <label>$INFO[ListItem.TrackNumber]</label>
+                        <visible>!ListItem.IsPlaying</visible>
+                    </control>
+                    <control type="image">
+                        <width>30</width>
+                        <texture colordiffuse="$PARAM[fgcolor_100]">indicator/playlist.png</texture>
+                        <aspectratio>keep</aspectratio>
+                        <visible>ListItem.IsPlaying</visible>
+                    </control>
+                    <control type="label">
+                        <left>60</left>
+                        <font>font_small_bold</font>
+                        <textcolor>$PARAM[fgcolor_100]</textcolor>
+                        <selectedcolor>$PARAM[fgcolor_100]</selectedcolor>
+                        <label>$VAR[Label_List_Title]</label>>
+                    </control>
+                    <control type="label">
+                        <align>right</align>
+                        <textcolor>$PARAM[fgcolor_100]</textcolor>
+                        <selectedcolor>$PARAM[fgcolor_100]</selectedcolor>
+                        <label>$INFO[ListItem.Label2]</label>
+                    </control>
+                </control>
+
+                <!-- Basic List -->
+                <control type="group">
+                    <left>$PARAM[pad]</left>
+                    <right>$PARAM[pad]</right>
+                    <visible>![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,set) | [String.IsEqual(ListItem.DBType,song) + !Skin.HasSetting(UseTrackNamingTemplate)]] | !String.IsEmpty(Container.PluginName)</visible>
+                    <control type="image">
+                        <visible>!String.IsEmpty(ListItem.Overlay)</visible>
+                        <centertop>50%</centertop>
+                        <left>0</left>
+                        <width>32</width>
+                        <height>32</height>
+                        <texture colordiffuse="$PARAM[fgcolor]_90">$VAR[Image_Overlay_List]</texture>
+                    </control>
+                    <control type="label">
+                        <animation effect="slide" end="-52" condition="String.IsEmpty(ListItem.Overlay)">Conditional</animation>
+                        <left>52</left>
+                        <font>font_small_bold</font>
+                        <textcolor>$PARAM[fgcolor_100]</textcolor>
+                        <selectedcolor>$PARAM[fgcolor_100]</selectedcolor>
+                        <label>$INFO[ListItem.Label]</label>
+                    </control>
+                    <control type="label">
+                        <align>right</align>
+                        <textcolor>$PARAM[fgcolor_100]</textcolor>
+                        <selectedcolor>$PARAM[fgcolor_100]</selectedcolor>
+                        <label>$INFO[ListItem.Label2]</label>
+                        <visible>!Window.IsVisible(1110)</visible>
+                    </control>
+                    <control type="image">
+                        <right>-20</right>
+                        <aspectratio align="right">keep</aspectratio>
+                        <texture colordiffuse="$PARAM[fgcolor_90]" background="true">$INFO[ListItem.Icon]</texture>
+                        <visible>Window.IsVisible(1110)</visible>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <!-- Season Buttons -->
+    <include name="Viewtype_Buttons">
+        <param name="tween" default="quadratic" />
+        <param name="scrolltime" default="400" />
+        <param name="viewtype" default="list" />
+        <param name="control-type" default="list" />
+        <param name="itemlayout-width" default="220" />
+        <param name="itemlayout-height" default="100" />
+        <param name="offset" default="0" />
+        <param name="orientation" default="horizontal" />
+        <definition>
+            <control type="$PARAM[control-type]" id="$PARAM[id]">
+                <nested />
+                <orientation>$PARAM[orientation]</orientation>
+                <scrolltime tween="$PARAM[tween]">$PARAM[scrolltime]</scrolltime>
+                <viewtype label="$PARAM[viewtype-label]">$PARAM[viewtype]</viewtype>
+                <itemlayout height="$PARAM[itemlayout-height]" width="$PARAM[itemlayout-width]">
+                    <control type="group">
+                        <left>$PARAM[offset]</left>
+                        <right>-$PARAM[offset]</right>
+                        <include content="Viewtype_Buttons_Itemlayout">
+                            <param name="icon" value="$PARAM[icon]" />
+                            <param name="hasicon" value="$PARAM[hasicon]" />
+                        </include>
+                    </control>
+                </itemlayout>
+                <focusedlayout height="$PARAM[itemlayout-height]" width="$PARAM[itemlayout-width]">
+                    <control type="group">
+                        <left>$PARAM[offset]</left>
+                        <right>-$PARAM[offset]</right>
+                        <control type="group">
+                            <visible>!Control.HasFocus($PARAM[id])</visible>
+                            <include content="Viewtype_Buttons_Itemlayout">
+                                <param name="icon" value="$PARAM[icon]" />
+                                <param name="hasicon" value="$PARAM[hasicon]" />
+                            </include>
+                        </control>
+                        <control type="group">
+                            <visible>Control.HasFocus($PARAM[id])</visible>
+                            <include content="Viewtype_Buttons_Itemlayout">
+                                <param name="icon" value="$PARAM[icon]" />
+                                <param name="colordiffuse-icon" value="panel_bg" />
+                                <param name="colordiffuse-texture" value="Selected" />
+                                <param name="texture" value="common/button-view-fo.png" />
+                                <param name="textcolor" value="panel_bg" />
+                                <param name="hasicon" value="$PARAM[hasicon]" />
+                            </include>
+                        </control>
+                    </control>
+                </focusedlayout>
+            </control>
+        </definition>
+    </include>
+    <include name="Viewtype_Buttons_Itemlayout">
+        <param name="colordiffuse-icon" default="main_fg_70" />
+        <param name="colordiffuse-texture" default="main_fg_12" />
+        <param name="texture" default="common/button-view-nf.png" />
+        <param name="icon" default="special://skin/extras/icons/folder.png" />
+        <param name="textcolor" default="main_fg_70" />
+        <param name="hasicon" default="false" />
+        <definition>
+            <control type="image">
+                <left>0</left>
+                <right>100</right>
+                <texture border="50,50,0,50" colordiffuse="$PARAM[colordiffuse-texture]">$PARAM[texture]</texture>
+            </control>
+            <control type="image">
+                <right>-10</right>
+                <width>110</width>
+                <texture border="0,50,50,50" colordiffuse="$PARAM[colordiffuse-texture]" flipx="true">$PARAM[texture]</texture>
+            </control>
+            <control type="group">
+                <visible>$PARAM[hasicon]</visible>
+                <control type="image">
+                    <left>24</left>
+                    <centertop>50%</centertop>
+                    <width>60</width>
+                    <height>60</height>
+                    <texture colordiffuse="$PARAM[colordiffuse-icon]" fallback="$PARAM[icon]">$INFO[ListItem.Icon]</texture>
+                </control>
+                <control type="label">
+                    <left>88</left>
+                    <align>left</align>
+                    <right>30</right>
+                    <font>font_info_buttons</font>
+                    <label>$INFO[ListItem.Label]</label>
+                    <textcolor>$PARAM[textcolor]</textcolor>
+                    <scroll>false</scroll>
+                </control>
+            </control>
+            <control type="label">
+                <left>40</left>
+                <align>center</align>
+                <right>30</right>
+                <font>font_info_buttons</font>
+                <label>$INFO[ListItem.Label]</label>
+                <textcolor>$PARAM[textcolor]</textcolor>
+                <scroll>false</scroll>
+                <visible>!$PARAM[hasicon]</visible>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Viewtype_Calendar">
+        <include content="Viewtype_Main">
+            <control type="group">
+                <include>Topbar_Left</include>
+                <include>Defs_InfoDialog_Visible</include>
+                <include>Animation_Common</include>
+                <include content="DialogVideoInfo_MainGroup">
+                    <left>0</left>
+                    <include content="DialogVideoInfo_WidgetGroupList">
+                        <include content="Info_Widget_Poster" description="Yesterday">
+                            <param name="id" value="5000" />
+                            <param name="groupid" value="5100" />
+                            <param name="label" value="Yesterday" />
+                            <param name="viewtype-include" value="$PARAM[viewtype-include]" />
+                            <param name="icon" value="$PARAM[icon]" />
+                            <param name="showonupdate" value="false" />
+                            <movement>$PARAM[movement]</movement>
+                            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;startdate=-1&amp;days=1&amp;widget=True&amp;type=episode</content>
+                        </include>
+                        <include content="Info_Widget_Poster" description="Today">
+                            <param name="id" value="5001" />
+                            <param name="groupid" value="5101" />
+                            <param name="label" value="Today" />
+                            <param name="viewtype-include" value="$PARAM[viewtype-include]" />
+                            <param name="icon" value="$PARAM[icon]" />
+                            <param name="showonupdate" value="false" />
+                            <movement>$PARAM[movement]</movement>
+                            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;startdate=0&amp;days=1&amp;widget=True&amp;type=episode</content>
+                        </include>
+                        <include content="Info_Widget_Poster" description="Tomorrow">
+                            <param name="id" value="5002" />
+                            <param name="groupid" value="5102" />
+                            <param name="label" value="Tomorrow" />
+                            <param name="viewtype-include" value="$PARAM[viewtype-include]" />
+                            <param name="icon" value="$PARAM[icon]" />
+                            <param name="showonupdate" value="false" />
+                            <movement>$PARAM[movement]</movement>
+                            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;startdate=1&amp;days=1&amp;widget=True&amp;type=episode</content>
+                        </include>
+                        <include content="Info_Widget_Poster" description="Day3">
+                            <param name="id" value="5003" />
+                            <param name="groupid" value="5103" />
+                            <param name="label" value="$INFO[Container(5003).ListItem.Property(widget)]" />
+                            <param name="viewtype-include" value="$PARAM[viewtype-include]" />
+                            <param name="icon" value="$PARAM[icon]" />
+                            <param name="showonupdate" value="false" />
+                            <movement>$PARAM[movement]</movement>
+                            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;startdate=2&amp;days=1&amp;widget=True&amp;type=episode</content>
+                        </include>
+                        <include content="Info_Widget_Poster" description="Day4">
+                            <param name="id" value="5004" />
+                            <param name="groupid" value="5104" />
+                            <param name="label" value="$INFO[Container(5004).ListItem.Property(widget)]" />
+                            <param name="viewtype-include" value="$PARAM[viewtype-include]" />
+                            <param name="icon" value="$PARAM[icon]" />
+                            <param name="showonupdate" value="false" />
+                            <movement>$PARAM[movement]</movement>
+                            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;startdate=3&amp;days=1&amp;widget=True&amp;type=episode</content>
+                        </include>
+                        <include content="Info_Widget_Poster" description="Day5">
+                            <param name="id" value="5005" />
+                            <param name="groupid" value="5105" />
+                            <param name="label" value="$INFO[Container(5005).ListItem.Property(widget)]" />
+                            <param name="viewtype-include" value="$PARAM[viewtype-include]" />
+                            <param name="icon" value="$PARAM[icon]" />
+                            <param name="showonupdate" value="false" />
+                            <movement>$PARAM[movement]</movement>
+                            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;startdate=4&amp;days=1&amp;widget=True&amp;type=episode</content>
+                        </include>
+                        <include content="Info_Widget_Poster" description="Day6">
+                            <param name="id" value="5006" />
+                            <param name="groupid" value="5106" />
+                            <param name="label" value="$INFO[Container(5006).ListItem.Property(widget)]" />
+                            <param name="viewtype-include" value="$PARAM[viewtype-include]" />
+                            <param name="icon" value="$PARAM[icon]" />
+                            <param name="showonupdate" value="false" />
+                            <movement>$PARAM[movement]</movement>
+                            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;startdate=5&amp;days=1&amp;widget=True&amp;type=episode</content>
+                        </include>
+                        <include content="Info_Widget_Poster" description="Day7">
+                            <param name="id" value="5007" />
+                            <param name="groupid" value="5107" />
+                            <param name="label" value="$INFO[Container(5007).ListItem.Property(widget)]" />
+                            <param name="viewtype-include" value="$PARAM[viewtype-include]" />
+                            <param name="icon" value="$PARAM[icon]" />
+                            <param name="showonupdate" value="false" />
+                            <movement>$PARAM[movement]</movement>
+                            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;startdate=6&amp;days=1&amp;widget=True&amp;type=episode</content>
+                        </include>
+                        <include content="Info_Widget_Poster" description="Day8">
+                            <param name="id" value="5008" />
+                            <param name="groupid" value="5108" />
+                            <param name="label" value="$INFO[Container(5008).ListItem.Property(widget)]" />
+                            <param name="viewtype-include" value="$PARAM[viewtype-include]" />
+                            <param name="icon" value="$PARAM[icon]" />
+                            <param name="showonupdate" value="false" />
+                            <movement>$PARAM[movement]</movement>
+                            <content target="videos">plugin://plugin.video.themoviedb.helper/?info=$PARAM[info]&amp;startdate=7&amp;days=1&amp;widget=True&amp;type=episode</content>
+                        </include>
+                    </include>
+                </include>
+            </control>
+        </include>
+        <include condition="!Skin.HasSetting(DisableClock)">Topbar_Right</include>
+    </include>
+
+    <include name="Viewtype_WallSwitch">
+        <include content="$PARAM[include]">
+            <param name="id" value="$PARAM[id]$PARAM[id]" />
+            <param name="castlabel" value="Container.Content(actors)" />
+            <param name="label2" value="ListItem.Property(role)" />
+            <param name="viewtype-label" value="$PARAM[viewtype-label]" />
+            <param name="control-type" value="panel" />
+            <param name="orientation" value="vertical" />
+            <param name="height" value="1078" />
+            <param name="offsetv" value="178" />
+            <bottom>-80</bottom>
+            <left>-80</left>
+            <right>-80</right>
+            <onback>ClearProperty(WallMode)</onback>
+            <onback>Container.SetViewMode($PARAM[id])</onback>
+            <onback>1$PARAM[id]$PARAM[id]</onback>
+            <visible>$EXP[Exp_View_$PARAM[id]]</visible>
+            <visible>String.IsEqual(Window.Property(WallMode),Container.FolderPath)</visible>
+            <nested />
+        </include>
+    </include>
+    <include name="Viewtype_WallSwitch_Furniture">
+        <control type="group">
+            <visible>Control.IsVisible($PARAM[id]$PARAM[id])</visible>
+            <control type="button" id="1$PARAM[id]$PARAM[id]">
+                <include>Defs_Hidden_Button</include>
+                <onfocus>SetFocus($PARAM[id])</onfocus>
+            </control>
+            <control type="button" id="2$PARAM[id]$PARAM[id]">
+                <include>Defs_Hidden_Button</include>
+                <onfocus>Container.SetViewMode($PARAM[id]$PARAM[id])</onfocus>
+                <onfocus>SetFocus($PARAM[id]$PARAM[id])</onfocus>
+            </control>
+            <control type="image">
+                <left>-80</left>
+                <right>-80</right>
+                <height>view_top</height>
+                <top>-200</top>
+                <texture>common/dim-top.png</texture>
+                <animation effect="fade" start="0" end="100" time="500" tween="cubic" easing="inout" reversible="false">Visible</animation>
+                <animation effect="fade" start="100" end="0" time="500" tween="cubic" easing="inout" reversible="false">Hidden</animation>
+                <visible>Container($PARAM[id]$PARAM[id]).HasPrevious</visible>
+            </control>
+            <control type="image">
+                <left>-80</left>
+                <right>-80</right>
+                <height>view_top</height>
+                <bottom>-80</bottom>
+                <texture flipy="true">common/dim-top.png</texture>
+                <animation effect="fade" start="0" end="100" time="500" tween="cubic" easing="inout" reversible="false">Visible</animation>
+                <animation effect="fade" start="100" end="0" time="500" tween="cubic" easing="inout" reversible="false">Hidden</animation>
+                <visible>Container($PARAM[id]$PARAM[id]).HasNext</visible>
+            </control>
+
+            <include content="Object_Wall_SortLetter">
+                <param name="id" value="$PARAM[id]$PARAM[id]" />
+            </include>
+        </control>
+    </include>
+
+
+    <include name="Viewtype_HorizontalWall_Item">
+        <param name="selectbox" default="false" />
+        <param name="itemheight" default="360" />
+        <definition>
+            <control type="group">
+                <width>$PARAM[itemwidth]</width>
+                <height>$PARAM[itemheight]</height>
+                <control type="group">
+                    <visible>!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap($PARAM[pos]).Label)</visible>
+                    <include content="$PARAM[include]">
+                        <param name="id" value="$PARAM[id]" />
+                        <param name="affix" value="_C$PARAM[id]_$PARAM[pos]" />
+                        <param name="listitem" value="Container($PARAM[id]).ListItem($PARAM[pos])" />
+                        <param name="diffuse" value="$PARAM[diffuse]" />
+                        <param name="icon" value="$VAR[$PARAM[imagevar]_C$PARAM[id]_$PARAM[pos]]" />
+                        <param name="selectbox" value="$PARAM[selectbox]" />
+                        <param name="textbox-height" value="$PARAM[textbox-height]" />
+                        <param name="label-include" value="$PARAM[label-include]" />
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Viewtype_HorizontalWall_LeftZero">
+        <left>0</left>
+    </include>
+
+    <include name="Viewtype_HorizontalWall_Animation">
+        <param name="7columns" default="false" />
+        <param name="6columns" default="false" />
+        <param name="5columns" default="false" />
+        <param name="4columns" default="false" />
+        <param name="3columns" default="false" />
+        <param name="2columns" default="false" />
+        <definition>
+            <animation effect="slide" tween="quadratic" time="400" end="-$PARAM[itemwidth]" reversible="false" condition="!Container($PARAM[id]).OnScrollNext + [[[[[!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(12).Label) + $PARAM[7columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(10).Label) + $PARAM[6columns]]
+            | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(8).Label) + $PARAM[5columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(6).Label) + $PARAM[4columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(4).Label) + $PARAM[3columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(2).Label) + $PARAM[2columns]]] + Container($PARAM[id]).Row(0)] | [[[!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(11).Label) + $PARAM[7columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(9).Label) + $PARAM[6columns]]
+            | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(7).Label) + $PARAM[5columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(5).Label) + $PARAM[4columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(3).Label) + $PARAM[3columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(1).Label) + $PARAM[2columns]]] + Container($PARAM[id]).Row(1)]]]">Conditional</animation>
+            <animation effect="slide" tween="quadratic" time="400" end="$PARAM[itemwidth]" reversible="false" condition="!Container($PARAM[id]).OnScrollPrevious + [[[[[!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(12).Label) + $PARAM[7columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(10).Label) + $PARAM[6columns]]
+            | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(8).Label) + $PARAM[5columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(6).Label) + $PARAM[4columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(4).Label) + $PARAM[3columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(2).Label) + $PARAM[2columns]]] + Container($PARAM[id]).Row(0)] | [[[!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(11).Label) + $PARAM[7columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(9).Label) + $PARAM[6columns]]
+            | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(7).Label) + $PARAM[5columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(5).Label) + $PARAM[4columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(3).Label) + $PARAM[3columns]] | [!String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(1).Label) + $PARAM[2columns]]] + Container($PARAM[id]).Row(1)]]]">Conditional</animation>
+
+            <animation effect="slide" end="$PARAM[itemwidth]" condition="[[String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(2).Label) + Container($PARAM[id]).Row(0)] | [String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(1).Label) + Container($PARAM[id]).Row(1)]] + [$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]] + Integer.IsGreater(Container($PARAM[id]).NumItems,2)">Conditional</animation>
+            <animation effect="slide" end="$PARAM[itemwidth]" condition="[[String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(4).Label) + Container($PARAM[id]).Row(0)] | [String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(3).Label) + Container($PARAM[id]).Row(1)]] + [$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns]] + Integer.IsGreater(Container($PARAM[id]).NumItems,4)">Conditional</animation>
+            <animation effect="slide" end="$PARAM[itemwidth]" condition="[[String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(6).Label) + Container($PARAM[id]).Row(0)] | [String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(5).Label) + Container($PARAM[id]).Row(1)]] + [$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns]] + Integer.IsGreater(Container($PARAM[id]).NumItems,6)">Conditional</animation>
+            <animation effect="slide" end="$PARAM[itemwidth]" condition="[[String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(8).Label) + Container($PARAM[id]).Row(0)] | [String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(7).Label) + Container($PARAM[id]).Row(1)]] + [$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns]] + Integer.IsGreater(Container($PARAM[id]).NumItems,8)">Conditional</animation>
+            <animation effect="slide" end="$PARAM[itemwidth]" condition="[[String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(10).Label) + Container($PARAM[id]).Row(0)] | [String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(9).Label) + Container($PARAM[id]).Row(1)]] + [$PARAM[7columns] | $PARAM[6columns]] + Integer.IsGreater(Container($PARAM[id]).NumItems,10)">Conditional</animation>
+            <animation effect="slide" end="$PARAM[itemwidth]" condition="[[String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(12).Label) + Container($PARAM[id]).Row(0)] | [String.IsEmpty(Container($PARAM[id]).ListItemNoWrap(11).Label) + Container($PARAM[id]).Row(1)]] + [$PARAM[7columns]] + Integer.IsGreater(Container($PARAM[id]).NumItems,12)">Conditional</animation>
+        </definition>
+    </include>
+
+    <include name="Viewtype_HorizontalWall">
+        <param name="7columns" default="false" />
+        <param name="6columns" default="false" />
+        <param name="5columns" default="false" />
+        <param name="4columns" default="false" />
+        <param name="3columns" default="false" />
+        <param name="2columns" default="false" />
+        <definition>
+            <control type="group">
+                <include condition="$PARAM[2columns]">Viewtype_HorizontalWall_LeftZero</include>
+                <left>-$PARAM[itemwidth]</left>
+                <control type="group">
+                    <include condition="$PARAM[2columns] | $PARAM[3columns]">Viewtype_HorizontalWall_LeftZero</include>
+                    <left>-$PARAM[itemwidth]</left>
+                    <control type="group">
+                        <include condition="$PARAM[2columns] | $PARAM[3columns] | $PARAM[4columns]">Viewtype_HorizontalWall_LeftZero</include>
+                        <left>-$PARAM[itemwidth]</left>
+                        <control type="group">
+                            <include condition="$PARAM[2columns] | $PARAM[3columns] | $PARAM[4columns] | $PARAM[5columns]">Viewtype_HorizontalWall_LeftZero</include>
+                            <left>-$PARAM[itemwidth]</left>
+                            <control type="group">
+                                <include condition="$PARAM[2columns] | $PARAM[3columns] | $PARAM[4columns] | $PARAM[5columns] | $PARAM[6columns]">Viewtype_HorizontalWall_LeftZero</include>
+                                <left>-$PARAM[itemwidth]</left>
+                                <control type="group">
+                                    <left>-$PARAM[itemwidth]</left>
+                                    <right>-$PARAM[itemwidth]</right>
+                                    <bottom>-100</bottom>
+                                    <control type="group">
+                                    <left>-$PARAM[itemwidth]</left>
+                                    <right>-$PARAM[itemwidth]</right>
+                                        <control type="grouplist">
+                                            <top>100</top>
+                                            <left>-20</left>
+                                            <right>-20</right>
+                                            <orientation>vertical</orientation>
+                                            <itemgap>-30</itemgap>
+                                            <control type="grouplist" description="Top Unfocused Row">
+                                                <height>390</height>
+                                                <orientation>horizontal</orientation>
+                                                <itemgap>0</itemgap>
+                                                <visible>Container($PARAM[id]).Row(1)</visible>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-15" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-13" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-11" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-9" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-7" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-5" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-3" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-1" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="1" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="3" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="5" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="7" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="9" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="11" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="13" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="15" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                            </control>
+                                            <control type="grouplist" description="Focused Row">
+                                                <height>390</height>
+                                                <orientation>horizontal</orientation>
+                                                <itemgap>0</itemgap>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-14" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-12" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-10" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-8" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-6" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-4" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-2" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="0" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                    <param name="selectbox" value="true" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="2" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="4" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="6" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="8" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="10" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="12" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="14" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="16" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                            </control>
+                                            <control type="grouplist" description="Bottom Unfocused Row">
+                                                <height>390</height>
+                                                <orientation>horizontal</orientation>
+                                                <itemgap>0</itemgap>
+                                                <visible>Container($PARAM[id]).Row(0)</visible>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-13" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-11" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-9" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-7" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-5" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-3" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="-1" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="1" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="3" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="5" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns] | $PARAM[2columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="7" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns] | $PARAM[3columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="9" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns] | $PARAM[4columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="11" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns] | $PARAM[5columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="13" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns] | $PARAM[6columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="15" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                                <include content="Viewtype_HorizontalWall_Item" condition="$PARAM[7columns]">
+                                                    <param name="id" value="$PARAM[id]" />
+                                                    <param name="pos" value="17" />
+                                                    <param name="itemwidth" value="$PARAM[itemwidth]" />
+                                                    <param name="imagevar" value="$PARAM[imagevar]" />
+                                                    <param name="diffuse" value="$PARAM[diffuse]" />
+                                                    <param name="include" value="$PARAM[include]" />
+                                                    <param name="textbox-height" value="$PARAM[textbox-height]" />
+                                                    <param name="label-include" value="$PARAM[label-include]" />
+                                                </include>
+                                            </control>
+                                        </control>
+                                    </control>
+                                </control>
+                            </control>
+                        </control>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+</includes>
+

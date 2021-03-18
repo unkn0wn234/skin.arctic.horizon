@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Foundation -->
+<window id="4">
+    <defaultcontrol always="false">5000</defaultcontrol>
+    <controls>
+        <include>Global_Background</include>
+        <include condition="!Skin.HasSetting(DisableClock)">Topbar_Right</include>
+        <include>Topbar_Left</include>
+        <control type="group">
+            <include>View_Pad</include>
+            <include>View_Settings</include>
+        </control>
+        <include>Object_NowPlaying</include>
+    </controls>
+</window>

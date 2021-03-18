@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="View_59_Sets">
+        <include content="View_53_Seasons">
+            <param name="id" value="59" />
+            <param name="include" value="Viewtype_Poster" />
+            <param name="viewtype-label" value="$LOCALIZE[31292]" />
+        </include>
+    </include>
+</includes>
+

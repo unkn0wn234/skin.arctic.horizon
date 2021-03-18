@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Foundation -->
+<window id="0">
+    <defaultcontrol always="false">3992</defaultcontrol>
+    <onload condition="String.IsEmpty(Window(Home).Property(SkinSplashStarted))">AlarmClock(refocus,SetFocus(301),00:01,silent,false)</onload>
+    <onload condition="String.IsEmpty(Window(Home).Property(SkinSplashStarted))">AlarmClock(SkinSplashStarted,SetProperty(SkinSplashStarted,1,home),00:01,silent,false)</onload>
+    <onload condition="Control.HasFocus(301) | Control.HasFocus(303)">SetFocus(3992)</onload>
+    <onload>RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=301&amp;levels=1&amp;group=mainmenu|powermenu|searchmenu)</onload>
+    <onload>RunScript(script.skinvariables,action=buildviews)</onload>
+    <onload>ClearProperty(CurrentWidget,Home)</onload>
+    <onunload>ClearProperty(TMDbHelper.WidgetContainer,Home)</onunload>
+
+    <onload condition="!Skin.HasSetting(SkinInit)">ActivateWindow(1116)</onload>
+
+    <!-- <onload>Skin.SetBool(TMDbHelper.EnableColors)</onload>
+    <onload>Skin.SetString(TMDbHelper.Colors.Luminance,0.5)</onload>
+    <onload>Skin.SetString(TMDbHelper.Colors.Saturation,0.8)</onload>
+    <onload>SetProperty(TMDbHelper.Colors.Fallback,$VAR[Global_Background_Image_NoFanart_Fallback],Home)</onload>
+    <onload>SetProperty(TMDbHelper.Colors.SourceImage,poster,Home)</onload> -->
+
+    <onload condition="!Skin.HasSetting(DisableBlur)">SetProperty(TMDbHelper.Blur.Fallback,$VAR[Global_Background_Image_NoFanart_Fallback],Home)</onload>
+    <onload condition="Skin.HasSetting(NoFanart) + !Skin.HasSetting(DisableBlur)">SetProperty(TMDbHelper.Blur.SourceImage,Art(fallback),Home)</onload>
+    <onload condition="!Skin.HasSetting(NoFanart) + !Skin.HasSetting(DisableBlur)">SetProperty(TMDbHelper.Blur.SourceImage,poster,Home)</onload>
+    <onload condition="Skin.HasSetting(DisableBlur)">Skin.Reset(TMDbHelper.EnableBlur)</onload>
+    <onload condition="!Skin.HasSetting(DisableBlur)">Skin.SetBool(TMDbHelper.EnableBlur)</onload>
+
+    <include>skinshortcuts-template-onhomeload</include>
+    <controls>
+        <control type="list" id="3700">
+            <description>Hidden container for widget count</description>
+            <include>Defs_Hidden_List</include>
+            <content><include>skinshortcuts-submenu-1</include></content>
+        </control>
+        <control type="list" id="3701">
+            <description>Hidden container for grouplist ids</description>
+            <include>Defs_Hidden_List</include>
+            <content><include>skinshortcuts-template-widgetgrouplists</include></content>
+        </control>
+        <control type="list" id="56560">
+            <include>Defs_Offscreen</include>
+            <orientation>horizontal</orientation>
+            <itemlayout />
+            <focusedlayout />
+            <content>
+                <include>skinshortcuts-template-infoline</include>
+            </content>
+        </control>
+
+
+
+        <include>Home_Multi</include>
+        <include>Object_NowPlaying</include>
+        <include>Home_Submenu</include>
+        <include condition="Skin.HasSetting(EnableHorizontalHome)">Home_Menu_Horizontal</include>
+
+        <!-- Splash -->
+        <include content="Home_Splash">
+            <visible>String.IsEmpty(Skin.String(StartupPlaylist))</visible>
+            <visible>String.IsEmpty(Window(Home).Property(SkinSplashStarted)) | Integer.IsEqual(Container(301).NumItems,0) | Container(301).IsUpdating | Window.IsVisible(1116)</visible>
+        </include>
+
+    </controls>
+</window>

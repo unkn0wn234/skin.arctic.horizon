@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="2003">
+    <defaultcontrol always="true">300</defaultcontrol>
+    <onload>ClearProperty(FilePath,home)</onload>
+    <onload>ClearProperty(Header_Left_Text)</onload>
+    <onload>ClearProperty(Header_Center_Text)</onload>
+    <onload>ClearProperty(OSD_Menu,Home)</onload>
+    <onunload>ClearProperty(FilePath,home)</onunload>
+    <onunload>ClearProperty(OSD_Menu,Home)</onunload>
+    <onunload>ClearProperty(HasTrailer,Home)</onunload>
+    <onunload condition="!String.IsEmpty(Window.Property(CloseBusyDialog))">Dialog.Close(busydialognocancel)</onunload>
+    <onunload condition="!String.IsEmpty(Window.Property(CloseBusyDialog))">ClearProperty(CloseBusyDialog)</onunload>
+    <onload>SetProperty(TMDBHelper.Info.OriginalPath,$INFO[ListItem.FolderPath],Home)</onload>
+    <controls>
+
+        <!-- Main Group -->
+        <include condition="!String.IsEqual(ListItem.DBType,musicvideo) + !String.IsEqual(ListItem.Property(item.type),person)">DialogVideoInfo</include>
+        <include condition="String.IsEqual(ListItem.DBType,musicvideo)">DialogMusicInfo</include>
+        <include condition="!String.IsEqual(ListItem.DBType,musicvideo) + String.IsEqual(ListItem.Property(item.type),person)">DialogPersonInfo</include>
+
+
+        <control type="group">
+            <visible>Control.HasFocus(3600)</visible>
+            <include>Animation_FadeInOut</include>
+            <include>Global_Overlay</include>
+        </control>
+        <include content="Dialog_Menu">
+            <param name="id" value="3600" />
+            <param name="header" value="$LOCALIZE[33063]" />
+            <param name="content" value="Items_Info_Manage" />
+            <param name="visible" value="Control.HasFocus(3600)" />
+            <param name="include-icon" value="true" />
+            <param name="onleft" value="300" />
+            <param name="onright" value="300" />
+            <param name="onback" value="300" />
+        </include>
+        <control type="button" id="6">
+            <include>Defs_Hidden_Button</include>
+        </control>
+        <control type="button" id="7">
+            <include>Defs_Hidden_Button</include>
+        </control>
+        <control type="button" id="8">
+            <include>Defs_Hidden_Button</include>
+        </control>
+        <control type="button" id="10">
+            <include>Defs_Hidden_Button</include>
+        </control>
+        <control type="list" id="50">
+            <include>Defs_Hidden_List</include>
+            <orientation>horizontal</orientation>
+            <onfocus>Action(Select)</onfocus>
+            <onup>300</onup>
+            <ondown>SetFocus(5000)</ondown>
+            <onback>300</onback>
+        </control>
+    </controls>
+</window>

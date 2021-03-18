@@ -1,0 +1,1553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Home_FixedMenu_Right">
+        <right>160</right>
+    </include>
+
+    <include name="Home_Movement_Widgets_UpDown">
+        <onup condition="!Skin.HasSetting(EnableHorizontalHome)">SetProperty(WidgetFocus,1)</onup>
+        <ondown condition="!Skin.HasSetting(EnableHorizontalHome)">SetProperty(WidgetFocus,1)</ondown>
+        <onleft condition="Skin.HasSetting(EnableHorizontalHome)">SetProperty(WidgetFocus,1)</onleft>
+        <onright condition="Skin.HasSetting(EnableHorizontalHome)">SetProperty(WidgetFocus,1)</onright>
+        <include>Home_Movement_UpDown</include>
+        <onup condition="!Skin.HasSetting(EnableHorizontalHome)">SetFocus(3992)</onup>
+        <ondown condition="!Skin.HasSetting(EnableHorizontalHome)">SetFocus(3992)</ondown>
+        <onleft condition="Skin.HasSetting(EnableHorizontalHome)">SetFocus(3992)</onleft>
+        <onright condition="Skin.HasSetting(EnableHorizontalHome)">SetFocus(3992)</onright>
+    </include>
+
+    <include name="Home_Movement_UpDown">
+        <onup condition="!Skin.HasSetting(EnableHorizontalHome)">SetProperty(WidgetMovement,OnUp)</onup>
+        <onup condition="!Skin.HasSetting(EnableHorizontalHome)">Control.Move(301,-1)</onup>
+        <onup condition="!Skin.HasSetting(EnableHorizontalHome)">ClearProperty(CurrentWidget,Home)</onup>
+        <ondown condition="!Skin.HasSetting(EnableHorizontalHome)">SetProperty(WidgetMovement,OnDown)</ondown>
+        <ondown condition="!Skin.HasSetting(EnableHorizontalHome)">Control.Move(301,1)</ondown>
+        <ondown condition="!Skin.HasSetting(EnableHorizontalHome)">ClearProperty(CurrentWidget,Home)</ondown>
+
+        <onleft condition="Skin.HasSetting(EnableHorizontalHome)">SetProperty(WidgetMovement,OnUp)</onleft>
+        <onleft condition="Skin.HasSetting(EnableHorizontalHome)">Control.Move(301,-1)</onleft>
+        <onleft condition="Skin.HasSetting(EnableHorizontalHome)">ClearProperty(CurrentWidget,Home)</onleft>
+        <onright condition="Skin.HasSetting(EnableHorizontalHome)">SetProperty(WidgetMovement,OnDown)</onright>
+        <onright condition="Skin.HasSetting(EnableHorizontalHome)">Control.Move(301,1)</onright>
+        <onright condition="Skin.HasSetting(EnableHorizontalHome)">ClearProperty(CurrentWidget,Home)</onright>
+    </include>
+
+    <include name="Home_Movement_LeftRight">
+        <!-- Towards Widgets -->
+        <!-- VMenu -->
+        <onright condition="!Skin.HasSetting(EnableHorizontalHome) + !Integer.IsEqual(Container(3700).NumItems,0) + [String.IsEmpty(Window(Home).Property(CurrentWidget)) | !Skin.HasSetting(DisableSideSubmenu) | Integer.IsEqual(Window(Home).Property(CurrentWidget),3001)]">SetFocus(3000)</onright>
+        <onright condition="!Skin.HasSetting(EnableHorizontalHome) + !Integer.IsEqual(Container(3700).NumItems,0) + !String.IsEmpty(Window(Home).Property(CurrentWidget)) + Skin.HasSetting(DisableSideSubmenu) + !Integer.IsEqual(Window(Home).Property(CurrentWidget),3001)">SetFocus($INFO[Window(Home).Property(CurrentWidget)],0,absolute)</onright>
+
+        <!-- HMenu -->
+        <ondown condition="Skin.HasSetting(EnableHorizontalHome) + !Integer.IsEqual(Container(3700).NumItems,0)">SetFocus(3000)</ondown>
+
+        <!-- Focus -->
+        <include>skinshortcuts-template-onmovement</include>
+        <onright condition="!Skin.HasSetting(EnableHorizontalHome)">ClearProperty(WidgetMovement)</onright>
+        <ondown condition="Skin.HasSetting(EnableHorizontalHome)">ClearProperty(WidgetMovement)</ondown>
+
+        <!-- SubMenu onInfo -->
+        <oninfo condition="!Integer.IsEqual(Container(303).NumItems,0)">ClearProperty(WidgetFocus)</oninfo>
+        <oninfo condition="!Integer.IsEqual(Container(303).NumItems,0)">SetFocus(303,0,absolute)</oninfo>
+
+        <!-- Towards Menu -->
+        <!-- HMenu -->
+        <onup condition="Skin.HasSetting(EnableHorizontalHome) + !Integer.IsEqual(Container(303).NumItems,0) + !Skin.HasSetting(DisableSideSubmenu)">ClearProperty(WidgetFocus)</onup>
+        <onup condition="Skin.HasSetting(EnableHorizontalHome) + !Integer.IsEqual(Container(303).NumItems,0) + !Skin.HasSetting(DisableSideSubmenu)">SetFocus(303,0,absolute)</onup>
+
+        <!-- VMenu -->
+        <onleft condition="!Skin.HasSetting(EnableHorizontalHome) + !Integer.IsEqual(Container(3700).NumItems,0) + !String.IsEmpty(Window(Home).Property(CurrentWidget)) + Skin.HasSetting(DisableSideSubmenu) + !Integer.IsEqual(Window(Home).Property(CurrentWidget),3001)">SetFocus($INFO[Window(Home).Property(CurrentWidget)],9999,absolute)</onleft>
+        <onleft condition="!Skin.HasSetting(EnableHorizontalHome) + !String.IsEmpty(Window(Home).Property(CurrentWidget)) + Skin.HasSetting(DisableSideSubmenu) + Integer.IsEqual(Window(Home).Property(CurrentWidget),3001)">Control.Move(3001,-1)</onleft>
+        <onleft condition="!Skin.HasSetting(EnableHorizontalHome) + !Integer.IsEqual(Container(303).NumItems,0) + !Skin.HasSetting(DisableSideSubmenu)">ClearProperty(WidgetFocus)</onleft>
+        <onleft condition="!Skin.HasSetting(EnableHorizontalHome) + !Integer.IsEqual(Container(303).NumItems,0) + !Skin.HasSetting(DisableSideSubmenu)">SetFocus(303,0,absolute)</onleft>
+    </include>
+
+    <include name="Home_Movement_Widgets_Wrap">
+        <include>Home_Movement_Widgets_UpDown</include>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-49])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-50]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-48])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-49]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-47])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-48]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-46])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-47]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-45])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-46]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-44])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-45]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-43])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-44]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-42])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-43]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-41])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-42]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-40])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-41]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-39])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-40]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-38])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-39]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-37])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-38]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-36])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-37]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-35])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-36]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-34])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-35]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-33])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-34]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-32])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-33]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-31])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-32]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-30])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-31]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-29])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-30]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-28])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-29]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-27])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-28]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-26])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-27]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-25])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-26]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-24])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-25]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-23])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-24]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-22])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-23]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-21])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-22]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-20])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-21]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-19])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-20]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-18])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-19]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-17])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-18]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-16])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-17]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-15])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-16]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-14])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-15]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-13])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-14]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-12])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-13]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-11])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-12]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-10])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-11]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-9])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-10]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-8])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-9]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-7])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-8]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-6])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-7]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-5])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-6]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-4])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-5]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-3])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-4]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-2])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-3]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-1])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-2]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-neg-0])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-1]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-1])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-0]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-2])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-1]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-3])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-2]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-4])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-3]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-5])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-4]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-6])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-5]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-7])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-6]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-8])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-7]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-9])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-8]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-10])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-9]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-11])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-10]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-12])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-11]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-13])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-12]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-14])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-13]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-15])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-14]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-16])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-15]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-17])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-16]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-18])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-17]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-19])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-18]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-20])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-19]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-21])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-20]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-22])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-21]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-23])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-22]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-24])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-23]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-25])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-24]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-26])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-25]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-27])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-26]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-28])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-27]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-29])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-28]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-30])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-29]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-31])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-30]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-32])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-31]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-33])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-32]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-34])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-33]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-35])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-34]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-36])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-35]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-37])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-36]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-38])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-37]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-39])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-38]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-40])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-39]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-41])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-40]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-42])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-41]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-43])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-42]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-44])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-43]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-45])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-44]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-46])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-45]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-47])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-46]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-48])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-47]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-49])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-48]).Property(grouplistid)])</onup>
+        <onup condition="String.IsEqual(Container(301).ListItem(-1).Property(id),$PARAM[id-pos-50])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-49]).Property(grouplistid)])</onup>
+
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-49])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-50]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-48])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-49]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-47])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-48]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-46])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-47]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-45])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-46]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-44])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-45]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-43])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-44]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-42])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-43]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-41])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-42]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-40])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-41]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-39])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-40]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-38])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-39]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-37])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-38]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-36])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-37]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-35])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-36]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-34])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-35]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-33])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-34]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-32])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-33]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-31])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-32]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-30])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-31]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-29])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-30]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-28])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-29]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-27])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-28]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-26])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-27]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-25])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-26]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-24])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-25]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-23])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-24]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-22])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-23]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-21])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-22]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-20])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-21]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-19])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-20]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-18])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-19]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-17])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-18]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-16])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-17]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-15])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-16]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-14])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-15]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-13])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-14]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-12])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-13]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-11])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-12]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-10])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-11]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-9])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-10]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-8])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-9]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-7])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-8]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-6])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-7]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-5])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-6]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-4])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-5]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-3])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-4]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-2])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-3]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-1])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-2]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-neg-0])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-neg-1]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-1])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-0]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-2])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-1]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-3])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-2]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-4])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-3]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-5])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-4]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-6])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-5]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-7])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-6]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-8])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-7]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-9])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-8]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-10])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-9]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-11])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-10]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-12])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-11]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-13])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-12]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-14])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-13]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-15])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-14]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-16])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-15]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-17])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-16]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-18])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-17]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-19])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-18]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-20])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-19]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-21])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-20]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-22])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-21]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-23])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-22]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-24])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-23]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-25])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-24]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-26])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-25]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-27])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-26]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-28])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-27]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-29])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-28]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-30])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-29]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-31])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-30]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-32])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-31]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-33])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-32]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-34])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-33]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-35])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-34]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-36])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-35]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-37])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-36]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-38])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-37]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-39])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-38]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-40])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-39]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-41])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-40]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-42])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-41]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-43])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-42]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-44])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-43]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-45])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-44]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-46])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-45]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-47])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-46]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-48])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-47]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-49])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-48]).Property(grouplistid)])</ondown>
+        <ondown condition="String.IsEqual(Container(301).ListItem(1).Property(id),$PARAM[id-pos-50])">SetFocus($INFO[Container(3701).ListItem($PARAM[id-pos-49]).Property(grouplistid)])</ondown>
+    </include>
+
+    <include name="Home_Submenu">
+        <include content="Global_Overlay" condition="!Skin.HasSetting(EnableHorizontalHome)">
+            <left>160</left>
+            <visible>Control.HasFocus(303)</visible>
+        </include>
+        <include content="Object_Control" condition="!Skin.HasSetting(EnableHorizontalHome)">
+            <param name="type" value="group" />
+            <animation type="Condition" reversible="false" condition="Control.Hasfocus(303)">
+                <effect type="fade" start="0" end="100" time="300" delay="150"/>
+                <effect type="slide" start="0,48" end="0" center="auto" tween="back" easing="out" time="350" delay="150"/>
+            </animation>
+            <include content="Dialog_Menu">
+                <param name="id" value="303" />
+                <param name="header" value="$INFO[Container(301).ListItem.Label]" />
+                <param name="content" value="Items_SubMenu" />
+                <param name="onleft" value="SetFocus(3992)" />
+                <param name="onright" value="SetFocus(3992)" />
+                <param name="onback" value="SetFocus(3992)" />
+                <param name="include-icon" value="true" />
+                <param name="global_overlay" value="false" />
+                <top>220</top>
+                <left>-650</left>
+                <width>450</width>
+                <animation effect="slide" start="0" end="850" condition="Control.HasFocus(303)">Conditional</animation>
+                <animation type="WindowClose">
+                    <effect type="slide" start="0" end="-160" time="400" tween="quadratic" />
+                    <effect type="fade" start="100" end="0" tween="cubic" easing="out" delay="0" time="400" />
+                </animation>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,8)">Conditional</animation>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,7)">Conditional</animation>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,6)">Conditional</animation>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,5)">Conditional</animation>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,4)">Conditional</animation>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,3)">Conditional</animation>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,2)">Conditional</animation>
+
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,0) + !Integer.IsGreater(Container(303).NumItems,8)">Conditional</animation>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,1) + !Integer.IsGreater(Container(303).NumItems,7)">Conditional</animation>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,2) + !Integer.IsGreater(Container(303).NumItems,6)">Conditional</animation>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,3) + !Integer.IsGreater(Container(303).NumItems,5)">Conditional</animation>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,4) + !Integer.IsGreater(Container(303).NumItems,4)">Conditional</animation>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,5) + !Integer.IsGreater(Container(303).NumItems,3)">Conditional</animation>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,6) + !Integer.IsGreater(Container(303).NumItems,2)">Conditional</animation>
+            </include>
+
+            <control type="image">
+                <left>184</left>
+                <top>232</top>
+                <height>16</height>
+                <width>16</width>
+                <visible>Control.HasFocus(303)</visible>
+                <animation type="WindowClose">
+                    <effect type="slide" start="0" end="-160" time="400" tween="quadratic" />
+                    <effect type="fade" start="100" end="0" tween="cubic" easing="out" delay="0" time="400" />
+                </animation>
+                <texture colordiffuse="dialog_bg_100">common/arrow-menu.png</texture>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,0)">Conditional</animation>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,1)">Conditional</animation>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,2)">Conditional</animation>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,3)">Conditional</animation>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,4)">Conditional</animation>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,5)">Conditional</animation>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,6)">Conditional</animation>
+                <animation effect="slide" end="0,80" condition="Integer.IsGreater(Container(301).Position,7)">Conditional</animation>
+            </control>
+        </include>
+
+        <!-- Horizontal Menu Version -->
+        <include content="Global_Overlay" condition="Skin.HasSetting(EnableHorizontalHome)">
+            <visible>Control.HasFocus(303)</visible>
+        </include>
+        <include content="Object_Control" condition="Skin.HasSetting(EnableHorizontalHome)">
+            <param name="type" value="group" />
+
+            <animation effect="slide" end="100" condition="!Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Container(301).Position(0)">Conditional</animation>
+            <animation effect="slide" end="300" condition="!Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Container(301).Position(1)">Conditional</animation>
+            <animation effect="slide" end="500" condition="!Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Container(301).Position(2)">Conditional</animation>
+            <animation effect="slide" end="700" condition="!Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Container(301).Position(3)">Conditional</animation>
+            <animation effect="slide" end="100" condition="!Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Integer.IsEqual(Container(301).NumItems,3)">Conditional</animation>
+            <animation effect="slide" end="200" condition="!Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Integer.IsEqual(Container(301).NumItems,2)">Conditional</animation>
+            <animation effect="slide" end="300" condition="!Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Integer.IsEqual(Container(301).NumItems,1)">Conditional</animation>
+
+            <animation effect="slide" end="50" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Container(301).Position(0)">Conditional</animation>
+            <animation effect="slide" end="150" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Container(301).Position(1)">Conditional</animation>
+            <animation effect="slide" end="250" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Container(301).Position(2)">Conditional</animation>
+            <animation effect="slide" end="350" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Container(301).Position(3)">Conditional</animation>
+            <animation effect="slide" end="450" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Container(301).Position(4)">Conditional</animation>
+            <animation effect="slide" end="550" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Container(301).Position(5)">Conditional</animation>
+            <animation effect="slide" end="650" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Container(301).Position(6)">Conditional</animation>
+            <animation effect="slide" end="750" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Container(301).Position(7)">Conditional</animation>
+            <animation effect="slide" end="50" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Integer.IsEqual(Container(301).NumItems,7)">Conditional</animation>
+            <animation effect="slide" end="100" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Integer.IsEqual(Container(301).NumItems,6)">Conditional</animation>
+            <animation effect="slide" end="150" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Integer.IsEqual(Container(301).NumItems,5)">Conditional</animation>
+            <animation effect="slide" end="200" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Integer.IsEqual(Container(301).NumItems,4)">Conditional</animation>
+            <animation effect="slide" end="250" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Integer.IsEqual(Container(301).NumItems,3)">Conditional</animation>
+            <animation effect="slide" end="300" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Integer.IsEqual(Container(301).NumItems,2)">Conditional</animation>
+            <animation effect="slide" end="350" condition="Skin.HasSetting(HomeIconicMenu) + Control.HasFocus(303) + Integer.IsEqual(Container(301).NumItems,1)">Conditional</animation>
+
+
+
+            <animation type="Condition" reversible="false" condition="Control.Hasfocus(303)">
+                <effect type="fade" start="0" end="100" time="300" delay="150"/>
+                <effect type="slide" start="0,48" end="0" tween="back" easing="out" time="350" delay="150"/>
+                <effect type="slide" end="1035" time="0" />
+            </animation>
+
+            <animation type="WindowClose">
+                <effect type="fade" start="100" end="0" tween="cubic" easing="out" delay="0" time="400" />
+            </animation>
+            <include content="Dialog_Menu">
+                <param name="id" value="303" />
+                <param name="header" value="$INFO[Container(301).ListItem.Label]" />
+                <param name="content" value="Items_SubMenu" />
+                <param name="onleft" value="SetFocus(3992)" />
+                <param name="onright" value="SetFocus(3992)" />
+                <param name="onback" value="SetFocus(3992)" />
+                <param name="include-icon" value="true" />
+                <param name="global_overlay" value="false" />
+                <top>220</top>
+                <left>-650</left>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,8)">Conditional</animation>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,7)">Conditional</animation>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,6)">Conditional</animation>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,5)">Conditional</animation>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,4)">Conditional</animation>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,3)">Conditional</animation>
+                <animation effect="slide" end="0,-40" condition="Integer.IsLess(Container(303).NumItems,2)">Conditional</animation>
+            </include>
+
+            <control type="image" description="nib">
+                <centerleft>-425</centerleft>
+                <top>164</top>
+                <height>16</height>
+                <width>16</width>
+                <visible>Control.HasFocus(303)</visible>
+                <texture colordiffuse="dialog_bg_100">common/arrow-menu-up.png</texture>
+            </control>
+        </include>
+    </include>
+
+    <include name="Home_Multi">
+        <include condition="!Skin.HasSetting(EnableHorizontalHome)">Home_Menu_Vertical</include>
+
+        <include content="Viewtype_Main">
+            <include condition="!Skin.HasSetting(EnableHorizontalHome)">Animation_Home_Slide</include>
+            <control type="group">
+                <visible>!$EXP[Exp_InfoVisible]</visible>
+                <include>Animation_Common</include>
+                <control type="group">
+                    <include>Animation_FadeInOut_Common</include>
+                    <include>View_Pad</include>
+                    <control type="group">
+                        <top>-20</top>
+                        <right>-100</right>
+                        <left>-100</left>
+                        <bottom>-15</bottom>
+                        <control type="button" id="3992">
+                            <width>1</width>
+                            <height>1</height>
+                            <left>-2000</left>
+                            <include>Home_Movement_LeftRight</include>
+                            <include>Home_Movement_UpDown</include>
+                            <onup condition="!Skin.HasSetting(EnableHorizontalHome)">AlarmClock(refocusit,SetFocus(3992),00:00,silent)</onup>
+                            <onleft condition="Skin.HasSetting(EnableHorizontalHome)">AlarmClock(refocusit,SetFocus(3992),00:00,silent)</onleft>
+                            <ondown condition="!Skin.HasSetting(EnableHorizontalHome)">AlarmClock(refocusit,SetFocus(3992),00:00,silent)</ondown>
+                            <onright condition="Skin.HasSetting(EnableHorizontalHome)">AlarmClock(refocusit,SetFocus(3992),00:00,silent)</onright>
+                            <onclick>ClearProperty(WidgetMovement)</onclick>
+                            <onclick condition="!String.IsEmpty(Window.Property(WidgetFocus)) + [!Integer.IsEqual(Container(3700).NumItems,0) | String.IsEmpty(Container(301).ListItem.Property(background))]">SetFocus(3000)</onclick>
+                            <onclick condition="!String.IsEmpty(Window.Property(WidgetFocus)) + Integer.IsEqual(Container(3700).NumItems,0) + !String.IsEmpty(Container(301).ListItem.Property(background))">ClearProperty(WidgetFocus)</onclick>
+                            <onclick condition="String.IsEmpty(Window.Property(WidgetFocus)) | [Integer.IsEqual(Container(3700).NumItems,0) + !String.IsEmpty(Container(301).ListItem.Property(background))]">SetProperty(301Click,1)</onclick>
+                            <onclick condition="String.IsEmpty(Window.Property(WidgetFocus)) | [Integer.IsEqual(Container(3700).NumItems,0) + !String.IsEmpty(Container(301).ListItem.Property(background))]">SetProperty(301Focus,1)</onclick>
+                            <onclick condition="String.IsEmpty(Window.Property(WidgetFocus)) | [Integer.IsEqual(Container(3700).NumItems,0) + !String.IsEmpty(Container(301).ListItem.Property(background))]">SetFocus(301)</onclick>
+                            <onclick condition="String.IsEmpty(Window.Property(WidgetFocus)) | [Integer.IsEqual(Container(3700).NumItems,0) + !String.IsEmpty(Container(301).ListItem.Property(background))]">Action(Select)</onclick>
+                            <onfocus>ClearProperty(301Click)</onfocus>
+                            <onfocus>ClearProperty(301Focus)</onfocus>
+                            <onback>301</onback>
+                            <onback>ClearProperty(WidgetMovement)</onback>
+                            <visible allowhiddenfocus="true">Control.HasFocus(3992)</visible>
+                        </control>
+
+                        <control type="button" id="3990">
+                            <width>1</width>
+                            <height>1</height>
+                            <left>-2000</left>
+                            <animation effect="fade" time="300" start="100" end="0">Focus</animation>
+                            <onfocus>SetFocus(3000)</onfocus>
+                            <onclick>noop</onclick>
+                            <visible allowhiddenfocus="true">Control.HasFocus(3990)</visible>
+                        </control>
+                        <control type="button" id="3991">
+                            <width>1</width>
+                            <height>1</height>
+                            <left>-2000</left>
+                            <animation effect="fade" time="300" start="100" end="0">Focus</animation>
+                            <onfocus>SetFocus(3000)</onfocus>
+                            <onclick>noop</onclick>
+                            <visible allowhiddenfocus="true">Control.HasFocus(3991)</visible>
+                        </control>
+                        <!-- Background Image -->
+                        <control type="group">
+                            <visible>Integer.IsEqual(Container(3700).NumItems,0) + !String.IsEmpty(Container(301).ListItem.Property(background))</visible>
+                            <include>Animation_FadeInOut_Common</include>
+                            <left>20</left>
+                            <right>20</right>
+                            <top>-180</top>
+                            <bottom>-65</bottom>
+                            <control type="multiimage">
+                                <include>Defs_TimePerImage</include>
+                                <randomize>true</randomize>
+                                <aspectratio>scale</aspectratio>
+                                <fadetime>600</fadetime>
+                                <imagepath background="true">$INFO[Container(301).ListItem.Property(background)]</imagepath>
+                            </control>
+                            <control type="image">
+                                <texture background="true" colordiffuse="cdffffff">common/vignette-home.png</texture>
+                            </control>
+                        </control>
+
+                        <!-- Global Fullscreen Widget -->
+                        <control type="wraplist" id="3001">
+                            <top>-180</top>
+                            <bottom>-65</bottom>
+                            <left>20</left>
+                            <right>20</right>
+                            <ondown>301</ondown>
+                            <onup>301</onup>
+                            <orientation>horizontal</orientation>
+                            <scrolltime tween="quadratic">400</scrolltime>
+                            <preloaditems>2</preloaditems>
+                            <include>skinshortcuts-template-fullscreen-globalwidget</include>
+                            <include>Animation_FadeInOut_Common</include>
+                            <onfocus>SetProperty(TMDbHelper.WidgetContainer,3001,Home)</onfocus>
+                            <visible>String.IsEmpty(Container(301).ListItem.Property(widgetPath.showcaseBackground)) + String.IsEmpty(Container(301).ListItem.Property(widgetPath))</visible>
+                            <visible>[[Integer.IsEqual(Container(3700).NumItems,0) + String.IsEmpty(Container(301).ListItem.Property(background))] | String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background)]</visible>
+                            <itemlayout width="1920" height="1080">
+                                <control type="image">
+                                    <texture background="true">$VAR[Image_Fanart]</texture>
+                                </control>
+                            </itemlayout>
+                            <focusedlayout width="1920" height="1080">
+                                <control type="image">
+                                    <texture background="true">$VAR[Image_Fanart]</texture>
+                                </control>
+                            </focusedlayout>
+                            <content target="$VAR[Defs_ScreensaverWidget_Target]" sortby="random">$VAR[Defs_ScreensaverWidget]</content>
+                            <include content="Defs_AutoScroll">
+                                <param name="condition" value="System.IdleTime(3)" />
+                            </include>
+                        </control>
+                        <include content="Home_Widget_Fullscreen_HubBase">
+                            <include>skinshortcuts-template-fullscreen-globalwidget</include>
+                            <include>Animation_FadeInOut_Common</include>
+                            <visible>String.IsEmpty(Container(301).ListItem.Property(widgetPath.showcaseBackground)) + String.IsEmpty(Container(301).ListItem.Property(widgetPath))</visible>
+                            <visible>[[Integer.IsEqual(Container(3700).NumItems,0) + String.IsEmpty(Container(301).ListItem.Property(background))] | String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background)]</visible>
+                        </include>
+
+                        <!-- Individual Fullscreen Widgets -->
+                        <include>skinshortcuts-template-fullscreen-widget-background</include>
+
+                        <!-- Home Widgets -->
+                        <control type="group" id="3000">
+                            <animation type="Conditional" condition="Control.IsVisible(3990)" reversible="false">
+                                <effect type="slide" end="20" time="60" tween="sine" />
+                                <effect type="slide" end="-20" time="180" tween="sine" delay="80" />
+                            </animation>
+                            <animation type="Conditional" condition="Control.IsVisible(3991)" reversible="false">
+                                <effect type="slide" end="0,-20" time="60" tween="sine" />
+                                <effect type="slide" end="0,20" time="180" tween="sine" delay="80" />
+                            </animation>
+                            <include>skinshortcuts-template-widgets</include>
+                        </control>
+
+                        <!-- Weather and Settings Widgets -->
+                        <include>Home_Widgets_Fullscreen</include>
+                    </control>
+                </control>
+                <include>skinshortcuts-template-homefader</include>
+                <include>Topbar_Left</include>
+            </control>
+        </include>
+
+        <!-- Clock -->
+        <include condition="!Skin.HasSetting(DisableClock)">Topbar_Right</include>
+    </include>
+
+    <include name="Home_Widget_Fullscreen_HubInfo">
+        <param name="visible" default="true" />
+        <param name="group-visible" default="true" />
+        <param name="clearlogo-visible" default="false" />
+        <definition>
+            <control type="group" id="$PARAM[group2-id]">
+                <nested />
+                <right>view_pad</right>
+                <left>view_pad</left>
+                <top>widgets_label_top</top>
+                <height>widgets_item_height</height>
+                <visible>$PARAM[group-visible]</visible>
+                <control type="grouplist">
+                    <left>20</left>
+                    <height>widgets_item_height</height>
+                    <bottom>-210</bottom>
+                    <right>660</right>
+                    <orientation>vertical</orientation>
+                    <usecontrolcoords>true</usecontrolcoords>
+                    <align>bottom</align>
+                    <itemgap>0</itemgap>
+                    <include content="Home_Vertical_Info_Content">
+                        <param name="id" value="3001" />
+                        <param name="plotheight" value="80" />
+                        <param name="plotheight-nr" value="120" />
+                    </include>
+                </control>
+                <control type="group">
+                    <visible>Control.HasFocus($PARAM[button-play-id]) | Control.HasFocus($PARAM[button-info-id]) | Integer.IsEqual(Window(Home).Property(TMDbHelper.WidgetContainer),3001) | $PARAM[clearlogo-visible] | [Skin.HasSetting(EnableHorizontalHome) + Integer.IsEqual(Container(3700).NumItems,0)]</visible>
+                    <animation reversible="false" effect="fade" start="100" end="0" delay="0" time="300" tween="cubic" easing="inout">Hidden</animation>
+                    <animation reversible="false" effect="fade" start="0" end="100" delay="200" time="400" tween="cubic" easing="inout">Visible</animation>
+                    <control type="image">
+                        <right>-25</right>
+                        <bottom>-280</bottom>
+                        <height>180</height>
+                        <fadetime>200</fadetime>
+                        <aspectratio align="right" aligny="bottom">keep</aspectratio>
+                        <texture background="true">$VAR[Image_Home_Clearlogo]</texture>
+                    </control>
+                    <control type="label">
+                        <right>20</right>
+                        <bottom>-300</bottom>
+                        <height>20</height>
+                        <fadetime>200</fadetime>
+                        <width>202</width>
+                        <align>center</align>
+                        <font>font_statusbar_bold</font>
+                        <label>$INFO[Container(3001).CurrentItem,, / ]$INFO[Container(3001).NumItems]</label>
+                        <textcolor>main_fg_70</textcolor>
+                    </control>
+                </control>
+            </control>
+            <control type="grouplist" id="$PARAM[group-id]" >
+                <visible>$PARAM[group-visible]</visible>
+                <top>630</top>
+                <left>view_pad</left>
+                <right>-26</right>
+                <align>left</align>
+                <height>170</height>
+                <orientation>horizontal</orientation>
+                <usecontrolcoords>true</usecontrolcoords>
+                <itemgap>-10</itemgap>
+                <onup condition="Skin.HasSetting(EnableHorizontalHome)">301</onup>
+                <onleft condition="!Skin.HasSetting(EnableHorizontalHome)">301</onleft>
+                <onleft condition="!Skin.HasSetting(EnableHorizontalHome)">SetProperty(CurrentWidget,3001)</onleft>
+                <onleft condition="Skin.HasSetting(EnableHorizontalHome)">$PARAM[button-play-id]</onleft>
+                <onleft condition="Skin.HasSetting(EnableHorizontalHome)">Control.Move(3001,-1)</onleft>
+                <onright>$PARAM[button-info-id]</onright>
+                <onright>Control.Move(3001,1)</onright>
+                <include content="Object_Info_Button" description="Play">
+                    <param name="id" value="$PARAM[button-play-id]" />
+                    <param name="groupid" value="$PARAM[group-play-id]" />
+                    <param name="label" value="$VAR[Label_Showcase_PlayBrowse]" />
+                    <param name="icon" value="$VAR[Image_Showcase_PlayBrowse_Icon]" />
+                    <param name="visible" value="$PARAM[visible]" />
+                    <onback>301</onback>
+                    <ondown>$PARAM[ondown]</ondown>
+                    <onclick>SetFocus(3001)</onclick>
+                    <onclick>Action(Select)</onclick>
+                    <onfocus>SetProperty(WidgetFocus,1)</onfocus>
+                    <onfocus>SetProperty(TMDbHelper.WidgetContainer,3001,Home)</onfocus>
+                    <onfocus>$PARAM[onfocus]</onfocus>
+                    <onfocus>$PARAM[onfocus2]</onfocus>
+                    <onfocus>$PARAM[onfocus3]</onfocus>
+                </include>
+                <include content="Object_Info_Button" description="Info">
+                    <param name="id" value="$PARAM[button-info-id]" />
+                    <param name="groupid" value="$PARAM[group-info-id]" />
+                    <param name="label" value="$LOCALIZE[31078]" />
+                    <param name="icon" value="special://skin/extras/icons/info2.png" />
+                    <param name="visible" value="$PARAM[visible]" />
+                    <onback>301</onback>
+                    <ondown>$PARAM[ondown]</ondown>
+                    <onclick>SetFocus(3001)</onclick>
+                    <onclick>Action(Info)</onclick>
+                    <onfocus>SetProperty(WidgetFocus,1)</onfocus>
+                    <onfocus>SetProperty(TMDbHelper.WidgetContainer,3001,Home)</onfocus>
+                    <onfocus>$PARAM[onfocus]</onfocus>
+                    <onfocus>$PARAM[onfocus2]</onfocus>
+                    <onfocus>$PARAM[onfocus3]</onfocus>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Home_Widget_Fullscreen_HubBase">
+        <control type="group">
+            <nested />
+            <left>20</left>
+            <right>20</right>
+            <top>-180</top>
+            <bottom>-65</bottom>
+            <control type="image">
+                <bottom>480</bottom>
+                <texture background="true" colordiffuse="cdffffff">common/vignette-home.png</texture>
+                <include>Animation_FadeInOut_Common</include>
+            </control>
+            <control type="image">
+                <bottom>0</bottom>
+                <height>480</height>
+                <texture colordiffuse="cdffffff">common/vignette-home-bottom.png</texture>
+                <include>Animation_FadeInOut_Common</include>
+            </control>
+        </control>
+    </include>
+
+    <include name="Home_Widgets_Fullscreen">
+
+        <!-- Weather -->
+        <control type="group">
+            <visible>String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Weather) + Weather.IsFetched</visible>
+            <include content="Animation_UpDown">
+                <param name="visible" value="String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Weather) + Weather.IsFetched" />
+            </include>
+            <include content="Weather">
+                <left>100</left>
+                <right>100</right>
+                <top>20</top>
+                <bottom>20</bottom>
+            </include>
+        </control>
+
+        <!-- Settings -->
+        <control type="group">
+            <top>-180</top>
+            <bottom>-65</bottom>
+            <left>20</left>
+            <right>20</right>
+            <visible>String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Settings)</visible>
+            <include content="Animation_UpDown">
+                <param name="visible" value="String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Settings)" />
+            </include>
+            <control type="group" id="5200">
+                <include>View_Pad</include>
+                <include>View_Settings</include>
+            </control>
+        </control>
+    </include>
+
+    <include name="Home_Hub_Showcase">
+        <control type="group">
+            <control type="group">
+                <visible>$EXP[Exp_GlobalBackground] | !String.IsEmpty(Window(Home).Property(HasTrailer)) | ![Control.HasFocus(5610) | Control.HasFocus(60)]</visible>
+                <include>Animation_FadeInOut</include>
+                <include>skinshortcuts-template-showcase-background</include>
+                <control type="image">
+                    <bottom>480</bottom>
+                    <texture background="true" colordiffuse="cdffffff">common/vignette-home.png</texture>
+                    <include>Animation_FadeInOut_Common</include>
+                </control>
+                <control type="image">
+                    <bottom>0</bottom>
+                    <height>480</height>
+                    <texture colordiffuse="cdffffff">common/vignette-home-bottom.png</texture>
+                    <include>Animation_FadeInOut_Common</include>
+                </control>
+            </control>
+            <control type="group">
+                <visible>$EXP[Exp_CommonAnimation] | [Control.HasFocus(5610) | Control.HasFocus(60)]</visible>
+                <visible>$EXP[Exp_GlobalBackground] | !String.IsEmpty(Window(Home).Property(HasTrailer))</visible>
+                <include>Animation_FadeInOut</include>
+                <include>Global_Background_Artwork</include>
+            </control>
+
+            <control type="group">
+
+                <animation effect="slide" start="0" end="0,320" condition="Integer.IsEqual(Container(302).NumItems,0)">Conditional</animation>
+                <animation effect="slide" start="0" end="0,570" condition="!Integer.IsEqual(Container(302).NumItems,0)">Conditional</animation>
+                <animation effect="slide" tween="quadratic" time="400" start="0" end="0,-250" condition="Control.HasFocus(302) | [[Control.HasFocus(5610) | Control.HasFocus(60)] + !Integer.IsEqual(Container(302).NumItems,0)]">Conditional</animation>
+                <animation effect="slide" tween="quadratic" time="400" start="0" end="0,-320" condition="Control.HasFocus(5610) | Control.HasFocus(60)">Conditional</animation>
+                <visible allowhiddenfocus="true">!$EXP[Exp_CommonAnimation]</visible>
+                <include>Animation_Common</include>
+                <include>Animation_FadeInOut_Common</include>
+                <control type="group">
+                    <control type="grouplist">
+                        <animation effect="slide" time="0" start="0" end="0,250" condition="Integer.IsEqual(Container(302).NumItems,0)">Conditional</animation>
+                        <visible allowhiddenfocus="true">![Control.HasFocus(5610) | Control.HasFocus(60)]</visible>
+                        <animation type="Hidden">
+                            <effect type="fade" start="100" end="0" delay="0" time="300" tween="cubic" easing="inout" />
+                        </animation>
+                        <animation type="Visible">
+                            <effect type="fade" start="0" end="100" delay="200" time="400" tween="cubic" easing="inout" />
+                        </animation>
+                        <left>view_pad</left>
+                        <top>0</top>
+                        <bottom>730</bottom>
+                        <width>1100</width>
+                        <align>bottom</align>
+                        <orientation>vertical</orientation>
+                        <usecontrolcoords>true</usecontrolcoords>
+                        <itemgap>0</itemgap>
+                        <include content="Object_Info_Title">
+                            <param name="label" value="$VAR[Label_Info_Title_C3001]" />
+                        </include>
+                        <include content="Object_Info_Line">
+                            <param name="label" value="$VAR[Label_56560_InfoLine]" />
+                            <param name="image" value="$VAR[Image_56560_VideoQuality]" />
+                        </include>
+                        <include content="Object_Info_Plot">
+                            <param name="label" value="$VAR[Label_Plot_C3001]" />
+                            <height max="80">auto</height>
+                            <top>10</top>
+                        </include>
+                        <control type="group">
+                            <height>20</height>
+                        </control>
+                        <control type="grouplist">
+                            <left>-20</left>
+                            <right>-26</right>
+                            <align>left</align>
+                            <height>110</height>
+                            <onleft condition="!Window.IsVisible(Home) | Skin.HasSetting(EnableHorizontalHome)">Control.Move(3001,-1)</onleft>
+                            <onleft condition="!Window.IsVisible(Home) | Skin.HasSetting(EnableHorizontalHome)">3101</onleft>
+                            <onleft condition="Window.IsVisible(Home) + !Skin.HasSetting(EnableHorizontalHome)">301</onleft>
+                            <onright>Control.Move(3001,1)</onright>
+                            <onright>3102</onright>
+                            <onback condition="!Window.IsVisible(Home)">302</onback>
+                            <onback condition="Window.IsVisible(Home)">301</onback>
+                            <orientation>horizontal</orientation>
+                            <usecontrolcoords>true</usecontrolcoords>
+                            <itemgap>-10</itemgap>
+                            <include content="Object_Info_Button" description="Play">
+                                <param name="id" value="3101" />
+                                <param name="groupid" value="3201" />
+                                <param name="label" value="$VAR[Label_Showcase_PlayBrowse]" />
+                                <param name="icon" value="$VAR[Image_Showcase_PlayBrowse_Icon]" />
+                                <param name="visible" value="true" />
+                                <ondown>302</ondown>
+                                <onup condition="!Skin.HasSetting(EnableHorizontalHome) | !Window.IsVisible(home)">Control.Move(3001,-1)</onup>
+                                <onup condition="Skin.HasSetting(EnableHorizontalHome) + Window.IsVisible(home)">SetFocus(301)</onup>
+                                <onfocus>SetProperty(WidgetFocus,1)</onfocus>
+                                <onclick>SetFocus(3001)</onclick>
+                                <onclick>Action(Select)</onclick>
+                                <onfocus>SetProperty(TMDbHelper.WidgetContainer,3001,Home)</onfocus>
+                            </include>
+                            <include content="Object_Info_Button" description="Info">
+                                <param name="id" value="3102" />
+                                <param name="groupid" value="3202" />
+                                <param name="label" value="$LOCALIZE[31078]" />
+                                <param name="icon" value="special://skin/extras/icons/info2.png" />
+                                <param name="visible" value="true" />
+                                <ondown>302</ondown>
+                                <onup condition="!Skin.HasSetting(EnableHorizontalHome) | !Window.IsVisible(home)">Control.Move(3001,-1)</onup>
+                                <onup condition="Skin.HasSetting(EnableHorizontalHome) + Window.IsVisible(home)">SetFocus(301)</onup>
+                                <onfocus>SetProperty(WidgetFocus,1)</onfocus>
+                                <onclick>SetFocus(3001)</onclick>
+                                <onclick>Action(Info)</onclick>
+                                <onfocus>SetProperty(TMDbHelper.WidgetContainer,3001,Home)</onfocus>
+                            </include>
+                        </control>
+                    </control>
+                    <control type="grouplist">
+                        <visible>[Control.HasFocus(5610) | Control.HasFocus(60)]</visible>
+                        <animation type="Visible">
+                            <effect type="fade" start="0" end="100" delay="300" time="400" tween="cubic" easing="inout" />
+                        </animation>
+                        <animation type="Hidden">
+                            <effect type="fade" start="100" end="0" delay="0" time="300" tween="cubic" easing="inout" />
+                        </animation>
+
+                        <left>view_pad</left>
+                        <top>65</top>
+                        <bottom>480</bottom>
+                        <width>1100</width>
+                        <align>bottom</align>
+                        <orientation>vertical</orientation>
+                        <usecontrolcoords>true</usecontrolcoords>
+                        <itemgap>0</itemgap>
+                        <include content="Object_Info_Title">
+                            <param name="label" value="$INFO[Container(5610).ListItem.Title]" />
+                        </include>
+                        <include content="Object_Info_Line">
+                            <param name="label" value="$VAR[Label_56560_InfoLine]" />
+                            <param name="image" value="$VAR[Image_56560_VideoQuality]" />
+                        </include>
+                        <include content="Object_Info_Ratings" condition="!Skin.HasSetting(DisableAllRatings)">
+                            <param name="userrating" value="Container(5610).ListItem.UserRating" />
+                            <param name="starrating" value="Container(5610).ListItem.Rating" />
+                        </include>
+                        <include content="Object_Info_Plot">
+                            <param name="height" value="160" />
+                            <param name="label" value="$INFO[Container(5610).ListItem.Plot]" />
+                        </include>
+                        <control type="group">
+                            <height>55</height>
+                        </control>
+                    </control>
+                </control>
+                <control type="group">
+                    <include>View_Pad</include>
+                    <control type="image">
+                        <right>-15</right>
+                        <bottom>385</bottom>
+                        <height>350</height>
+                        <width>590</width>
+                        <texture background="true">$VAR[Image_ClearArt]</texture>
+                        <aspectratio align="right" aligny="bottom" scalediffuse="false">keep</aspectratio>
+                        <bordersize>15</bordersize>
+                        <animation reversible="false" effect="fade" start="100" end="0" delay="0" time="300" tween="cubic" easing="inout">Hidden</animation>
+                        <animation reversible="false" effect="fade" start="0" end="100" delay="200" time="400" tween="cubic" easing="inout">Visible</animation>
+                        <visible>[Control.HAsFocus(5610) | Control.HasFocus(60)]</visible>
+                    </control>
+                    <include content="Viewtype_BackPanel">
+                        <include>Animation_FadeInOut</include>
+                        <visible>[Control.HAsFocus(5610) | Control.HasFocus(60)]</visible>
+                        <height>480</height>
+                    </include>
+                    <control type="group">
+                        <left>-15</left>
+                        <bottom>285</bottom>
+                        <height>120</height>
+                        <animation effect="fade" start="0" end="100" time="300">VisibleChange</animation>
+                        <visible>Container(5610).IsUpdating</visible>
+                        <visible>Integer.IsEqual(Container(5610).NumAllItems,0)</visible>
+                        <include content="Defs_BusySpinner">
+                            <param name="label" value="$LOCALIZE[31428]..." />
+                            <param name="textcolor" value="main_fg_70" />
+                        </include>
+                    </control>
+                    <control type="group">
+                        <bottom>250</bottom>
+                        <top>-250</top>
+                        <visible allowhiddenfocus="true">![Control.HasFocus(5610) | Control.HasFocus(60)]</visible>
+                        <animation effect="fade" start="100" end="0" delay="0" time="400" tween="cubic" easing="inout">Hidden</animation>
+                        <animation effect="fade" start="0" end="100" delay="200" time="400" tween="cubic" easing="inout">Visible</animation>
+                        <animation effect="fade" start="100" end="0" time="300" reversible="false" condition="Container(302).IsUpdating">Conditional</animation>
+                        <animation effect="fade" start="0" end="100" delay="300" time="300" reversible="false" condition="!Container(302).IsUpdating">Conditional</animation>
+                        <include content="Viewtype_Keywords">
+                            <param name="id" value="302" />
+                            <param name="control-type" value="fixedlist" />
+                            <param name="movement" value="5" />
+                            <bottom>view_bottom</bottom>
+                            <left>-80</left>
+                            <right>-80</right>
+                            <onup>3101</onup>
+                            <onback condition="Window.IsVisible(Home)">3101</onback>
+                            <onfocus>SetProperty(TMDbHelper.WidgetContainer,3001,Home)</onfocus>
+                            <ondown>SetProperty(TMDbHelper.WidgetContainer,5610,Home)</ondown>
+                            <ondown>5610</ondown>
+                            <include>Items_SubMenu</include>
+                        </include>
+                        <include content="Home_Hub_Widget_Label">
+                            <param name="id" value="302" />
+                            <param name="label" value="Submenu" />
+                        </include>
+                    </control>
+                    <control type="group">
+                        <animation effect="fade" start="100" end="0" time="300" reversible="false" condition="Container(5610).IsUpdating + Integer.IsEqual(Container(5610).NumAllItems,0)">Conditional</animation>
+                        <animation effect="fade" start="0" end="100" delay="300" time="300" reversible="false" condition="!Container(5610).IsUpdating | !Integer.IsEqual(Container(5610).NumAllItems,0)">Conditional</animation>
+                        <include content="Home_Hub_Widget_Label">
+                            <param name="id" value="5610" />
+                            <param name="label" value="$VAR[Label_Hub_WidgetName]" />
+                        </include>
+                        <include>skinshortcuts-template-spotlight-submenu</include>
+                        <include>skinshortcuts-template-spotlight-mainmenu</include>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </include>
+
+    <include name="Home_Widget_Fullscreen">
+        <param name="content" default="$VAR[Defs_ScreensaverWidget]" />
+        <param name="sortby" default="random" />
+        <param name="target" default="videos" />
+        <param name="id" default="3001" />
+        <definition>
+            <control type="list" id="$PARAM[id]">
+                <nested />
+                <orientation>horizontal</orientation>
+                <scrolltime tween="quadratic">400</scrolltime>
+                <itemlayout width="1920" height="1080">
+                    <control type="image">
+                        <texture background="true">$VAR[Image_Fanart]</texture>
+                    </control>
+                </itemlayout>
+                <focusedlayout width="1920" height="1080">
+                    <control type="image">
+                        <texture background="true">$VAR[Image_Fanart]</texture>
+                    </control>
+                </focusedlayout>
+                <content target="videos" sortby="random">$PARAM[content]</content>
+                <include content="Defs_AutoScroll">
+                    <param name="condition" value="!Control.HasFocus($PARAM[id]) + System.IdleTime(1) + !Skin.HasSetting(DisableAutoScrollWidgets)" />
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Home_Hub_Widget_Label">
+        <param name="label" default="$VAR[Label_WidgetName]" />
+        <definition>
+            <control type="group">
+                <nested />
+                <left>-15</left>
+                <top>358</top>
+                <include content="View_Cast_Toplabel">
+                    <param name="groupid" value="$PARAM[groupid]" />
+                    <param name="id" value="$PARAM[id]" />
+                    <param name="label" value="$PARAM[label]" />
+                    <param name="altlabel" value="$PARAM[altlabel]" />
+                    <param name="showtitle" value="$PARAM[showtitle]" />
+                    <param name="altid" value="$PARAM[altid]" />
+                    <param name="showonupdate" value="$PARAM[showonupdate]" />
+                    <param name="spinner-visible" value="$PARAM[spinner-visible]" />
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Home_ListHub_Widget">
+        <control type="wraplist" id="$PARAM[id]">
+            <nested />
+            <right>0</right>
+            <bottom>0</bottom>
+            <height>560</height>
+            <width>996</width>
+            <onback>302</onback>
+            <onright>302</onright>
+            <onleft>302</onleft>
+            <orientation>vertical</orientation>
+            <onfocus condition="Skin.HasSetting(NoFanart) + !Skin.HasSetting(DisableBlur)">SetProperty(TMDbHelper.Blur.SourceImage,Art(fallback),Home)</onfocus>
+            <onfocus condition="!Skin.HasSetting(NoFanart) + !Skin.HasSetting(DisableBlur)">SetProperty(TMDbHelper.Blur.SourceImage,landscape,Home)</onfocus>
+            <animation effect="fade" start="100" end="0" time="300" condition="Container(5610).IsUpdating">Conditional</animation>
+            <include content="Defs_AutoScroll"><param name="condition" value="!Control.HasFocus(5610)" /></include>
+            <itemlayout width="996" height="560">
+                <control type="image">
+                    <aspectratio scalediffuse="false">scale</aspectratio>
+                    <texture background="true" diffuse="diffuse/landscape-big.png">$VAR[Image_Landscape]</texture>
+                </control>
+            </itemlayout>
+            <focusedlayout width="996" height="560">
+                <control type="image">
+                    <aspectratio scalediffuse="false">scale</aspectratio>
+                    <texture background="true" diffuse="diffuse/landscape-big.png">$VAR[Image_Landscape]</texture>
+                </control>
+            </focusedlayout>
+        </control>
+    </include>
+
+    <include name="Home_Menu_Header">
+        <param name="iconvisible" default="true" />
+        <param name="width" default="450" />
+        <definition>
+            <control type="group">
+                <top>-24</top>
+                <width>$PARAM[width]</width>
+                <height>item_list_height</height>
+                <nested />
+                <control type="image">
+                    <top>78</top>
+                    <height>1</height>
+                    <left>41</left>
+                    <right>41</right>
+                    <texture colordiffuse="$VAR[Defs_HomeMenu_Line_BG]">common/white.png</texture>
+                </control>
+                <control type="image">
+                    <top>79</top>
+                    <height>1</height>
+                    <left>41</left>
+                    <right>41</right>
+                    <texture colordiffuse="$VAR[Defs_HomeMenu_Line_FG]">common/white.png</texture>
+                </control>
+                <include content="Object_Control" condition="$PARAM[iconvisible]">
+                    <param name="type" value="image" />
+                    <left>40</left>
+                    <bottom>-4</bottom>
+                    <width>item_list_height</width>
+                    <height>item_list_height</height>
+                    <bordersize>8</bordersize>
+                    <texture background="true" colordiffuse="$VAR[Defs_HomeMenu_Icon]">$PARAM[icon]</texture>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Home_Menu">
+        <param name="focusbutton" default="false" />
+        <param name="icononly" default="false" />
+        <param name="top" default="view_pad" />
+        <definition>
+            <control type="list" id="$PARAM[id]">
+                <top>$PARAM[top]</top>
+                <bottom>view_pad</bottom>
+                <orientation>vertical</orientation>
+                <itemlayout height="item_list_height" width="160">
+                    <control type="group">
+                        <control type="image">
+                            <right>40</right>
+                            <width>item_list_height</width>
+                            <height>item_list_height</height>
+                            <bordersize>8</bordersize>
+                            <texture background="true" colordiffuse="$VAR[Defs_HomeMenu_Icon]">$INFO[ListItem.Icon]</texture>
+                        </control>
+                    </control>
+                </itemlayout>
+                <focusedlayout height="item_list_height" width="160">
+                    <control type="group">
+                        <visible>!Control.HasFocus(301) + !Control.HasFocus(303) + ![Control.HasFocus(3992) + String.IsEmpty(Window.Property(WidgetFocus))]</visible>
+                        <control type="image">
+                            <right>40</right>
+                            <width>item_list_height</width>
+                            <height>item_list_height</height>
+                            <bordersize>8</bordersize>
+                            <texture background="true" colordiffuse="$VAR[Defs_HomeMenu_Icon]">$INFO[ListItem.Icon]</texture>
+                        </control>
+                    </control>
+                    <control type="group">
+                        <visible>Control.HasFocus(301) | Control.HasFocus(303) | [Control.HasFocus(3992) + String.IsEmpty(Window.Property(WidgetFocus))]</visible>
+                        <control type="image">
+                            <texture colordiffuse="$VAR[ColorHighlight]">common/white.png</texture>
+                        </control>
+                        <control type="image">
+                            <texture colordiffuse="$VAR[ColorGradient]">common/white-gradient.png</texture>
+                        </control>
+                        <control type="image">
+                            <right>40</right>
+                            <width>item_list_height</width>
+                            <height>item_list_height</height>
+                            <bordersize>8</bordersize>
+                            <texture background="true" colordiffuse="Selected">$INFO[ListItem.Icon]</texture>
+                        </control>
+                    </control>
+                </focusedlayout>
+                <nested />
+            </control>
+        </definition>
+    </include>
+
+    <include name="Home_Menu_Horizontal_Texture">
+        <animation effect="slide" end="$PARAM[slide]" condition="$PARAM[visible]">Conditional</animation>
+        <include content="Object_Control">
+            <param name="type" value="group" />
+            <width>$PARAM[width]</width>
+            <visible>$PARAM[visible]</visible>
+            <control type="image">
+                <texture colordiffuse="Shadow" border="40,40,40,40">common/button-view-base-shadow.png</texture>
+            </control>
+            <include>skinshortcuts-template-homehorizontalfader</include>
+            <control type="image">
+                <texture colordiffuse="AltPosterBack" border="40,40,40,40">common/button-view-base.png</texture>
+            </control>
+        </include>
+    </include>
+
+    <include name="Home_Menu_Horizontal">
+        <param name="mainmenu-id" default="301" />
+        <definition>
+            <control type="group">
+                <visible allowhiddenfocus="true">Control.HasFocus(301) | Control.HasFocus(303) | [Control.HasFocus(3992) + String.IsEmpty(Window.Property(WidgetFocus))] | Skin.HasSetting(LockMainMenu)</visible>
+                <animation type="Conditional" reversible="false" condition="!$EXP[Exp_CommonAnimation]">
+                    <effect type="fade" start="0" end="100" time="300" delay="300" tween="sine" easing="in" />
+                    <effect type="zoom" start="85" end="100" time="300" delay="300" center="auto" tween="sine" easing="out" />
+                </animation>
+                <animation type="Conditional" reversible="false" condition="$EXP[Exp_CommonAnimation]">
+                    <effect type="zoom" start="100" end="85" center="auto" tween="sine" delay="0" easing="out" time="300" />
+                    <effect type="fade" start="100" end="0" tween="cubic" easing="out" delay="0" time="300" />
+                </animation>
+                <include>Animation_FadeInOut_Common</include>
+                <control type="group">
+                    <centertop>100</centertop>
+                    <height>100</height>
+                    <left>490</left>
+                    <right>490</right>
+
+                    <control type="image">
+                        <centertop>50%</centertop>
+                        <left>-16</left>
+                        <width>24</width>
+                        <height>24</height>
+                        <texture colordiffuse="main_fg_70">buttons/spin-left.png</texture>
+                        <visible>Container(301).HasPrevious</visible>
+                        <include>Animation_FadeInOut</include>
+                    </control>
+                    <control type="image">
+                        <centertop>50%</centertop>
+                        <right>-16</right>
+                        <width>24</width>
+                        <height>24</height>
+                        <texture colordiffuse="main_fg_70" flipx="true">buttons/spin-left.png</texture>
+                        <visible>Container(301).HasNext</visible>
+                        <include>Animation_FadeInOut</include>
+                    </control>
+
+                    <!-- Textures for Label Menu -->
+                    <include content="Home_Menu_Horizontal_Texture" condition="!Skin.HasSetting(HomeIconicMenu)">
+                        <param name="width" value="940" />
+                        <param name="visible" value="Integer.IsGreater(Container(301).NumItems,3)" />
+                        <param name="slide" value="0" />
+                    </include>
+                    <include content="Home_Menu_Horizontal_Texture" condition="!Skin.HasSetting(HomeIconicMenu)">
+                        <param name="width" value="740" />
+                        <param name="visible" value="Integer.IsEqual(Container(301).NumItems,3)" />
+                        <param name="slide" value="100" />
+                    </include>
+                    <include content="Home_Menu_Horizontal_Texture" condition="!Skin.HasSetting(HomeIconicMenu)">
+                        <param name="width" value="540" />
+                        <param name="visible" value="Integer.IsEqual(Container(301).NumItems,2)" />
+                        <param name="slide" value="200" />
+                    </include>
+                    <include content="Home_Menu_Horizontal_Texture" condition="!Skin.HasSetting(HomeIconicMenu)">
+                        <param name="width" value="340" />
+                        <param name="visible" value="Integer.IsEqual(Container(301).NumItems,1)" />
+                        <param name="slide" value="300" />
+                    </include>
+
+                    <!-- Textures for Iconic Menu -->
+                    <include content="Home_Menu_Horizontal_Texture" condition="Skin.HasSetting(HomeIconicMenu)">
+                        <param name="width" value="940" />
+                        <param name="visible" value="Integer.IsGreater(Container(301).NumItems,7)" />
+                        <param name="slide" value="0" />
+                    </include>
+                    <include content="Home_Menu_Horizontal_Texture" condition="Skin.HasSetting(HomeIconicMenu)">
+                        <param name="width" value="840" />
+                        <param name="visible" value="Integer.IsEqual(Container(301).NumItems,7)" />
+                        <param name="slide" value="50" />
+                    </include>
+                    <include content="Home_Menu_Horizontal_Texture" condition="Skin.HasSetting(HomeIconicMenu)">
+                        <param name="width" value="740" />
+                        <param name="visible" value="Integer.IsEqual(Container(301).NumItems,6)" />
+                        <param name="slide" value="100" />
+                    </include>
+                    <include content="Home_Menu_Horizontal_Texture" condition="Skin.HasSetting(HomeIconicMenu)">
+                        <param name="width" value="640" />
+                        <param name="visible" value="Integer.IsEqual(Container(301).NumItems,5)" />
+                        <param name="slide" value="150" />
+                    </include>
+                    <include content="Home_Menu_Horizontal_Texture" condition="Skin.HasSetting(HomeIconicMenu)">
+                        <param name="width" value="540" />
+                        <param name="visible" value="Integer.IsEqual(Container(301).NumItems,4)" />
+                        <param name="slide" value="200" />
+                    </include>
+                    <include content="Home_Menu_Horizontal_Texture" condition="Skin.HasSetting(HomeIconicMenu)">
+                        <param name="width" value="440" />
+                        <param name="visible" value="Integer.IsEqual(Container(301).NumItems,3)" />
+                        <param name="slide" value="250" />
+                    </include>
+                    <include content="Home_Menu_Horizontal_Texture" condition="Skin.HasSetting(HomeIconicMenu)">
+                        <param name="width" value="340" />
+                        <param name="visible" value="Integer.IsEqual(Container(301).NumItems,2)" />
+                        <param name="slide" value="300" />
+                    </include>
+                    <include content="Home_Menu_Horizontal_Texture" condition="Skin.HasSetting(HomeIconicMenu)">
+                        <param name="width" value="240" />
+                        <param name="visible" value="Integer.IsEqual(Container(301).NumItems,1)" />
+                        <param name="slide" value="350" />
+                    </include>
+
+                    <control type="group">
+                        <left>20</left>
+                        <width>80</width>
+                        <control type="group">
+                            <centerleft>50%</centerleft>
+                            <centertop>50%</centertop>
+                            <width>72</width>
+                            <height>72</height>
+                            <include content="Object_Control" condition="!Skin.HasSetting(ProfilePicture)">
+                                <param name="type" value="image" />
+                                <texture colordiffuse="main_fg_70">$VAR[Image_SkinLogo]</texture>
+                            </include>
+                            <include content="Object_Control" condition="Skin.HasSetting(ProfilePicture)">
+                                <param name="type" value="group" />
+                                <top>1</top>
+                                <bottom>1</bottom>
+                                <control type="image">
+                                    <bottom>-2</bottom>
+                                    <top>2</top>
+                                    <bordersize>16</bordersize>
+                                    <texture colordiffuse="main_fg_30">diffuse/circle.png</texture>
+                                </control>
+                                <control type="image">
+                                    <bottom>2</bottom>
+                                    <top>-2</top>
+                                    <bordersize>16</bordersize>
+                                    <texture colordiffuse="main_bg_30">diffuse/circle.png</texture>
+                                </control>
+                                <control type="image">
+                                    <bordersize>16</bordersize>
+                                    <texture diffuse="diffuse/circle.png">$INFO[System.ProfileThumb]</texture>
+                                </control>
+                            </include>
+                        </control>
+                        <control type="group">
+                            <height>40</height>
+                            <centertop>50%</centertop>
+                            <control type="image">
+                                <width>1</width>
+                                <right>1</right>
+                                <texture colordiffuse="main_bg_30">common/white.png</texture>
+                            </control>
+                            <control type="image">
+                                <width>1</width>
+                                <right>0</right>
+                                <texture colordiffuse="main_fg_30">common/white.png</texture>
+                            </control>
+                        </control>
+                    </control>
+
+
+                    <control type="list" id="$PARAM[mainmenu-id]">
+                        <orientation>horizontal</orientation>
+                        <left>100</left>
+                        <include>Home_Movement_OnFocus</include>
+                        <include>Home_Movement_LeftRight</include>
+                        <itemlayout width="100" condition="Skin.HasSetting(HomeIconicMenu)">
+                            <control type="group">
+                                <left>0</left>
+                                <right>-40</right>
+                                <control type="image">
+                                    <bordersize>16</bordersize>
+                                    <aspectratio>keep</aspectratio>
+                                    <texture colordiffuse="main_fg_70" background="true">$INFO[ListItem.Icon]</texture>
+                                </control>
+                            </control>
+                        </itemlayout>
+                        <focusedlayout width="100" condition="Skin.HasSetting(HomeIconicMenu)">
+                            <control type="group">
+                                <left>0</left>
+                                <right>-40</right>
+                                <visible>![Control.HasFocus(301) | Control.HasFocus(303) | [Control.HasFocus(3992) + String.IsEmpty(Window.Property(WidgetFocus))]]</visible>
+                                <control type="image">
+                                    <bordersize>16</bordersize>
+                                    <aspectratio>keep</aspectratio>
+                                    <texture colordiffuse="main_fg_70" background="true">$INFO[ListItem.Icon]</texture>
+                                </control>
+                            </control>
+                            <control type="group">
+                                <left>0</left>
+                                <right>-40</right>
+                                <visible>Control.HasFocus(301) | Control.HasFocus(303) | [Control.HasFocus(3992) + String.IsEmpty(Window.Property(WidgetFocus))]</visible>
+                                <control type="group">
+                                    <include content="Defs_Pad"><param name="pad" value="-4" /></include>
+                                    <control type="image">
+                                        <texture colordiffuse="$VAR[ColorHighlight]" border="40,40,40,40">common/button-view-base-fo.png</texture>
+                                    </control>
+                                    <control type="image">
+                                        <texture colordiffuse="$VAR[ColorGradient]" diffuse="common/white-gradient.png" border="40,40,40,40">common/button-view-base.png</texture>
+                                    </control>
+                                </control>
+                                <control type="image">
+                                    <bordersize>16</bordersize>
+                                    <aspectratio>keep</aspectratio>
+                                    <texture colordiffuse="Selected" background="true">$INFO[ListItem.Icon]</texture>
+                                </control>
+                            </control>
+                        </focusedlayout>
+                        <itemlayout width="200" condition="!Skin.HasSetting(HomeIconicMenu)">
+                            <control type="group">
+                                <left>0</left>
+                                <right>-40</right>
+                                <control type="label">
+                                    <left>40</left>
+                                    <right>40</right>
+                                    <font>font_title_mini</font>
+                                    <textcolor>main_fg_70</textcolor>
+                                    <align>center</align>
+                                    <label>$INFO[ListItem.LAbel]</label>
+                                </control>
+                            </control>
+                        </itemlayout>
+                        <focusedlayout width="200" condition="!Skin.HasSetting(HomeIconicMenu)">
+                            <control type="group">
+                                <left>0</left>
+                                <right>-40</right>
+                                <visible>![Control.HasFocus(301) | Control.HasFocus(303) | [Control.HasFocus(3992) + String.IsEmpty(Window.Property(WidgetFocus))]]</visible>
+                                <control type="label">
+                                    <left>40</left>
+                                    <right>40</right>
+                                    <font>font_title_mini</font>
+                                    <textcolor>main_fg_70</textcolor>
+                                    <align>center</align>
+                                    <label>$INFO[ListItem.LAbel]</label>
+                                </control>
+                            </control>
+                            <control type="group">
+                                <left>0</left>
+                                <right>-40</right>
+                                <visible>[Control.HasFocus(301) | Control.HasFocus(303) | [Control.HasFocus(3992) + String.IsEmpty(Window.Property(WidgetFocus))]]</visible>
+                                <control type="group">
+                                    <include content="Defs_Pad"><param name="pad" value="-4" /></include>
+                                    <control type="image">
+                                        <texture colordiffuse="$VAR[ColorHighlight]" border="40,40,40,40">common/button-view-base-fo.png</texture>
+                                    </control>
+                                    <control type="image">
+                                        <texture colordiffuse="$VAR[ColorGradient]" diffuse="common/white-gradient.png" border="40,40,40,40">common/button-view-base.png</texture>
+                                    </control>
+                                </control>
+                                <control type="label">
+                                    <left>40</left>
+                                    <right>40</right>
+                                    <font>font_title_mini</font>
+                                    <textcolor>Selected</textcolor>
+                                    <align>center</align>
+                                    <label>$INFO[ListItem.LAbel]</label>
+                                </control>
+                            </control>
+                        </focusedlayout>
+                        <content><include>skinshortcuts-mainmenu</include></content>
+                    </control>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Home_Menu_Vertical">
+        <param name="mainmenu-id" default="301" />
+        <definition>
+            <include content="Viewtype_Panel">
+                <param name="width" value="160" />
+                <param name="background" value="false" />
+                <param name="logohastext" value="false" />
+                <param name="colordiffuse" value="$VAR[Defs_HomeMenu_Background]" />
+                <include content="Object_Control">
+                    <param name="type" value="group" />
+                    <top>120</top>
+                    <include content="Home_Menu_Header">
+                        <param name="width" value="160" />
+                        <param name="icon" value="special://skin/extras/icons/home.png" />
+                        <param name="iconvisible" value="False" />
+                    </include>
+                    <include content="Home_Menu">
+                        <param name="id" value="$PARAM[mainmenu-id]" />
+                        <param name="font" value="font_mainmenu" />
+                        <param name="top" value="view_pad" />
+                        <include>Home_Movement_OnFocus</include>
+                        <include>Home_Movement_LeftRight</include>
+                        <content><include>skinshortcuts-mainmenu</include></content>
+                    </include>
+                </include>
+            </include>
+        </definition>
+    </include>
+
+    <include name="Home_Movement_OnFocus">
+        <onfocus>ClearProperty(TMDbHelper.WidgetContainer,Home)</onfocus>
+        <onback>3000</onback>
+        <onfocus>ClearProperty(WidgetMovement)</onfocus>
+        <onfocus>ClearProperty(WidgetFocus)</onfocus>
+        <onfocus condition="String.IsEmpty(Window.Property(301Click))">SetFocus(3992)</onfocus>
+        <onfocus>ClearProperty(301Click)</onfocus>
+    </include>
+
+    <include name="Home_Vertical_Info_Content">
+        <param name="id" default="300" />
+        <param name="plotheight" default="80" />
+        <param name="plotheight-nr" default="120" />
+        <definition>
+            <include content="Object_Info_Title">
+                <param name="label" value="$VAR[Label_Home_Title]" />
+            </include>
+            <include content="Object_Info_Line">
+                <param name="label" value="$VAR[Label_56560_InfoLine]" />
+                <param name="image" value="$VAR[Image_56560_VideoQuality]" />
+            </include>
+            <include content="Object_Info_Ratings" condition="!Skin.HasSetting(DisableAllRatings)">
+                <param name="userrating" value="Container(56560).ListItemAbsolute(0).Property(UserRating)" />
+                <param name="starrating" value="Container(56560).ListItemAbsolute(0).Property(Rating)" />
+                <visible>String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),movie) | String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),episode) | String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),tvshow) | String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),season) | String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),set)</visible>
+            </include>
+            <include content="View_Info_Grouplist_Plotbox" condition="!Skin.HasSetting(DisableAllRatings)">
+                <param name="episodetitle" value="$INFO[Container(56560).ListItemAbsolute(0).Property(Title)]" />
+                <param name="episodetitle-visible" value="!String.IsEmpty(Container(56560).ListItemAbsolute(0).Property(Title)) + String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),episode)" />
+                <param name="plot" value="$VAR[Label_Home_Plot]" />
+                <visible>String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),movie) | String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),episode) | String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),tvshow) | String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),season) | String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),set)</visible>
+                <height>$PARAM[plotheight]</height>
+                <top>35</top>
+            </include>
+            <include content="View_Info_Grouplist_Plotbox">
+                <param name="episodetitle" value="$INFO[Container(56560).ListItemAbsolute(0).Property(Title)]" />
+                <param name="episodetitle-visible" value="!String.IsEmpty(Container(56560).ListItemAbsolute(0).Property(Title)) + String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),episode)" />
+                <param name="plot" value="$VAR[Label_Home_Plot]" />
+                <visible>![String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),movie) | String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),episode) | String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),tvshow) | String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),season) | String.IsEqual(Container(56560).ListItemAbsolute(0).Property(DBType),set)] | Skin.HasSetting(DisableAllRatings)</visible>
+                <height>$PARAM[plotheight-nr]</height>
+                <top>35</top>
+            </include>
+        </definition>
+    </include>
+
+    <include name="Home_Vertical_Info">
+        <param name="plotheight" default="120" />
+        <param name="plotheight-nr" default="160" />
+        <definition>
+            <control type="group" id="$PARAM[groupid]">
+                <nested />
+                <control type="grouplist">
+                    <top>-425</top>
+                    <left>100</left>
+                    <bottom>60</bottom>
+                    <include condition="Skin.HasSetting(LockMainMenu) + !Skin.HasSetting(EnableHorizontalHome)">Viewtype_Info_Right_FixedHome</include>
+                    <include condition="!Skin.HasSetting(LockMainMenu) | Skin.HasSetting(EnableHorizontalHome)">Viewtype_Info_Right</include>
+                    <orientation>vertical</orientation>
+                    <usecontrolcoords>true</usecontrolcoords>
+                    <itemgap>0</itemgap>
+                    <control type="label">
+                        <top>10</top>
+                        <width>auto</width>
+                        <height>24</height>
+                        <aligny>center</aligny>
+                        <font>font_tiny_bold</font>
+                        <textcolor>main_fg_30</textcolor>
+                        <label>$LOCALIZE[19033]</label>
+                    </control>
+                    <control type="group">
+                        <height>30</height>
+                    </control>
+                    <include content="Home_Vertical_Info_Content">
+                        <param name="id" value="$PARAM[id]" />
+                        <param name="plotheight" value="$PARAM[plotheight]" />
+                        <param name="plotheight-nr" value="$PARAM[plotheight-nr]" />
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Home_Splash">
+        <control type="group">
+            <nested />
+            <animation effect="fade" start="100" end="0" delay="0" time="500" tween="quadratic">Hidden</animation>
+            <control type="image" description="Background">
+                <include>Dimensions_Fullscreen</include>
+                <texture>special://skin/extras/backgrounds/mountains3.jpg</texture>
+            </control>
+            <control type="grouplist">
+                <top>280</top>
+                <align>center</align>
+                <orientation>vertical</orientation>
+                <control type="label" description="Splash Title">
+                    <height>70</height>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <label>Arctic [COLOR=$VAR[ColorHighlight]]Horizon[/COLOR]</label>
+                    <font>font_splash</font>
+                    <textcolor>CDFFFFFF</textcolor>
+                </control>
+                <control type="label" description="Splash Sublabel">
+                    <height>60</height>
+                    <align>center</align>
+                    <aligny>top</aligny>
+                    <label>$VAR[Label_Splash]</label>
+                    <font>font_tiny</font>
+                    <textcolor>7FFFFFFF</textcolor>
+                </control>
+                <control type="group" description="Busy Spinner">
+                    <height>80</height>
+                    <control type="image" description="Back">
+                        <centerleft>50%</centerleft>
+                        <width>80</width>
+                        <aspectratio align="center" aligny="center">keep</aspectratio>
+                        <texture>dialog/loading-back-busy.png</texture>
+                        <colordiffuse>7FFFFFFF</colordiffuse>
+                    </control>
+                    <control type="image" description="Back">
+                        <centerleft>50%</centerleft>
+                        <width>80</width>
+                        <aspectratio align="center" aligny="center">keep</aspectratio>
+                        <texture>dialog/loading-back.png</texture>
+                        <colordiffuse>7FFFFFFF</colordiffuse>
+                    </control>
+                    <control type="group">
+                        <centerleft>50%</centerleft>
+                        <width>80</width>
+                        <animation effect="rotate" condition="true" start="0" end="360" loop="true" time="1000" center="auto">Conditional</animation>
+                        <control type="image">
+                            <texture colordiffuse="$VAR[ColorHighlight]">dialog/loading-spinner.png</texture>
+                            <aspectratio>keep</aspectratio>
+                        </control>
+                        <control type="image">
+                            <texture colordiffuse="$VAR[ColorGradient]">dialog/loading-spinner.png</texture>
+                            <aspectratio>keep</aspectratio>
+                            <animation effect="fade" condition="true" start="0" end="75" pulse="true" time="1000">Conditional</animation>
+                        </control>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </include>
+</includes>
+

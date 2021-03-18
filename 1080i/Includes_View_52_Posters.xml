@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="View_52_Posters">
+        <control type="group">
+            <visible>Control.IsVisible(52)</visible>
+            <include>Animation_Down</include>
+            <include content="Viewtype_Poster">
+                <param name="id" value="52" />
+                <param name="castlabel" value="Container.Content(actors)" />
+                <param name="label2" value="ListItem.Property(role)" />
+                <param name="viewtype-label" value="$LOCALIZE[31284]" />
+                <bottom>view_bottom</bottom>
+                <left>-80</left>
+                <right>-80</right>
+                <onfocus>ClearProperty(TMDbHelper.WidgetContainer,Home)</onfocus>
+                <include>Viewtype_Movement</include>
+                <onfocus condition="Skin.HasSetting(NoFanart)">SetProperty(TMDbHelper.Blur.SourceImage,Art(fallback),Home)</onfocus>
+                <onfocus condition="!Skin.HasSetting(NoFanart)">SetProperty(TMDbHelper.Blur.SourceImage,poster,Home)</onfocus>
+                <ondown condition="Skin.HasSetting(DisableWallScroll)">60</ondown>
+                <ondown condition="!Skin.HasSetting(DisableWallScroll) + [Container(52).HasNext | Container(52).HasPrevious]">SetProperty(WallMode,$INFO[Container.FolderPath])</ondown>
+                <ondown condition="!Skin.HasSetting(DisableWallScroll) + [Container(52).HasNext | Container(52).HasPrevious]">Container.SetViewMode(5252)</ondown>
+                <ondown condition="!Skin.HasSetting(DisableWallScroll) + [Container(52).HasNext | Container(52).HasPrevious]">SetFocus(25252)</ondown>
+                <visible>$EXP[Exp_View_52]</visible>
+                <visible>!Window.IsVisible(MyPlaylist.xml)</visible>
+                <visible>!String.IsEqual(Container.Property(Param.Info),details)</visible>
+            </include>
+            <include content="Home_Hub_Widget_Label">
+                <param name="id" value="52" />
+                <param name="label" value="$VAR[Label_Header_Center]" />
+                <param name="altlabel" value="$INFO[Control.GetLabel(3),, ]$INFO[Control.GetLabel(4)]" />
+            </include>
+        </control>
+
+        <control type="group">
+            <visible>Control.IsVisible(5252)</visible>
+            <include>Animation_Down</include>
+            <include content="Viewtype_WallSwitch">
+                <param name="id" value="52" />
+                <param name="include" value="Viewtype_Poster" />
+                <param name="viewtype-label" value="$LOCALIZE[31284]" />
+                <visible>!Window.IsVisible(MyPlaylist.xml)</visible>
+                <visible>!String.IsEqual(Container.Property(Param.Info),details)</visible>
+            </include>
+        </control>
+        <include content="Viewtype_WallSwitch_Furniture">
+            <param name="id" value="52" />
+        </include>
+
+    </include>
+
+    <include name="View_502_PosterWall">
+        <control type="group">
+            <visible>Control.IsVisible(502)</visible>
+            <include>Animation_Down</include>
+            <control type="group">
+                <include content="Viewtype_HorizontalWall_Animation">
+                    <param name="id" value="502" />
+                    <param name="itemwidth" value="item_poster_width" />
+                    <param name="7columns" value="true" />
+                </include>
+
+                <include content="Viewtype_Poster">
+                    <param name="id" value="502" />
+                    <param name="castlabel" value="Container.Content(actors)" />
+                    <param name="label2" value="ListItem.Property(role)" />
+                    <param name="viewtype-label" value="$LOCALIZE[31358]" />
+                    <param name="control-type" value="panel" />
+                    <param name="orientation" value="horizontal" />
+                    <param name="height" value="800" />
+                    <param name="offset" value="0" />
+                    <scrolltime>0</scrolltime>
+                    <animation effect="fade" end="0" condition="true">Conditional</animation>
+                    <left>-20</left>
+                    <bottom>-100</bottom>
+                    <width>item_poster_width</width>
+                    <onfocus>ClearProperty(TMDbHelper.WidgetContainer,Home)</onfocus>
+                    <include>Viewtype_Movement</include>
+                    <onfocus condition="Skin.HasSetting(NoFanart)">SetProperty(TMDbHelper.Blur.SourceImage,Art(fallback),Home)</onfocus>
+                    <onfocus condition="!Skin.HasSetting(NoFanart)">SetProperty(TMDbHelper.Blur.SourceImage,poster,Home)</onfocus>
+                    <ondown>60</ondown>
+                    <onup>SetFocus(9000)</onup>
+                    <visible>$EXP[Exp_View_502]</visible>
+                    <visible>!Window.IsVisible(MyPlaylist.xml)</visible>
+                    <visible>!String.IsEqual(Container.Property(Param.Info),details)</visible>
+                </include>
+                <include content="Viewtype_HorizontalWall">
+                    <param name="id" value="502" />
+                    <param name="itemwidth" value="item_poster_width" />
+                    <param name="diffuse" value="diffuse/poster-std.png" />
+                    <param name="imagevar" value="Image_Poster" />
+                    <param name="include" value="Viewtype_Poster_Itemlayout" />
+                    <param name="7columns" value="true" />
+                </include>
+            </control>
+            <include content="Home_Hub_Widget_Label">
+                <param name="id" value="502" />
+                <param name="label" value="$VAR[Label_Header_Center]" />
+                <param name="altlabel" value="$INFO[Control.GetLabel(3),, ]$INFO[Control.GetLabel(4)]" />
+                <top>0</top>
+            </include>
+        </control>
+    </include>
+
+
+
+</includes>
+

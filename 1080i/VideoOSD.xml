@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Foundation -->
+<window id="2901">
+    <onload condition="!Player.PauseEnabled + String.IsEmpty(Window(Home).Property(OSDViewMode))">SetFocus(15)</onload>
+    <onload condition="Player.PauseEnabled + String.IsEmpty(Window(Home).Property(OSDViewMode))">SetFocus(14)</onload>
+    <onload condition="!String.IsEmpty(Window(Home).Property(OSDViewMode))">SetFocus(3112)</onload>
+    <onload condition="!String.IsEmpty(Window(Home).Property(OSDViewMode))">ClearProperty(OSDViewMode,Home)</onload>
+    <onunload>ClearProperty(OSDInfo,Home)</onunload>
+    <controls>
+
+        <control type="button" id="99220">
+            <include>Defs_Hidden_Button</include>
+            <onfocus>SetFocus(15)</onfocus>
+            <onfocus condition="Window.IsVisible(videoosd)">Action(Close)</onfocus>
+        </control>
+
+        <control type="button">
+            <visible allowhiddenfocus="true">false</visible>
+            <onclick>Action(Close)</onclick>
+        </control>
+
+        <control type="group">
+            <visible>!Window.IsVisible(DialogPlayerProcessInfo.xml)</visible>
+            <control type="group">
+                <include condition="String.IsEmpty(Window(Home).Property(OSDViewMode))">Animation_FadeIn</include>
+                <visible>!Window.IsVisible(DialogSlider.xml)</visible>
+                <visible>!Window.IsVisible(VideoOSDBookmarks.xml)</visible>
+                <animation effect="fade" start="100" end="0" time="200" condition="Control.HasFocus(9605)">Conditional</animation>
+
+                <control type="grouplist" id="9000">
+                    <include>OSD_VideoPosition</include>
+                    <onup condition="String.IsEmpty(Window(Home).Property(OSDInfo)) + !Skin.HasSetting(DisableOSDInfo) + !Skin.HasSetting(ShowInfoPaused)">SetProperty(OSDInfo,1,Home)</onup>
+                    <onup condition="!String.IsEmpty(Window(Home).Property(OSDInfo)) | Skin.HasSetting(DisableOSDInfo) | Skin.HasSetting(ShowInfoPaused)">ActivateWindow(1143)</onup>
+                    <ondown condition="String.IsEmpty(Window(Home).Property(OSDInfo))">Close</ondown>
+                    <ondown condition="!String.IsEmpty(Window(Home).Property(OSDInfo))">ClearProperty(OSDInfo,Home)</ondown>
+                    <include>OSD_Controls</include>
+                </control>
+            </control>
+
+            <include content="Dialog_Menu">
+                <param name="id" value="3112" />
+                <param name="header" value="$LOCALIZE[33063]" />
+                <param name="content" value="Items_OSD_Settings" />
+                <param name="visible" value="Control.HasFocus(3112) + !Window.IsVisible(DialogSlider.xml)" />
+                <param name="include-icon" value="true" />
+                <param name="onleft" value="9000" />
+                <param name="onright" value="9000" />
+                <param name="onback" value="9000" />
+                <param name="global_overlay" value="false" />
+                <centertop>640</centertop>
+                <centerleft>1280</centerleft>
+            </include>
+
+            <control type="group">
+                <include condition="String.IsEmpty(Window(Home).Property(OSDViewMode))">Animation_FadeIn</include>
+                <visible>Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogPVRInfo.xml)</visible>
+                <include>Global_Background</include>
+                <include condition="!Skin.HasSetting(DisableClock)">Topbar_Right</include>
+            </control>
+
+            <control type="slider">
+                <bottom>112</bottom>
+                <height>64</height>
+                <left>view_pad</left>
+                <width>1800</width>
+                <texturesliderbar/>
+                <textureslidernib/>
+                <textureslidernibfocus/>
+                <info>Player.Progress</info>
+                <action>seek</action>
+            </control>
+        </control>
+
+    </controls>
+
+</window>
