@@ -1,3 +1,5 @@
+# Disclaimer
+This is not a mod like AuraMOD or anything in any sense I made very small changes for my use case but just made it a mod version so that it could be installed seperately in case people want to switch back to Arctic Horizon easily, as well as in the case I messed something up.
 
 # Arctic Horizon [![License](https://img.shields.io/badge/License-GPLv3-blue)](https://github.com/jurialmunkey/skin.arctic.horizon/blob/master/LICENSE.txt) [![License](https://img.shields.io/badge/license-CC--NC--SA%204.0-green)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
