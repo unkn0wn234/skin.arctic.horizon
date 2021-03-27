@@ -26,7 +26,7 @@
 			<label>$LOCALIZE[20343]</label>
 			<label2>Custom item</label2>
 			<icon>special://skin/extras/icons/tv.png</icon>
-			<thumb />
+			<thumb>special://skin/extras/icons/</thumb>
 			<property name="labelID">tvshows</property>
 			<property name="defaultID">tvshows</property>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tv&amp;tmdb_type=None&amp;widget=true",return)</onclick>
@@ -128,7 +128,7 @@
 			<property name="id">$NUMBER[1]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[20386]</label>
-			<label2>$ADDON[script.skinshortcuts 32014]</label2>
+			<label2>Videos</label2>
 			<icon>special://skin/extras/icons/recentlyadded.png</icon>
 			<thumb />
 			<property name="labelID">20386</property>
@@ -143,17 +143,16 @@
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
 			<property name="mainmenuid">1</property>
-			<label>$LOCALIZE[20434]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label>Watchlist</label>
+			<label2>Custom item</label2>
 			<icon>special://skin/extras/icons/sets.png</icon>
-			<thumb />
-			<property name="labelID">20434</property>
+			<thumb>special://skin/extras/icons/clipboard.png</thumb>
+			<property name="labelID">watchlist</property>
 			<property name="defaultID">20434</property>
-			<visible>[Library.HasContent(MovieSets)] + String.IsEqual(Container(301).ListItem.Property(submenuVisibility),num-20342)</visible>
-			<onclick>ActivateWindow(Videos,videodb://movies/sets/,return)</onclick>
-			<property name="path">ActivateWindow(Videos,videodb://movies/sets/,return)</property>
-			<property name="list">videodb://movies/sets/</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?tmdb_type=movie&amp;info=trakt_watchlist&amp;sort_by=title&amp;sort_how=asc&amp;widget=true",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?tmdb_type=movie&amp;info=trakt_watchlist&amp;sort_by=title&amp;sort_how=asc&amp;widget=true",return)</property>
+			<property name="list">plugin://plugin.video.themoviedb.helper/?tmdb_type=movie&amp;info=trakt_watchlist&amp;sort_by=title&amp;sort_how=asc&amp;widget=true</property>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(301).ListItem.Property(submenuVisibility),num-20342)</visible>
 			<property name="group">20342</property>
 			<property name="isSubmenu">True</property>
 		</item>
@@ -161,7 +160,7 @@
 			<property name="id">$NUMBER[3]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[369]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label2>Movies</label2>
 			<icon>special://skin/extras/icons/film.png</icon>
 			<thumb />
 			<property name="labelID">369</property>
@@ -178,7 +177,7 @@
 			<property name="id">$NUMBER[4]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[135]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label2>Movies</label2>
 			<icon>special://skin/extras/icons/genre.png</icon>
 			<thumb />
 			<property name="labelID">135</property>
@@ -195,7 +194,7 @@
 			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[562]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label2>Movies</label2>
 			<icon>special://skin/extras/icons/year.png</icon>
 			<thumb />
 			<property name="labelID">562</property>
@@ -212,7 +211,7 @@
 			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[344]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label2>Movies</label2>
 			<icon>special://skin/extras/icons/artist.png</icon>
 			<thumb />
 			<property name="labelID">344</property>
@@ -593,77 +592,22 @@
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
 			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[13016]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
+			<label>Skin Debugging</label>
+			<label2>Custom item</label2>
+			<icon>special://skin/extras/icons/shortcut.png</icon>
 			<thumb />
-			<property name="labelID">13016</property>
-			<property name="defaultID">13016</property>
-			<visible>[[System.CanPowerDown] + [System.CanPowerDown]] + String.IsEqual(Container(301).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<property name="labelID">skindebugging</property>
+			<property name="defaultID" />
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>Powerdown()</onclick>
-			<property name="path">Powerdown()</property>
-			<property name="list">Powerdown()</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
+			<onclick>Skin.ToggleSetting(debuginfo)</onclick>
+			<property name="path">Skin.ToggleSetting(debuginfo)</property>
+			<property name="list">Skin.ToggleSetting(debuginfo)</property>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(301).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
 		<item id="4">
 			<property name="id">$NUMBER[4]</property>
-			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[13011]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
-			<thumb />
-			<property name="labelID">13011</property>
-			<property name="defaultID">13011</property>
-			<visible>[[System.CanSuspend] + [System.CanSuspend]] + String.IsEqual(Container(301).ListItem.Property(submenuVisibility),powermenu)</visible>
-			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>Suspend()</onclick>
-			<property name="path">Suspend()</property>
-			<property name="list">Suspend()</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="group">powermenu</property>
-			<property name="isSubmenu">True</property>
-		</item>
-		<item id="5">
-			<property name="id">$NUMBER[5]</property>
-			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[13010]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
-			<thumb />
-			<property name="labelID">13010</property>
-			<property name="defaultID">13010</property>
-			<visible>[[System.CanHibernate] + [System.CanHibernate]] + String.IsEqual(Container(301).ListItem.Property(submenuVisibility),powermenu)</visible>
-			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>Hibernate()</onclick>
-			<property name="path">Hibernate()</property>
-			<property name="list">Hibernate()</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="group">powermenu</property>
-			<property name="isSubmenu">True</property>
-		</item>
-		<item id="6">
-			<property name="id">$NUMBER[6]</property>
-			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[13013]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
-			<thumb />
-			<property name="labelID">13013</property>
-			<property name="defaultID">13013</property>
-			<visible>[[System.CanReboot] + [System.CanReboot]] + String.IsEqual(Container(301).ListItem.Property(submenuVisibility),powermenu)</visible>
-			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>Reset()</onclick>
-			<property name="path">Reset()</property>
-			<property name="list">Reset()</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="group">powermenu</property>
-			<property name="isSubmenu">True</property>
-		</item>
-		<item id="7">
-			<property name="id">$NUMBER[7]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[20126]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -676,13 +620,12 @@
 			<onclick>dialog.close(all,true)</onclick>
 			<property name="path">dialog.close(all,true)</property>
 			<property name="list">dialog.close(all,true)</property>
-			<onclick>System.LogOff</onclick>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="8">
-			<property name="id">$NUMBER[8]</property>
+		<item id="5">
+			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[20046]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -699,8 +642,8 @@
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="9">
-			<property name="id">$NUMBER[9]</property>
+		<item id="6">
+			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[13017]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -717,8 +660,8 @@
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="10">
-			<property name="id">$NUMBER[10]</property>
+		<item id="7">
+			<property name="id">$NUMBER[7]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[13018]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -735,26 +678,8 @@
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="11">
-			<property name="id">$NUMBER[11]</property>
-			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[20150]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
-			<thumb />
-			<property name="labelID">20150</property>
-			<property name="defaultID">20150</property>
-			<visible>[[!System.HasAlarm(shutdowntimer) + [System.CanPowerDown | System.CanSuspend | System.CanHibernate]] + [!System.HasAlarm(shutdowntimer)]] + String.IsEqual(Container(301).ListItem.Property(submenuVisibility),powermenu)</visible>
-			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>AlarmClock(shutdowntimer,Shutdown())</onclick>
-			<property name="path">AlarmClock(shutdowntimer,Shutdown())</property>
-			<property name="list">AlarmClock(shutdowntimer,Shutdown())</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="group">powermenu</property>
-			<property name="isSubmenu">True</property>
-		</item>
-		<item id="12">
-			<property name="id">$NUMBER[12]</property>
+		<item id="8">
+			<property name="id">$NUMBER[8]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[20151]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -771,8 +696,8 @@
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="13">
-			<property name="id">$NUMBER[13]</property>
+		<item id="9">
+			<property name="id">$NUMBER[9]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[5]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -1059,6 +984,24 @@
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
 			<property name="mainmenuid">1</property>
+			<label>Submenu</label>
+			<label2 />
+			<icon>special://skin/extras/icons/playlist.png</icon>
+			<thumb />
+			<property name="labelID">submenu</property>
+			<property name="defaultID">submenu</property>
+			<property name="translatedPath">Submenu</property>
+			<property name="widgetTarget">videos</property>
+			<onclick>Submenu</onclick>
+			<property name="path">Submenu</property>
+			<property name="list">Submenu</property>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(301).ListItem.Property(submenuVisibility),num-20342)</visible>
+			<property name="group">20342.1</property>
+			<property name="isSubmenu">True</property>
+		</item>
+		<item id="3">
+			<property name="id">$NUMBER[3]</property>
+			<property name="mainmenuid">1</property>
 			<label>Popular</label>
 			<label2>Video Add-On</label2>
 			<icon>special://skin/extras/icons/shortcut.png</icon>
@@ -1067,6 +1010,7 @@
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true",return)</property>
 			<property name="widgetTarget">videos</property>
+			<property name="widgetInfo">True</property>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true",return)</property>
 			<property name="list">plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true</property>
@@ -1074,8 +1018,8 @@
 			<property name="group">20342.1</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="3">
-			<property name="id">$NUMBER[3]</property>
+		<item id="4">
+			<property name="id">$NUMBER[4]</property>
 			<property name="mainmenuid">1</property>
 			<label>Genres</label>
 			<label2>Video Add-On</label2>
@@ -1093,8 +1037,8 @@
 			<property name="group">20342.1</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="4">
-			<property name="id">$NUMBER[4]</property>
+		<item id="5">
+			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">1</property>
 			<label>Random Movies Genre</label>
 			<label2>Video Add-On</label2>
@@ -1111,8 +1055,8 @@
 			<property name="group">20342.1</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="5">
-			<property name="id">$NUMBER[5]</property>
+		<item id="6">
+			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">1</property>
 			<label>Based on Recently Watched</label>
 			<label2>Video Add-On</label2>
@@ -1122,7 +1066,7 @@
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true",return)</property>
 			<property name="widgetTarget">videos</property>
-			<property name="widgetAspect">Lovefilm</property>
+			<property name="widgetAspect">Landscape</property>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true",return)</property>
 			<property name="list">plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true</property>
@@ -1141,6 +1085,7 @@
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;tmdb_type=tv&amp;widget=true",return)</property>
 			<property name="widgetTarget">videos</property>
+			<property name="widgetInfo">True</property>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;tmdb_type=tv&amp;widget=true",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;tmdb_type=tv&amp;widget=true",return)</property>
 			<property name="list">plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;tmdb_type=tv&amp;widget=true</property>
@@ -1301,7 +1246,7 @@
 			<property name="id">$NUMBER[1]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[20386]</label>
-			<label2>$ADDON[script.skinshortcuts 32014]</label2>
+			<label2>Videos</label2>
 			<icon>special://skin/extras/icons/recentlyadded.png</icon>
 			<thumb />
 			<property name="labelID">20386</property>
@@ -1316,16 +1261,15 @@
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
 			<property name="mainmenuid">1</property>
-			<label>$LOCALIZE[20434]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label>Watchlist</label>
+			<label2>Custom item</label2>
 			<icon>special://skin/extras/icons/sets.png</icon>
-			<thumb />
-			<property name="labelID">20434</property>
+			<thumb>special://skin/extras/icons/clipboard.png</thumb>
+			<property name="labelID">watchlist</property>
 			<property name="defaultID">20434</property>
-			<visible>Library.HasContent(MovieSets)</visible>
-			<onclick>ActivateWindow(Videos,videodb://movies/sets/,return)</onclick>
-			<property name="path">ActivateWindow(Videos,videodb://movies/sets/,return)</property>
-			<property name="list">videodb://movies/sets/</property>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?tmdb_type=movie&amp;info=trakt_watchlist&amp;sort_by=title&amp;sort_how=asc&amp;widget=true",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?tmdb_type=movie&amp;info=trakt_watchlist&amp;sort_by=title&amp;sort_how=asc&amp;widget=true",return)</property>
+			<property name="list">plugin://plugin.video.themoviedb.helper/?tmdb_type=movie&amp;info=trakt_watchlist&amp;sort_by=title&amp;sort_how=asc&amp;widget=true</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
 			<property name="group">20342</property>
 			<property name="isSubmenu">True</property>
@@ -1334,7 +1278,7 @@
 			<property name="id">$NUMBER[3]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[369]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label2>Movies</label2>
 			<icon>special://skin/extras/icons/film.png</icon>
 			<thumb />
 			<property name="labelID">369</property>
@@ -1351,7 +1295,7 @@
 			<property name="id">$NUMBER[4]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[135]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label2>Movies</label2>
 			<icon>special://skin/extras/icons/genre.png</icon>
 			<thumb />
 			<property name="labelID">135</property>
@@ -1368,7 +1312,7 @@
 			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[562]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label2>Movies</label2>
 			<icon>special://skin/extras/icons/year.png</icon>
 			<thumb />
 			<property name="labelID">562</property>
@@ -1385,7 +1329,7 @@
 			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[344]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label2>Movies</label2>
 			<icon>special://skin/extras/icons/artist.png</icon>
 			<thumb />
 			<property name="labelID">344</property>
@@ -1404,7 +1348,7 @@
 			<property name="id">$NUMBER[1]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[20386]</label>
-			<label2>$ADDON[script.skinshortcuts 32014]</label2>
+			<label2>Videos</label2>
 			<icon>special://skin/extras/icons/recentlyadded.png</icon>
 			<thumb />
 			<property name="labelID">20386</property>
@@ -1419,17 +1363,16 @@
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
 			<property name="mainmenuid">1</property>
-			<label>$LOCALIZE[20434]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label>Watchlist</label>
+			<label2>Custom item</label2>
 			<icon>special://skin/extras/icons/sets.png</icon>
-			<thumb />
-			<property name="labelID">20434</property>
+			<thumb>special://skin/extras/icons/clipboard.png</thumb>
+			<property name="labelID">watchlist</property>
 			<property name="defaultID">20434</property>
-			<visible>[Library.HasContent(MovieSets)] + String.IsEqual(Window(10000).Property(submenuVisibility),num-20342)</visible>
-			<onclick>ActivateWindow(Videos,videodb://movies/sets/,return)</onclick>
-			<property name="path">ActivateWindow(Videos,videodb://movies/sets/,return)</property>
-			<property name="list">videodb://movies/sets/</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?tmdb_type=movie&amp;info=trakt_watchlist&amp;sort_by=title&amp;sort_how=asc&amp;widget=true",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?tmdb_type=movie&amp;info=trakt_watchlist&amp;sort_by=title&amp;sort_how=asc&amp;widget=true",return)</property>
+			<property name="list">plugin://plugin.video.themoviedb.helper/?tmdb_type=movie&amp;info=trakt_watchlist&amp;sort_by=title&amp;sort_how=asc&amp;widget=true</property>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Window(10000).Property(submenuVisibility),num-20342)</visible>
 			<property name="group">20342</property>
 			<property name="isSubmenu">True</property>
 		</item>
@@ -1437,7 +1380,7 @@
 			<property name="id">$NUMBER[3]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[369]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label2>Movies</label2>
 			<icon>special://skin/extras/icons/film.png</icon>
 			<thumb />
 			<property name="labelID">369</property>
@@ -1454,7 +1397,7 @@
 			<property name="id">$NUMBER[4]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[135]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label2>Movies</label2>
 			<icon>special://skin/extras/icons/genre.png</icon>
 			<thumb />
 			<property name="labelID">135</property>
@@ -1471,7 +1414,7 @@
 			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[562]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label2>Movies</label2>
 			<icon>special://skin/extras/icons/year.png</icon>
 			<thumb />
 			<property name="labelID">562</property>
@@ -1488,7 +1431,7 @@
 			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">1</property>
 			<label>$LOCALIZE[344]</label>
-			<label2>$LOCALIZE[342]</label2>
+			<label2>Movies</label2>
 			<icon>special://skin/extras/icons/artist.png</icon>
 			<thumb />
 			<property name="labelID">344</property>
@@ -2171,82 +2114,6 @@
 			<altlabel>[COLOR=panel_bg]$INFO[Container(302).ListItemAbsolute(8).Label,,][/COLOR][COLOR=00ffffff]------[/COLOR]</altlabel>
 			<usealttexture>String.IsEqual(Container(302).ListItemAbsolute(8).Label,Container(302).ListItem.Label) + Control.HasFocus(302)</usealttexture>
 		</include>
-		<include content="Object_Info_Button">
-			<param name="id" value="70810" />
-			<param name="groupid" value="80810" />
-			<param name="label" value="$INFO[Container(302).ListItemAbsolute(9).Label]" />
-			<param name="icon" value="$INFO[Container(302).ListItemAbsolute(9).Icon]" />
-			<param name="control-type" value="togglebutton" />
-			<param name="visible" value="[String.IsEqual(Container(301).ListItem.Property(submenuVisibility),num-) | String.IsEqual(Container(301).ListItem.Property(submenuVisibility),)] + !String.IsEmpty(Container(302).ListItemAbsolute(9).Label)" />
-			<param name="focused" value="String.IsEqual(Container(302).ListItemAbsolute(9).Label,Container(302).ListItem.Label) + Control.HasFocus(302)" />
-			<ondown>5610</ondown>
-			<include>Info_Button_OnUp</include>
-			<onfocus>SetFocus(302,9,absolute)</onfocus>
-			<onclick>SetFocus(302)</onclick>
-			<onclick>Action(Select)</onclick>
-			<onclick>SetFocus(70810)</onclick>
-			<alttexturenofocus border="0,50,50,50" flipx="true" colordiffuse="Selected">common/button-view-fo.png</alttexturenofocus>
-			<alttexturefocus border="0,50,50,50" flipx="true" colordiffuse="Selected">common/button-view-fo.png</alttexturefocus>
-			<altlabel>[COLOR=panel_bg]$INFO[Container(302).ListItemAbsolute(9).Label,,][/COLOR][COLOR=00ffffff]------[/COLOR]</altlabel>
-			<usealttexture>String.IsEqual(Container(302).ListItemAbsolute(9).Label,Container(302).ListItem.Label) + Control.HasFocus(302)</usealttexture>
-		</include>
-		<include content="Object_Info_Button">
-			<param name="id" value="70811" />
-			<param name="groupid" value="80811" />
-			<param name="label" value="$INFO[Container(302).ListItemAbsolute(10).Label]" />
-			<param name="icon" value="$INFO[Container(302).ListItemAbsolute(10).Icon]" />
-			<param name="control-type" value="togglebutton" />
-			<param name="visible" value="[String.IsEqual(Container(301).ListItem.Property(submenuVisibility),num-) | String.IsEqual(Container(301).ListItem.Property(submenuVisibility),)] + !String.IsEmpty(Container(302).ListItemAbsolute(10).Label)" />
-			<param name="focused" value="String.IsEqual(Container(302).ListItemAbsolute(10).Label,Container(302).ListItem.Label) + Control.HasFocus(302)" />
-			<ondown>5610</ondown>
-			<include>Info_Button_OnUp</include>
-			<onfocus>SetFocus(302,10,absolute)</onfocus>
-			<onclick>SetFocus(302)</onclick>
-			<onclick>Action(Select)</onclick>
-			<onclick>SetFocus(70811)</onclick>
-			<alttexturenofocus border="0,50,50,50" flipx="true" colordiffuse="Selected">common/button-view-fo.png</alttexturenofocus>
-			<alttexturefocus border="0,50,50,50" flipx="true" colordiffuse="Selected">common/button-view-fo.png</alttexturefocus>
-			<altlabel>[COLOR=panel_bg]$INFO[Container(302).ListItemAbsolute(10).Label,,][/COLOR][COLOR=00ffffff]------[/COLOR]</altlabel>
-			<usealttexture>String.IsEqual(Container(302).ListItemAbsolute(10).Label,Container(302).ListItem.Label) + Control.HasFocus(302)</usealttexture>
-		</include>
-		<include content="Object_Info_Button">
-			<param name="id" value="70812" />
-			<param name="groupid" value="80812" />
-			<param name="label" value="$INFO[Container(302).ListItemAbsolute(11).Label]" />
-			<param name="icon" value="$INFO[Container(302).ListItemAbsolute(11).Icon]" />
-			<param name="control-type" value="togglebutton" />
-			<param name="visible" value="[String.IsEqual(Container(301).ListItem.Property(submenuVisibility),num-) | String.IsEqual(Container(301).ListItem.Property(submenuVisibility),)] + !String.IsEmpty(Container(302).ListItemAbsolute(11).Label)" />
-			<param name="focused" value="String.IsEqual(Container(302).ListItemAbsolute(11).Label,Container(302).ListItem.Label) + Control.HasFocus(302)" />
-			<ondown>5610</ondown>
-			<include>Info_Button_OnUp</include>
-			<onfocus>SetFocus(302,11,absolute)</onfocus>
-			<onclick>SetFocus(302)</onclick>
-			<onclick>Action(Select)</onclick>
-			<onclick>SetFocus(70812)</onclick>
-			<alttexturenofocus border="0,50,50,50" flipx="true" colordiffuse="Selected">common/button-view-fo.png</alttexturenofocus>
-			<alttexturefocus border="0,50,50,50" flipx="true" colordiffuse="Selected">common/button-view-fo.png</alttexturefocus>
-			<altlabel>[COLOR=panel_bg]$INFO[Container(302).ListItemAbsolute(11).Label,,][/COLOR][COLOR=00ffffff]------[/COLOR]</altlabel>
-			<usealttexture>String.IsEqual(Container(302).ListItemAbsolute(11).Label,Container(302).ListItem.Label) + Control.HasFocus(302)</usealttexture>
-		</include>
-		<include content="Object_Info_Button">
-			<param name="id" value="70813" />
-			<param name="groupid" value="80813" />
-			<param name="label" value="$INFO[Container(302).ListItemAbsolute(12).Label]" />
-			<param name="icon" value="$INFO[Container(302).ListItemAbsolute(12).Icon]" />
-			<param name="control-type" value="togglebutton" />
-			<param name="visible" value="[String.IsEqual(Container(301).ListItem.Property(submenuVisibility),num-) | String.IsEqual(Container(301).ListItem.Property(submenuVisibility),)] + !String.IsEmpty(Container(302).ListItemAbsolute(12).Label)" />
-			<param name="focused" value="String.IsEqual(Container(302).ListItemAbsolute(12).Label,Container(302).ListItem.Label) + Control.HasFocus(302)" />
-			<ondown>5610</ondown>
-			<include>Info_Button_OnUp</include>
-			<onfocus>SetFocus(302,12,absolute)</onfocus>
-			<onclick>SetFocus(302)</onclick>
-			<onclick>Action(Select)</onclick>
-			<onclick>SetFocus(70813)</onclick>
-			<alttexturenofocus border="0,50,50,50" flipx="true" colordiffuse="Selected">common/button-view-fo.png</alttexturenofocus>
-			<alttexturefocus border="0,50,50,50" flipx="true" colordiffuse="Selected">common/button-view-fo.png</alttexturefocus>
-			<altlabel>[COLOR=panel_bg]$INFO[Container(302).ListItemAbsolute(12).Label,,][/COLOR][COLOR=00ffffff]------[/COLOR]</altlabel>
-			<usealttexture>String.IsEqual(Container(302).ListItemAbsolute(12).Label,Container(302).ListItem.Label) + Control.HasFocus(302)</usealttexture>
-		</include>
 	</include>
 	<include name="skinshortcuts-group-num-20342-1">
 		<item id="1">
@@ -2270,6 +2137,24 @@
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
 			<property name="mainmenuid">1</property>
+			<label>Submenu</label>
+			<label2 />
+			<icon>special://skin/extras/icons/playlist.png</icon>
+			<thumb />
+			<property name="labelID">submenu</property>
+			<property name="defaultID">submenu</property>
+			<property name="translatedPath">Submenu</property>
+			<property name="widgetTarget">videos</property>
+			<onclick>Submenu</onclick>
+			<property name="path">Submenu</property>
+			<property name="list">Submenu</property>
+			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
+			<property name="group">20342.1</property>
+			<property name="isSubmenu">True</property>
+		</item>
+		<item id="3">
+			<property name="id">$NUMBER[3]</property>
+			<property name="mainmenuid">1</property>
 			<label>Popular</label>
 			<label2>Video Add-On</label2>
 			<icon>special://skin/extras/icons/shortcut.png</icon>
@@ -2278,6 +2163,7 @@
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true",return)</property>
 			<property name="widgetTarget">videos</property>
+			<property name="widgetInfo">True</property>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true",return)</property>
 			<property name="list">plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true</property>
@@ -2285,8 +2171,8 @@
 			<property name="group">20342.1</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="3">
-			<property name="id">$NUMBER[3]</property>
+		<item id="4">
+			<property name="id">$NUMBER[4]</property>
 			<property name="mainmenuid">1</property>
 			<label>Genres</label>
 			<label2>Video Add-On</label2>
@@ -2304,8 +2190,8 @@
 			<property name="group">20342.1</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="4">
-			<property name="id">$NUMBER[4]</property>
+		<item id="5">
+			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">1</property>
 			<label>Random Movies Genre</label>
 			<label2>Video Add-On</label2>
@@ -2322,8 +2208,8 @@
 			<property name="group">20342.1</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="5">
-			<property name="id">$NUMBER[5]</property>
+		<item id="6">
+			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">1</property>
 			<label>Based on Recently Watched</label>
 			<label2>Video Add-On</label2>
@@ -2333,7 +2219,7 @@
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true",return)</property>
 			<property name="widgetTarget">videos</property>
-			<property name="widgetAspect">Lovefilm</property>
+			<property name="widgetAspect">Landscape</property>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true",return)</property>
 			<property name="list">plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true</property>
@@ -2364,6 +2250,24 @@
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
 			<property name="mainmenuid">1</property>
+			<label>Submenu</label>
+			<label2 />
+			<icon>special://skin/extras/icons/playlist.png</icon>
+			<thumb />
+			<property name="labelID">submenu</property>
+			<property name="defaultID">submenu</property>
+			<property name="translatedPath">Submenu</property>
+			<property name="widgetTarget">videos</property>
+			<onclick>Submenu</onclick>
+			<property name="path">Submenu</property>
+			<property name="list">Submenu</property>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Window(10000).Property(submenuVisibility),num-20342)</visible>
+			<property name="group">20342.1</property>
+			<property name="isSubmenu">True</property>
+		</item>
+		<item id="3">
+			<property name="id">$NUMBER[3]</property>
+			<property name="mainmenuid">1</property>
 			<label>Popular</label>
 			<label2>Video Add-On</label2>
 			<icon>special://skin/extras/icons/shortcut.png</icon>
@@ -2372,6 +2276,7 @@
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true",return)</property>
 			<property name="widgetTarget">videos</property>
+			<property name="widgetInfo">True</property>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true",return)</property>
 			<property name="list">plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true</property>
@@ -2379,8 +2284,8 @@
 			<property name="group">20342.1</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="3">
-			<property name="id">$NUMBER[3]</property>
+		<item id="4">
+			<property name="id">$NUMBER[4]</property>
 			<property name="mainmenuid">1</property>
 			<label>Genres</label>
 			<label2>Video Add-On</label2>
@@ -2398,8 +2303,8 @@
 			<property name="group">20342.1</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="4">
-			<property name="id">$NUMBER[4]</property>
+		<item id="5">
+			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">1</property>
 			<label>Random Movies Genre</label>
 			<label2>Video Add-On</label2>
@@ -2416,8 +2321,8 @@
 			<property name="group">20342.1</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="5">
-			<property name="id">$NUMBER[5]</property>
+		<item id="6">
+			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">1</property>
 			<label>Based on Recently Watched</label>
 			<label2>Video Add-On</label2>
@@ -2427,7 +2332,7 @@
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true",return)</property>
 			<property name="widgetTarget">videos</property>
-			<property name="widgetAspect">Lovefilm</property>
+			<property name="widgetAspect">Landscape</property>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true",return)</property>
 			<property name="list">plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true</property>
@@ -2711,7 +2616,7 @@
 						<top>740</top>
 						<height>30</height>
 					</include>
-					<include content="Object_Control" condition="![False | False] + true + !False">
+					<include content="Object_Control" condition="![False | True] + true + !False">
 						<param name="type" value="group" />
 						<param name="id" value="35102" />
 						<top>-20</top>
@@ -2721,48 +2626,48 @@
 					<include content="Info_Widget_Poster" condition="true">
 						<param name="groupid" value="40102" />
 						<param name="id" value="30102" />
-						<param name="label" value="Popular" />
-						<param name="viewtype-include" value="Viewtype_Poster" />
-						<param name="widget-type" value="widgets" />
-						<param name="issubmenu" value="False" />
+						<param name="label" value="Submenu" />
+						<param name="viewtype-include" value="Viewtype_Keywords" />
+						<param name="widget-type" value="widgets_submenu" />
+						<param name="issubmenu" value="True" />
 						<param name="showonupdate" value="false" />
 						<param name="label-widgetname" value="False" />
 						<param name="label-widgetstart" value="" />
 						<param name="label-widgetend" value="" />
-						<param name="infoslide" value="![False | False] + [False | true]" />
-						<param name="backpanel" value="![False | False] + [False | [true + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]] + [Control.HasFocus(30102) | Integer.IsEqual(Window(Home).Property(HW_50100_InfoWidget),30102)]" />
+						<param name="infoslide" value="![False | True] + [False | true]" />
+						<param name="backpanel" value="![False | True] + [False | [true + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]] + [Control.HasFocus(30102) | Integer.IsEqual(Window(Home).Property(HW_50100_InfoWidget),30102)]" />
 						<param name="clearart" value="False | [true + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]" />
 						<param name="control-type" value="fixedlist" />
-						<top>widgets_info_item_top</top>
+						<top>widgets_submenu_item_top</top>
 						<onback>ClearProperty(CurrentWidget,Home)</onback>
 						<onback>SetFocus(30101)</onback>
 						<onback>301</onback>
-						<onfocus condition="!False">SetProperty(TMDbHelper.WidgetContainer,$NUMBER[30102],Home)</onfocus>
+						<onfocus condition="!True">SetProperty(TMDbHelper.WidgetContainer,$NUMBER[30102],Home)</onfocus>
 						<onfocus>SetProperty(CG_50100_CurrentWidget,$NUMBER[30102],Home)</onfocus>
-						<onfocus condition="!Skin.HasSetting(DisableBlur) + !Skin.HasSetting(NoFanart) + !False">SetProperty(TMDbHelper.Blur.SourceImage,poster,Home)</onfocus>
-						<onfocus condition="!Skin.HasSetting(DisableBlur) + Skin.HasSetting(NoFanart) + !False">SetProperty(TMDbHelper.Blur.SourceImage,Art(fallback),Home)</onfocus>
+						<onfocus condition="!Skin.HasSetting(DisableBlur) + !Skin.HasSetting(NoFanart) + !True">SetProperty(TMDbHelper.Blur.SourceImage,poster,Home)</onfocus>
+						<onfocus condition="!Skin.HasSetting(DisableBlur) + Skin.HasSetting(NoFanart) + !True">SetProperty(TMDbHelper.Blur.SourceImage,Art(fallback),Home)</onfocus>
 						<onfocus>SetProperty(WidgetFocus,1)</onfocus>
 						<onfocus condition="![true + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background)]">ClearProperty(PW_50100_InfoWidget,Home)</onfocus>
-						<onfocus condition="!False">SetProperty(HW_50100_InfoWidget,30102,Home)</onfocus>
+						<onfocus condition="!True">SetProperty(HW_50100_InfoWidget,30102,Home)</onfocus>
 						<include content="Defs_AutoScroll">
 							<param name="condition" value="[!ControlGroup(50100).HasFocus() + System.IdleTime(1) + !Skin.HasSetting(DisableAutoScrollWidgets) + Integer.IsEqual(Container(50100).NumItems,1)] | [false + !Control.HasFocus(30102) + !Skin.HasSetting(DisableAutoScrollWidgets)]" />
 						</include>
-						<include>Defs_Movement_Poster</include>
+						<include>Defs_Movement_Square</include>
 						<content>
-							<include condition="False">skinshortcuts-submenu</include>
+							<include condition="True">skinshortcuts-submenu</include>
 						</content>
-						<content target="videos" limit="" sortby="" sortorder="">plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true</content>
+						<content target="videos" limit="" sortby="" sortorder="">Submenu</content>
 						<content>
-							<include content="Object_Item" condition="Skin.HasSetting(EnableShowMore) + !False + false">
+							<include content="Object_Item" condition="Skin.HasSetting(EnableShowMore) + !True + false">
 								<label>$LOCALIZE[31061]...</label>
 								<label2>$LOCALIZE[31062]</label2>
 								<icon>common/nextitem.png</icon>
-								<onclick>ActivateWindow(videos,plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true,return)</onclick>
+								<onclick>ActivateWindow(videos,Submenu,return)</onclick>
 								<visible>!Integer.IsLess(Container(30102).NumItems,)</visible>
 							</include>
 						</content>
 					</include>
-					<include content="Home_Vertical_Info" condition="true + ![False | False] + False">
+					<include content="Home_Vertical_Info" condition="true + ![False | True] + False">
 						<param name="font" value="font_title" />
 						<param name="titleheight" value="60" />
 						<param name="groupid" value="60102" />
@@ -2811,7 +2716,7 @@
 						<top>740</top>
 						<height>30</height>
 					</include>
-					<include content="Object_Control" condition="![True | False] + false + !False">
+					<include content="Object_Control" condition="![False | False] + false + !True">
 						<param name="type" value="group" />
 						<param name="id" value="35103" />
 						<top>-20</top>
@@ -2821,19 +2726,19 @@
 					<include content="Info_Widget_Poster" condition="true">
 						<param name="groupid" value="40103" />
 						<param name="id" value="30103" />
-						<param name="label" value="Genres" />
-						<param name="viewtype-include" value="Viewtype_Keywords" />
-						<param name="widget-type" value="widgets_submenu" />
+						<param name="label" value="Popular" />
+						<param name="viewtype-include" value="Viewtype_Poster" />
+						<param name="widget-type" value="widgets" />
 						<param name="issubmenu" value="False" />
 						<param name="showonupdate" value="false" />
 						<param name="label-widgetname" value="False" />
 						<param name="label-widgetstart" value="" />
 						<param name="label-widgetend" value="" />
-						<param name="infoslide" value="![True | False] + [False | false]" />
-						<param name="backpanel" value="![True | False] + [False | [false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]] + [Control.HasFocus(30103) | Integer.IsEqual(Window(Home).Property(HW_50100_InfoWidget),30103)]" />
-						<param name="clearart" value="False | [false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]" />
+						<param name="infoslide" value="![False | False] + [True | false]" />
+						<param name="backpanel" value="![False | False] + [True | [false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]] + [Control.HasFocus(30103) | Integer.IsEqual(Window(Home).Property(HW_50100_InfoWidget),30103)]" />
+						<param name="clearart" value="True | [false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]" />
 						<param name="control-type" value="fixedlist" />
-						<top>widgets_submenu_item_top</top>
+						<top>widgets_info_item_top</top>
 						<onback>ClearProperty(CurrentWidget,Home)</onback>
 						<onback>SetFocus(30101)</onback>
 						<onback>301</onback>
@@ -2847,22 +2752,22 @@
 						<include content="Defs_AutoScroll">
 							<param name="condition" value="[!ControlGroup(50100).HasFocus() + System.IdleTime(1) + !Skin.HasSetting(DisableAutoScrollWidgets) + Integer.IsEqual(Container(50100).NumItems,1)] | [false + !Control.HasFocus(30103) + !Skin.HasSetting(DisableAutoScrollWidgets)]" />
 						</include>
-						<include>Defs_Movement_Square</include>
+						<include>Defs_Movement_Poster</include>
 						<content>
 							<include condition="False">skinshortcuts-submenu</include>
 						</content>
-						<content target="videos" limit="" sortby="" sortorder="">plugin://plugin.video.themoviedb.helper/?info=genres&amp;tmdb_type=movie&amp;widget=true</content>
+						<content target="videos" limit="" sortby="" sortorder="">plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true</content>
 						<content>
 							<include content="Object_Item" condition="Skin.HasSetting(EnableShowMore) + !False + false">
 								<label>$LOCALIZE[31061]...</label>
 								<label2>$LOCALIZE[31062]</label2>
 								<icon>common/nextitem.png</icon>
-								<onclick>ActivateWindow(videos,plugin://plugin.video.themoviedb.helper/?info=genres&amp;tmdb_type=movie&amp;widget=true,return)</onclick>
+								<onclick>ActivateWindow(videos,plugin://plugin.video.themoviedb.helper/?info=popular&amp;tmdb_type=movie&amp;widget=true,return)</onclick>
 								<visible>!Integer.IsLess(Container(30103).NumItems,)</visible>
 							</include>
 						</content>
 					</include>
-					<include content="Home_Vertical_Info" condition="true + ![True | False] + False">
+					<include content="Home_Vertical_Info" condition="true + ![False | False] + True">
 						<param name="font" value="font_title" />
 						<param name="titleheight" value="60" />
 						<param name="groupid" value="60103" />
@@ -2911,7 +2816,7 @@
 						<top>740</top>
 						<height>30</height>
 					</include>
-					<include content="Object_Control" condition="![False | False] + false + !False">
+					<include content="Object_Control" condition="![True | False] + false + !False">
 						<param name="type" value="group" />
 						<param name="id" value="35104" />
 						<top>-20</top>
@@ -2921,19 +2826,19 @@
 					<include content="Info_Widget_Poster" condition="true">
 						<param name="groupid" value="40104" />
 						<param name="id" value="30104" />
-						<param name="label" value="Random Movies Genre" />
-						<param name="viewtype-include" value="Viewtype_Poster" />
-						<param name="widget-type" value="widgets" />
+						<param name="label" value="Genres" />
+						<param name="viewtype-include" value="Viewtype_Keywords" />
+						<param name="widget-type" value="widgets_submenu" />
 						<param name="issubmenu" value="False" />
 						<param name="showonupdate" value="false" />
-						<param name="label-widgetname" value="True" />
+						<param name="label-widgetname" value="False" />
 						<param name="label-widgetstart" value="" />
 						<param name="label-widgetend" value="" />
-						<param name="infoslide" value="![False | False] + [False | false]" />
-						<param name="backpanel" value="![False | False] + [False | [false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]] + [Control.HasFocus(30104) | Integer.IsEqual(Window(Home).Property(HW_50100_InfoWidget),30104)]" />
+						<param name="infoslide" value="![True | False] + [False | false]" />
+						<param name="backpanel" value="![True | False] + [False | [false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]] + [Control.HasFocus(30104) | Integer.IsEqual(Window(Home).Property(HW_50100_InfoWidget),30104)]" />
 						<param name="clearart" value="False | [false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]" />
 						<param name="control-type" value="fixedlist" />
-						<top>widgets_item_top</top>
+						<top>widgets_submenu_item_top</top>
 						<onback>ClearProperty(CurrentWidget,Home)</onback>
 						<onback>SetFocus(30101)</onback>
 						<onback>301</onback>
@@ -2947,22 +2852,22 @@
 						<include content="Defs_AutoScroll">
 							<param name="condition" value="[!ControlGroup(50100).HasFocus() + System.IdleTime(1) + !Skin.HasSetting(DisableAutoScrollWidgets) + Integer.IsEqual(Container(50100).NumItems,1)] | [false + !Control.HasFocus(30104) + !Skin.HasSetting(DisableAutoScrollWidgets)]" />
 						</include>
-						<include>Defs_Movement_Poster</include>
+						<include>Defs_Movement_Square</include>
 						<content>
 							<include condition="False">skinshortcuts-submenu</include>
 						</content>
-						<content target="videos" limit="" sortby="" sortorder="">plugin://plugin.video.themoviedb.helper/?info=random_genres&amp;tmdb_type=movie&amp;widget=true</content>
+						<content target="videos" limit="" sortby="" sortorder="">plugin://plugin.video.themoviedb.helper/?info=genres&amp;tmdb_type=movie&amp;widget=true</content>
 						<content>
 							<include content="Object_Item" condition="Skin.HasSetting(EnableShowMore) + !False + false">
 								<label>$LOCALIZE[31061]...</label>
 								<label2>$LOCALIZE[31062]</label2>
 								<icon>common/nextitem.png</icon>
-								<onclick>ActivateWindow(videos,plugin://plugin.video.themoviedb.helper/?info=random_genres&amp;tmdb_type=movie&amp;widget=true,return)</onclick>
+								<onclick>ActivateWindow(videos,plugin://plugin.video.themoviedb.helper/?info=genres&amp;tmdb_type=movie&amp;widget=true,return)</onclick>
 								<visible>!Integer.IsLess(Container(30104).NumItems,)</visible>
 							</include>
 						</content>
 					</include>
-					<include content="Home_Vertical_Info" condition="true + ![False | False] + False">
+					<include content="Home_Vertical_Info" condition="true + ![True | False] + False">
 						<param name="font" value="font_title" />
 						<param name="titleheight" value="60" />
 						<param name="groupid" value="60104" />
@@ -2983,7 +2888,7 @@
 						<onclick condition="!false">ActivateWindow(Weather)</onclick>
 						<onfocus>ClearProperty(TMDbHelper.WidgetContainer,Home)</onfocus>
 						<onfocus>SetProperty(CG_50100_CurrentWidget,$NUMBER[30105],Home)</onfocus>
-						<onfocus condition="!Skin.HasSetting(DisableBlur) + !Skin.HasSetting(NoFanart)">SetProperty(TMDbHelper.Blur.SourceImage,landscape,Home)</onfocus>
+						<onfocus condition="!Skin.HasSetting(DisableBlur) + !Skin.HasSetting(NoFanart)">SetProperty(TMDbHelper.Blur.SourceImage,poster,Home)</onfocus>
 						<onfocus condition="!Skin.HasSetting(DisableBlur) + Skin.HasSetting(NoFanart)">SetProperty(TMDbHelper.Blur.SourceImage,Art(fallback),Home)</onfocus>
 						<onfocus>SetProperty(HW_50100_InfoWidget,30105,Home)</onfocus>
 						<onfocus>SetProperty(WidgetFocus,1)</onfocus>
@@ -3021,9 +2926,9 @@
 					<include content="Info_Widget_Poster" condition="true">
 						<param name="groupid" value="40105" />
 						<param name="id" value="30105" />
-						<param name="label" value="Based on Recently Watched" />
-						<param name="viewtype-include" value="Viewtype_Lovefilm" />
-						<param name="widget-type" value="widgets_lovefilm" />
+						<param name="label" value="Random Movies Genre" />
+						<param name="viewtype-include" value="Viewtype_Poster" />
+						<param name="widget-type" value="widgets" />
 						<param name="issubmenu" value="False" />
 						<param name="showonupdate" value="false" />
 						<param name="label-widgetname" value="True" />
@@ -3039,7 +2944,7 @@
 						<onback>301</onback>
 						<onfocus condition="!False">SetProperty(TMDbHelper.WidgetContainer,$NUMBER[30105],Home)</onfocus>
 						<onfocus>SetProperty(CG_50100_CurrentWidget,$NUMBER[30105],Home)</onfocus>
-						<onfocus condition="!Skin.HasSetting(DisableBlur) + !Skin.HasSetting(NoFanart) + !False">SetProperty(TMDbHelper.Blur.SourceImage,landscape,Home)</onfocus>
+						<onfocus condition="!Skin.HasSetting(DisableBlur) + !Skin.HasSetting(NoFanart) + !False">SetProperty(TMDbHelper.Blur.SourceImage,poster,Home)</onfocus>
 						<onfocus condition="!Skin.HasSetting(DisableBlur) + Skin.HasSetting(NoFanart) + !False">SetProperty(TMDbHelper.Blur.SourceImage,Art(fallback),Home)</onfocus>
 						<onfocus>SetProperty(WidgetFocus,1)</onfocus>
 						<onfocus condition="![false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background)]">ClearProperty(PW_50100_InfoWidget,Home)</onfocus>
@@ -3047,17 +2952,17 @@
 						<include content="Defs_AutoScroll">
 							<param name="condition" value="[!ControlGroup(50100).HasFocus() + System.IdleTime(1) + !Skin.HasSetting(DisableAutoScrollWidgets) + Integer.IsEqual(Container(50100).NumItems,1)] | [false + !Control.HasFocus(30105) + !Skin.HasSetting(DisableAutoScrollWidgets)]" />
 						</include>
-						<include>Defs_Movement_Lovefilm</include>
+						<include>Defs_Movement_Poster</include>
 						<content>
 							<include condition="False">skinshortcuts-submenu</include>
 						</content>
-						<content target="videos" limit="" sortby="" sortorder="">plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true</content>
+						<content target="videos" limit="" sortby="" sortorder="">plugin://plugin.video.themoviedb.helper/?info=random_genres&amp;tmdb_type=movie&amp;widget=true</content>
 						<content>
 							<include content="Object_Item" condition="Skin.HasSetting(EnableShowMore) + !False + false">
 								<label>$LOCALIZE[31061]...</label>
 								<label2>$LOCALIZE[31062]</label2>
 								<icon>common/nextitem.png</icon>
-								<onclick>ActivateWindow(videos,plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true,return)</onclick>
+								<onclick>ActivateWindow(videos,plugin://plugin.video.themoviedb.helper/?info=random_genres&amp;tmdb_type=movie&amp;widget=true,return)</onclick>
 								<visible>!Integer.IsLess(Container(30105).NumItems,)</visible>
 							</include>
 						</content>
@@ -3072,6 +2977,106 @@
 						<height>470</height>
 						<right>100</right>
 						<visible>Integer.IsGreater(Container(30105).NumAllItems,0) | Container(30105).IsUpdating</visible>
+					</include>
+					<include content="Object_Control" condition="!true + !false">
+						<param name="type" value="button" />
+						<param name="id" value="30106" />
+						<description>Special Widget Control</description>
+						<include>Defs_Hidden_Button</include>
+						<onback>ClearProperty(CurrentWidget,Home)</onback>
+						<onback>301</onback>
+						<onclick condition="!false">ActivateWindow(Weather)</onclick>
+						<onfocus>ClearProperty(TMDbHelper.WidgetContainer,Home)</onfocus>
+						<onfocus>SetProperty(CG_50100_CurrentWidget,$NUMBER[30106],Home)</onfocus>
+						<onfocus condition="!Skin.HasSetting(DisableBlur) + !Skin.HasSetting(NoFanart)">SetProperty(TMDbHelper.Blur.SourceImage,landscape,Home)</onfocus>
+						<onfocus condition="!Skin.HasSetting(DisableBlur) + Skin.HasSetting(NoFanart)">SetProperty(TMDbHelper.Blur.SourceImage,Art(fallback),Home)</onfocus>
+						<onfocus>SetProperty(HW_50100_InfoWidget,30106,Home)</onfocus>
+						<onfocus>SetProperty(WidgetFocus,1)</onfocus>
+						<onfocus condition="false + String.IsEmpty(Window(Home).Property(SpecialWidgetControl))">SetFocus(5200)</onfocus>
+						<onfocus condition="false + String.IsEqual(Window(Home).Property(SpecialWidgetControl),MoveUp)">Action(Up)</onfocus>
+						<onfocus condition="false + String.IsEqual(Window(Home).Property(SpecialWidgetControl),MoveDown)">Action(Down)</onfocus>
+						<onfocus condition="false + String.IsEqual(Window(Home).Property(SpecialWidgetControl),MoveLeft)">Action(Left)</onfocus>
+						<onfocus condition="false + String.IsEqual(Window(Home).Property(SpecialWidgetControl),MoveRight)">Action(Right)</onfocus>
+						<onfocus>ClearProperty(SpecialWidgetControl,Home)</onfocus>
+					</include>
+					<include content="Home_Widget_Fullscreen_HubInfo" condition="false + false">
+						<param name="group-id" value="35106" />
+						<param name="group2-id" value="75106" />
+						<param name="button-play-id" value="30106" />
+						<param name="group-play-id" value="45106" />
+						<param name="button-info-id" value="55106" />
+						<param name="group-info-id" value="65106" />
+						<param name="ondown" value="30107" />
+						<param name="onfocus" value="SetProperty(CG_50100_CurrentWidget,30106,Home)" />
+						<param name="onfocus2" value="SetProperty(HW_50100_InfoWidget,30106,Home)" />
+						<param name="onfocus3" value="SetProperty(PW_50100_InfoWidget,1,Home)" />
+						<param name="clearlogo-visible" value="[Integer.IsEqual(Window(Home).Property(HW_50100_InfoWidget),30106) + Skin.HasSetting(EnableHorizontalHome)]" />
+						<param name="group-visible" value="!Integer.IsEqual(Container(3001).NumItems,0)" />
+						<include>Animation_FadeInOut_Common</include>
+						<top>740</top>
+						<height>30</height>
+					</include>
+					<include content="Object_Control" condition="![False | False] + false + !False">
+						<param name="type" value="group" />
+						<param name="id" value="35106" />
+						<top>-20</top>
+						<height>0</height>
+						<visible>Integer.IsGreater(Container(30106).NumAllItems,0) | Container(30106).IsUpdating</visible>
+					</include>
+					<include content="Info_Widget_Poster" condition="true">
+						<param name="groupid" value="40106" />
+						<param name="id" value="30106" />
+						<param name="label" value="Based on Recently Watched" />
+						<param name="viewtype-include" value="Viewtype_Landscape" />
+						<param name="widget-type" value="widgets" />
+						<param name="issubmenu" value="False" />
+						<param name="showonupdate" value="false" />
+						<param name="label-widgetname" value="True" />
+						<param name="label-widgetstart" value="" />
+						<param name="label-widgetend" value="" />
+						<param name="infoslide" value="![False | False] + [False | false]" />
+						<param name="backpanel" value="![False | False] + [False | [false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]] + [Control.HasFocus(30106) | Integer.IsEqual(Window(Home).Property(HW_50100_InfoWidget),30106)]" />
+						<param name="clearart" value="False | [false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]" />
+						<param name="control-type" value="fixedlist" />
+						<top>widgets_item_top</top>
+						<onback>ClearProperty(CurrentWidget,Home)</onback>
+						<onback>SetFocus(30101)</onback>
+						<onback>301</onback>
+						<onfocus condition="!False">SetProperty(TMDbHelper.WidgetContainer,$NUMBER[30106],Home)</onfocus>
+						<onfocus>SetProperty(CG_50100_CurrentWidget,$NUMBER[30106],Home)</onfocus>
+						<onfocus condition="!Skin.HasSetting(DisableBlur) + !Skin.HasSetting(NoFanart) + !False">SetProperty(TMDbHelper.Blur.SourceImage,landscape,Home)</onfocus>
+						<onfocus condition="!Skin.HasSetting(DisableBlur) + Skin.HasSetting(NoFanart) + !False">SetProperty(TMDbHelper.Blur.SourceImage,Art(fallback),Home)</onfocus>
+						<onfocus>SetProperty(WidgetFocus,1)</onfocus>
+						<onfocus condition="![false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background)]">ClearProperty(PW_50100_InfoWidget,Home)</onfocus>
+						<onfocus condition="!False">SetProperty(HW_50100_InfoWidget,30106,Home)</onfocus>
+						<include content="Defs_AutoScroll">
+							<param name="condition" value="[!ControlGroup(50100).HasFocus() + System.IdleTime(1) + !Skin.HasSetting(DisableAutoScrollWidgets) + Integer.IsEqual(Container(50100).NumItems,1)] | [false + !Control.HasFocus(30106) + !Skin.HasSetting(DisableAutoScrollWidgets)]" />
+						</include>
+						<include>Defs_Movement_Landscape</include>
+						<content>
+							<include condition="False">skinshortcuts-submenu</include>
+						</content>
+						<content target="videos" limit="" sortby="" sortorder="">plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true</content>
+						<content>
+							<include content="Object_Item" condition="Skin.HasSetting(EnableShowMore) + !False + false">
+								<label>$LOCALIZE[31061]...</label>
+								<label2>$LOCALIZE[31062]</label2>
+								<icon>common/nextitem.png</icon>
+								<onclick>ActivateWindow(videos,plugin://plugin.video.themoviedb.helper/?info=trakt_becauseyouwatched&amp;tmdb_type=movie&amp;widget=true,return)</onclick>
+								<visible>!Integer.IsLess(Container(30106).NumItems,)</visible>
+							</include>
+						</content>
+					</include>
+					<include content="Home_Vertical_Info" condition="true + ![False | False] + False">
+						<param name="font" value="font_title" />
+						<param name="titleheight" value="60" />
+						<param name="groupid" value="60106" />
+						<param name="id" value="30106" />
+						<param name="visible" value="Control.HasFocus(30106) | Integer.IsEqual(Window(Home).Property(CG_50100_CurrentWidget),$NUMBER[30106])" />
+						<top>-60</top>
+						<height>470</height>
+						<right>100</right>
+						<visible>Integer.IsGreater(Container(30106).NumAllItems,0) | Container(30106).IsUpdating</visible>
 					</include>
 					<control type="group" id="30198">
 						<height>widgets_bumper_bottom</height>
@@ -3250,7 +3255,7 @@
 						<top>740</top>
 						<height>30</height>
 					</include>
-					<include content="Object_Control" condition="![False | False] + false + !False">
+					<include content="Object_Control" condition="![False | False] + false + !True">
 						<param name="type" value="group" />
 						<param name="id" value="35201" />
 						<top>-20</top>
@@ -3268,11 +3273,11 @@
 						<param name="label-widgetname" value="False" />
 						<param name="label-widgetstart" value="" />
 						<param name="label-widgetend" value="" />
-						<param name="infoslide" value="![False | False] + [False | false]" />
-						<param name="backpanel" value="![False | False] + [False | [false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]] + [Control.HasFocus(30201) | Integer.IsEqual(Window(Home).Property(HW_50200_InfoWidget),30201)]" />
-						<param name="clearart" value="False | [false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]" />
+						<param name="infoslide" value="![False | False] + [True | false]" />
+						<param name="backpanel" value="![False | False] + [True | [false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]] + [Control.HasFocus(30201) | Integer.IsEqual(Window(Home).Property(HW_50200_InfoWidget),30201)]" />
+						<param name="clearart" value="True | [false + String.IsEqual(Container(3700).ListItemAbsolute(0).Property(list),Background) + !Integer.IsEqual(Container(3001).NumItems,0)]" />
 						<param name="control-type" value="fixedlist" />
-						<top>widgets_item_top</top>
+						<top>widgets_info_item_top</top>
 						<onback>ClearProperty(CurrentWidget,Home)</onback>
 						<onback>SetFocus(30201)</onback>
 						<onback>301</onback>
@@ -3301,7 +3306,7 @@
 							</include>
 						</content>
 					</include>
-					<include content="Home_Vertical_Info" condition="true + ![False | False] + False">
+					<include content="Home_Vertical_Info" condition="true + ![False | False] + True">
 						<param name="font" value="font_title" />
 						<param name="titleheight" value="60" />
 						<param name="groupid" value="60201" />
@@ -4859,6 +4864,7 @@
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;tmdb_type=tv&amp;widget=true",return)</property>
 			<property name="widgetTarget">videos</property>
+			<property name="widgetInfo">True</property>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;tmdb_type=tv&amp;widget=true",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;tmdb_type=tv&amp;widget=true",return)</property>
 			<property name="list">plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;tmdb_type=tv&amp;widget=true</property>
@@ -4898,6 +4904,7 @@
 			<property name="defaultID" />
 			<property name="translatedPath">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;tmdb_type=tv&amp;widget=true",return)</property>
 			<property name="widgetTarget">videos</property>
+			<property name="widgetInfo">True</property>
 			<onclick>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;tmdb_type=tv&amp;widget=true",return)</onclick>
 			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;tmdb_type=tv&amp;widget=true",return)</property>
 			<property name="list">plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;tmdb_type=tv&amp;widget=true</property>
@@ -5758,77 +5765,22 @@
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
 			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[13016]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
+			<label>Skin Debugging</label>
+			<label2>Custom item</label2>
+			<icon>special://skin/extras/icons/shortcut.png</icon>
 			<thumb />
-			<property name="labelID">13016</property>
-			<property name="defaultID">13016</property>
-			<visible>[System.CanPowerDown] + [System.CanPowerDown]</visible>
+			<property name="labelID">skindebugging</property>
+			<property name="defaultID" />
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>Powerdown()</onclick>
-			<property name="path">Powerdown()</property>
-			<property name="list">Powerdown()</property>
+			<onclick>Skin.ToggleSetting(debuginfo)</onclick>
+			<property name="path">Skin.ToggleSetting(debuginfo)</property>
+			<property name="list">Skin.ToggleSetting(debuginfo)</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
 		<item id="4">
 			<property name="id">$NUMBER[4]</property>
-			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[13011]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
-			<thumb />
-			<property name="labelID">13011</property>
-			<property name="defaultID">13011</property>
-			<visible>[System.CanSuspend] + [System.CanSuspend]</visible>
-			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>Suspend()</onclick>
-			<property name="path">Suspend()</property>
-			<property name="list">Suspend()</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="group">powermenu</property>
-			<property name="isSubmenu">True</property>
-		</item>
-		<item id="5">
-			<property name="id">$NUMBER[5]</property>
-			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[13010]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
-			<thumb />
-			<property name="labelID">13010</property>
-			<property name="defaultID">13010</property>
-			<visible>[System.CanHibernate] + [System.CanHibernate]</visible>
-			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>Hibernate()</onclick>
-			<property name="path">Hibernate()</property>
-			<property name="list">Hibernate()</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="group">powermenu</property>
-			<property name="isSubmenu">True</property>
-		</item>
-		<item id="6">
-			<property name="id">$NUMBER[6]</property>
-			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[13013]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
-			<thumb />
-			<property name="labelID">13013</property>
-			<property name="defaultID">13013</property>
-			<visible>[System.CanReboot] + [System.CanReboot]</visible>
-			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>Reset()</onclick>
-			<property name="path">Reset()</property>
-			<property name="list">Reset()</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="group">powermenu</property>
-			<property name="isSubmenu">True</property>
-		</item>
-		<item id="7">
-			<property name="id">$NUMBER[7]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[20126]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -5841,13 +5793,12 @@
 			<onclick>dialog.close(all,true)</onclick>
 			<property name="path">dialog.close(all,true)</property>
 			<property name="list">dialog.close(all,true)</property>
-			<onclick>System.LogOff</onclick>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="8">
-			<property name="id">$NUMBER[8]</property>
+		<item id="5">
+			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[20046]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -5864,8 +5815,8 @@
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="9">
-			<property name="id">$NUMBER[9]</property>
+		<item id="6">
+			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[13017]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -5882,8 +5833,8 @@
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="10">
-			<property name="id">$NUMBER[10]</property>
+		<item id="7">
+			<property name="id">$NUMBER[7]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[13018]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -5900,26 +5851,8 @@
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="11">
-			<property name="id">$NUMBER[11]</property>
-			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[20150]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
-			<thumb />
-			<property name="labelID">20150</property>
-			<property name="defaultID">20150</property>
-			<visible>[!System.HasAlarm(shutdowntimer) + [System.CanPowerDown | System.CanSuspend | System.CanHibernate]] + [!System.HasAlarm(shutdowntimer)]</visible>
-			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>AlarmClock(shutdowntimer,Shutdown())</onclick>
-			<property name="path">AlarmClock(shutdowntimer,Shutdown())</property>
-			<property name="list">AlarmClock(shutdowntimer,Shutdown())</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="group">powermenu</property>
-			<property name="isSubmenu">True</property>
-		</item>
-		<item id="12">
-			<property name="id">$NUMBER[12]</property>
+		<item id="8">
+			<property name="id">$NUMBER[8]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[20151]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -5936,8 +5869,8 @@
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="13">
-			<property name="id">$NUMBER[13]</property>
+		<item id="9">
+			<property name="id">$NUMBER[9]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[5]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -5993,77 +5926,22 @@
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
 			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[13016]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
+			<label>Skin Debugging</label>
+			<label2>Custom item</label2>
+			<icon>special://skin/extras/icons/shortcut.png</icon>
 			<thumb />
-			<property name="labelID">13016</property>
-			<property name="defaultID">13016</property>
-			<visible>[[System.CanPowerDown] + [System.CanPowerDown]] + String.IsEqual(Window(10000).Property(submenuVisibility),powermenu)</visible>
+			<property name="labelID">skindebugging</property>
+			<property name="defaultID" />
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>Powerdown()</onclick>
-			<property name="path">Powerdown()</property>
-			<property name="list">Powerdown()</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
+			<onclick>Skin.ToggleSetting(debuginfo)</onclick>
+			<property name="path">Skin.ToggleSetting(debuginfo)</property>
+			<property name="list">Skin.ToggleSetting(debuginfo)</property>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Window(10000).Property(submenuVisibility),powermenu)</visible>
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
 		<item id="4">
 			<property name="id">$NUMBER[4]</property>
-			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[13011]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
-			<thumb />
-			<property name="labelID">13011</property>
-			<property name="defaultID">13011</property>
-			<visible>[[System.CanSuspend] + [System.CanSuspend]] + String.IsEqual(Window(10000).Property(submenuVisibility),powermenu)</visible>
-			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>Suspend()</onclick>
-			<property name="path">Suspend()</property>
-			<property name="list">Suspend()</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="group">powermenu</property>
-			<property name="isSubmenu">True</property>
-		</item>
-		<item id="5">
-			<property name="id">$NUMBER[5]</property>
-			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[13010]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
-			<thumb />
-			<property name="labelID">13010</property>
-			<property name="defaultID">13010</property>
-			<visible>[[System.CanHibernate] + [System.CanHibernate]] + String.IsEqual(Window(10000).Property(submenuVisibility),powermenu)</visible>
-			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>Hibernate()</onclick>
-			<property name="path">Hibernate()</property>
-			<property name="list">Hibernate()</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="group">powermenu</property>
-			<property name="isSubmenu">True</property>
-		</item>
-		<item id="6">
-			<property name="id">$NUMBER[6]</property>
-			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[13013]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
-			<thumb />
-			<property name="labelID">13013</property>
-			<property name="defaultID">13013</property>
-			<visible>[[System.CanReboot] + [System.CanReboot]] + String.IsEqual(Window(10000).Property(submenuVisibility),powermenu)</visible>
-			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>Reset()</onclick>
-			<property name="path">Reset()</property>
-			<property name="list">Reset()</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="group">powermenu</property>
-			<property name="isSubmenu">True</property>
-		</item>
-		<item id="7">
-			<property name="id">$NUMBER[7]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[20126]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -6076,13 +5954,12 @@
 			<onclick>dialog.close(all,true)</onclick>
 			<property name="path">dialog.close(all,true)</property>
 			<property name="list">dialog.close(all,true)</property>
-			<onclick>System.LogOff</onclick>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="8">
-			<property name="id">$NUMBER[8]</property>
+		<item id="5">
+			<property name="id">$NUMBER[5]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[20046]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -6099,8 +5976,8 @@
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="9">
-			<property name="id">$NUMBER[9]</property>
+		<item id="6">
+			<property name="id">$NUMBER[6]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[13017]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -6117,8 +5994,8 @@
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="10">
-			<property name="id">$NUMBER[10]</property>
+		<item id="7">
+			<property name="id">$NUMBER[7]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[13018]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -6135,26 +6012,8 @@
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="11">
-			<property name="id">$NUMBER[11]</property>
-			<property name="mainmenuid">8</property>
-			<label>$LOCALIZE[20150]</label>
-			<label2>Power Menu Shortcut</label2>
-			<icon>special://skin/extras/icons/power.png</icon>
-			<thumb />
-			<property name="labelID">20150</property>
-			<property name="defaultID">20150</property>
-			<visible>[[!System.HasAlarm(shutdowntimer) + [System.CanPowerDown | System.CanSuspend | System.CanHibernate]] + [!System.HasAlarm(shutdowntimer)]] + String.IsEqual(Window(10000).Property(submenuVisibility),powermenu)</visible>
-			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
-			<onclick>AlarmClock(shutdowntimer,Shutdown())</onclick>
-			<property name="path">AlarmClock(shutdowntimer,Shutdown())</property>
-			<property name="list">AlarmClock(shutdowntimer,Shutdown())</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="group">powermenu</property>
-			<property name="isSubmenu">True</property>
-		</item>
-		<item id="12">
-			<property name="id">$NUMBER[12]</property>
+		<item id="8">
+			<property name="id">$NUMBER[8]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[20151]</label>
 			<label2>Power Menu Shortcut</label2>
@@ -6171,8 +6030,8 @@
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 		</item>
-		<item id="13">
-			<property name="id">$NUMBER[13]</property>
+		<item id="9">
+			<property name="id">$NUMBER[9]</property>
 			<property name="mainmenuid">8</property>
 			<label>$LOCALIZE[5]</label>
 			<label2>Power Menu Shortcut</label2>

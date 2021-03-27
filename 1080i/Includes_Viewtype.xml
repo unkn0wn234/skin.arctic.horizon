@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
     <include name="ViewIDs"><views>50,51,5151,501,55,500,52,5252,502,53,54,5454,504,56,57,58,59</views></include>
-    <include name="Viewtype_Info_Right"><right>600</right></include>
+    <include name="Viewtype_Info_Right"><right>570</right></include>
     <include name="Viewtype_Info_Right_FixedHome"><right>560</right></include>
 
     <include name="Viewtypes">

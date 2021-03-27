@@ -397,14 +397,14 @@
                     <width>0</width>
                     <visible>String.IsEqual(Control.GetLabel(991100),common/null.png)</visible>
                 </control>
-                <!-- <control type="image">
+                <control type="image">
                     <fadetime>100</fadetime>
                     <centertop>50%</centertop>
                     <width>71</width>
                     <height>42</height>
                     <aspectratio>keep</aspectratio>
                     <texture>$INFO[ListItem.Studio,resource://resource.images.studios.coloured/,.png]</texture>
-                </control> -->
+                </control>
                 <include content="Object_Provider"><param name="pos" value="1" /></include>
                 <include content="Object_Provider"><param name="pos" value="2" /></include>
                 <include content="Object_Provider"><param name="pos" value="3" /></include>
@@ -1272,6 +1272,13 @@
                     <font>font_tiny</font>
                     <label>$INFO[Window(Home).Property(TMDbHelper.$PARAM[tmdbtype].Top250), #,]</label>
                     <visible>Integer.IsGreater(Window(home).Property(TMDbHelper.$PARAM[tmdbtype].Top250),0)</visible>
+                </include>
+                <include content="Object_Control">
+                    <param name="type" value="image" />
+                    <top>-4</top>
+                    <width>60</width>
+                    <height>40</height>
+                    <texture colordiffuse="$PARAM[colordiffuse]_100">$INFO[Window(home).Property(TMDbHelper.$PARAM[tmdbtype].Studio.1.Name),resource://resource.images.studios.coloured/,.png]</texture>
                 </include>
             </control>
         </definition>
