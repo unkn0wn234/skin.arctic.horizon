@@ -1,4 +1,4 @@
-<addon id="skin.arctic.horizonmod" name="Arctic HorizonMOD" provider-name="jurialmunkey,unkn0wn234" version="0.5.66">
+<addon id="skin.arctic.horizonmod" name="Arctic Horizon MOD" provider-name="jurialmunkey, unkn0wn234" version="0.5.66">
     <requires>
         <import addon="xbmc.gui" version="5.15.0" />
         <import addon="script.skinshortcuts" version="0.4.0" />
@@ -19,7 +19,7 @@
     <extension point="xbmc.addon.metadata">
         <summary lang="en">Minimal. Simple.</summary>
         <summary lang="es">Mínimo. Simple.</summary>
-        <description lang="en">Arctic Horizon is a minimalistic skin with an emphasis on simplicity. Test</description>
+        <description lang="en">Arctic Horizon is a minimalistic skin with an emphasis on simplicity.</description>
         <description lang="es">Arctic Horizon es un skin minimalista con énfasis en la simplicidad.</description>
         <platform>all</platform>
         <license>Creative Commons Attribution Non-Commercial Share-Alike 4.0</license>
