@@ -142,12 +142,12 @@
                             <textcolor>$VAR[ColorHighlight]</textcolor>
                             <font>font_tiny_bold</font>
                             <height>24</height>
-                            <visible>!String.IsEmpty(Container($PARAM[id]).ListItem.Property(TMDb_Rating))</visible>
+                            <visible>!String.IsEmpty(Container($PARAM[id]).ListItem.Label)</visible>
                         </control>
                         <control type="label">
                             <top>17</top>
                             <width>auto</width>
-                            <label>$INFO[Container($PARAM[id]).ListItem.Label]</label>
+                            <label>$INFO[Container($PARAM[id]).ListItem.Property(TMDb_Rating)]</label>
                             <aligny>center</aligny>
                             <textcolor>main_fg_100</textcolor>
                             <font>font_tiny</font>
